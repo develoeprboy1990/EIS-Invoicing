@@ -1,0 +1,4 @@
+04-08-2023
+
+ALTER TABLE `estimate_master` ADD `EstimateType` VARCHAR(255) NULL DEFAULT NULL AFTER `EstimateNo`;
+ALTER TABLE `estimate_master` ADD `CreatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `Subject`;

@@ -25,7 +25,7 @@
             <!-- start page title -->
 
             <!-- enctype="multipart/form-data" -->
-            <form action="{{URL('/EstimateUpdate')}}" method="post">
+            <form action="{{URL('/EstimateRevised')}}" method="post" id="form1">
 
 
                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
@@ -154,7 +154,7 @@
                                             <label class="col-form-label" for="password">Reference No </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" id="first-name" class="form-control" name="ReferenceNo" value="{{$estimate_master[0]->ReferenceNo}}">
+                                            <input type="text" readonly id="first-name" class="form-control" name="ReferenceNo" value="{{$estimate_master[0]->ReferenceNo}}">
 
                                         </div>
                                     </div>
@@ -308,7 +308,9 @@
                                 <textarea class="form-control" rows='5' name="TermAndCondition" id="note" placeholder="Term And Condition notes if any.">{{$estimate_master[0]->TermAndCondition}}</textarea>
 
                                 
-                                <div class="mt-2"><button type="submit" class="btn btn-success w-md float-right">Save</button>
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-success w-md float-right">Save</button>
+                                    <button type="button" id="revised" class="btn btn-warning w-md float-right">Revised</button>
                                     <a href="{{URL('/Estimate')}}" class="btn btn-secondary w-md float-right">Cancel</a>
 
                                 </div>
@@ -1150,6 +1152,14 @@ grandtotaltax = $('#grandtotaltax').val();
         }
 
     });
+    
+    $('#revised').click(function(){
+     
+        $('#form1').attr('action', '{{URL("/PartySalesLedger1PDF")}}');
+        $('#form1').attr('target', '_blank');
+        $('#form1').submit();
+    });
+
 </script>
 <script type="text/javascript">
     function GetSelectedTextValue(seletedVal) {

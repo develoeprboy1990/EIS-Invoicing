@@ -303,6 +303,22 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="col-12">
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label text-danger" for="password">Quotation Type </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <select name="EstimateType" id="EstimateType" class="form-select">
+                                                <?php foreach ($estimate_type as $key => $value) : ?>
+                                                    <option value="{{$value->EstimateType}}">{{$value->EstimateType}}</option>
+                                                <?php endforeach ?>
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+                                </div>
 
                                 <div class="col-12">
                                     <div class="mb-1 row">
@@ -310,7 +326,7 @@
                                             <label class="col-form-label" for="password">QUOTATION# </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" name="EstimateNo" autocomplete="off" class="form-control" value="QUO-{{$estimate_master->EstimateNo}}">
+                                            <div id="estimate_type"><input type="text" readonly name="EstimateNo" autocomplete="off" class="form-control" value="QUO-{{$estimate_master->EstimateNo}}"></div>
 
                                         </div>
                                     </div>
@@ -347,7 +363,7 @@
                                             <label class="col-form-label" for="password">Reference No </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" name="ReferenceNo" autocomplete="off" class="form-control" value="QUO-R0-{{$estimate_master->EstimateNo}}-{{ date('Y')}}"> 
+                                            <div id="estimate_ref_no"><input type="text" readonly name="ReferenceNo" autocomplete="off" class="form-control" value="QUO-R0-{{$estimate_master->EstimateNo}}-{{ date('Y')}}"> </div>
 
                                         </div>
                                     </div>
@@ -1285,39 +1301,49 @@ grandtotaltax = $('#grandtotaltax').val();
 
 
 <script>
-    $("#InvoiceType").change(function() {
+    $("#EstimateType").change(function() {
+        var EstimateType = $('#EstimateType').val();
 
-        // alert(p3WhH7hWcpfbcxtNskY1ZrCROfa3dpKp3MfEJwXu);
-
-        var InvoiceType = $('#InvoiceType').val();
-
-        // console.log(InvoiceType);
-        if (InvoiceType != "") {
+        console.log(EstimateType);
+        if (EstimateType != "") {
             /*  $("#butsave").attr("disabled", "disabled"); */
             // alert('next stage if else');
-            // console.log(InvoiceType);
-
+            // console.log(EstimateType);
             $.ajax({
-
-                url: "{{URL('/ajax_invoice_vhno')}}",
+                url: "{{URL('/ajax_estimate_vhno')}}",
                 type: "POST",
                 data: {
                     // _token: p3WhH7hWcpfbcxtNskY1ZrCROfa3dpKp3MfEJwXu,
                     "_token": $("#csrf").val(),
-                    InvoiceType: InvoiceType,
+                    EstimateType: EstimateType,
 
                 },
                 cache: false,
 
                 success: function(data) {
-
                     // alert(data.success);
-                    $('#invoict_type').html(data);
-
-
-
+                    $('#estimate_type').html(data);
                 }
             });
+
+            $.ajax({
+                url: "{{URL('/ajax_estimate_ref')}}",
+                type: "POST",
+                data: {
+                    // _token: p3WhH7hWcpfbcxtNskY1ZrCROfa3dpKp3MfEJwXu,
+                    "_token": $("#csrf").val(),
+                    EstimateType: EstimateType,
+
+                },
+                cache: false,
+
+                success: function(data) {
+                    // alert(data.success);
+                    $('#estimate_ref_no').html(data);
+                }
+            });
+            
+
         }
 
     });
@@ -1394,15 +1420,11 @@ grandtotaltax = $('#grandtotaltax').val();
 </script>
 
 
- <script>
+<script>
    $( document ).ready(function() {
-  $('body').addClass('sidebar-enable vertical-collpsed')
-
+   $('body').addClass('sidebar-enable vertical-collpsed');
 });
- </script>
-
+</script>
 <script src="{{asset('assets/js/myapp.js')}}" type="text/javascript"></script>
-
 <!-- END: Content-->
-
 @endsection

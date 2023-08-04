@@ -387,6 +387,9 @@ route::get('/EstimateEdit/{id}',[EstimateController::class,'EstimateEdit']);
 route::post('/EstimateUpdate/',[EstimateController::class,'EstimateUpdate']);
 route::get('/BlankReport/',[Accounts::class,'BlankReport']);
 route::get('/EstimateViewPDF/{id}',[EstimateController::class,'EstimateViewPDF']);
+Route::post('/ajax_estimate_vhno',[EstimateController::class,'ajax_estimate_vhno']);
+Route::post('/ajax_estimate_ref',[EstimateController::class,'ajax_estimate_ref']);
+route::post('/EstimateRevised/',[EstimateController::class,'EstimateRevised']);
 
 
 //.............Complete Journal..............

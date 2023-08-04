@@ -1,0 +1,1 @@
+<input type="text" readonly  class="form-control" name="EstimateNo" id="EstimateNo" value="{{$d}}-{{$data[0]->VHNO}}" >
