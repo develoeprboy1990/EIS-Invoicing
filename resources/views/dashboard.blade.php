@@ -77,35 +77,28 @@
 
 
 
- @if (session('error'))
-
-<div class="alert alert-{{ Session::get('class') }} p-3" id="success-alert">
-                    
-                  {{ Session::get('error') }} 
-                </div>
-
+@if (session('error'))
+    <div class="alert alert-{{ Session::get('class') }} p-3" id="success-alert">
+        {{ Session::get('error') }} 
+    </div>
 @endif
 
-  @if (count($errors) > 0)
-                                 
-                            <div >
-                <div class="alert alert-danger pt-3 pl-0   border-3 bg-danger text-white">
-                   <p class="font-weight-bold"> There were some problems with your input.</p>
-                    <ul>
-                        
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-
-                        @endforeach
-                    </ul>
-                </div>
-                </div>
-
-            @endif
+@if (count($errors) > 0)
+    <div>
+        <div class="alert alert-danger pt-3 pl-0   border-3 bg-danger text-white">
+           <p class="font-weight-bold"> There were some problems with your input.</p>
+            <ul>       
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
  
  
 
-
+<!-- 
                         <div class="row">
                            
                             <div class="col-xl-12">
@@ -209,7 +202,6 @@
 
 
                                 </div>
-                                <!-- end row -->
                             </div>
                         </div>
  
@@ -272,6 +264,21 @@
 
  
                     
+
+
+
+                                </div>
+                            </div> -->
+                        </div>
+ 
+                           
+
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+       
+                
+            </div>
                                     
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -357,10 +364,7 @@
   },
 });
 </script>
-
-
-
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
 
 
 Highcharts.chart('container', {
@@ -417,9 +421,7 @@ Highcharts.chart('container', {
   },
 
 });
-
-
-  //]]></script>
+</script>
 
 
   <script> 
@@ -740,20 +742,4 @@ Highcharts.chart('container4', {
 });
        
  </script>
-
-
-                                </div>
-                                <!-- end row -->
-                            </div>
-                        </div>
- 
-                           
-
-                    </div> <!-- container-fluid -->
-                </div>
-                <!-- End Page-content -->
-       
-                
-            </div>
-
   @endsection

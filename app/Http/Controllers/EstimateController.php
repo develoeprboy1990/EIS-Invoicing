@@ -13,7 +13,7 @@ class EstimateController extends Controller
     public function Estimate()
   {
     
-    $pagetitle = 'All Delivery Challans';
+    $pagetitle = 'All Quotations';
     return view('estimate.estimate', compact('pagetitle'));
   }
    
@@ -70,8 +70,8 @@ class EstimateController extends Controller
         $user = DB::table('user')->get();
         $chartofacc = DB::table('chartofaccount')->get();
         $estimate_master = DB::table('estimate_master')
-          ->select(DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,5)),0)+1,5,0) as EstimateNo'))
-          ->get();
+          ->select(DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,3)),0)+1,3,0) as EstimateNo'))
+          ->first();
 
          $tax = DB::table('tax')->where('Section','Estimate')->get();
  
@@ -106,6 +106,7 @@ class EstimateController extends Controller
       'GrandTotal' => $request->input('Grandtotal'),
       'CustomerNotes' => $request->input('CustomerNotes'),
       'DescriptionNotes' => $request->input('DescriptionNotes'),
+      'TermAndCondition' => $request->input('TermAndCondition'),
       'UserID' => session::get('UserID'),
     );
     // dd($challan_mst);
@@ -122,16 +123,15 @@ class EstimateController extends Controller
         'EstimateDate' => $request->input('Date'),
         'ItemID' => $request->ItemID[$i],
         'Description' => $request->Description[$i],
-         'TaxPer' => $request->Tax[$i],
-         'Tax' => $request->TaxVal[$i],
+        'TaxPer' => $request->Tax[$i],
+        'Tax' => $request->TaxVal[$i],
         'Qty' => $request->Qty[$i],
         'Rate' => $request->Price[$i],
-         'Total' => $request->ItemTotal[$i],
-               'Discount' => $request->Discount[$i],
+        'Total' => $request->ItemTotal[$i],
+        'Discount' => $request->Discount[$i],
         'DiscountType' => $request->DiscountType[$i],
         'Gross' => $request->Gross[$i],
         'DiscountAmountItem' => $request->DiscountAmountItem[$i],
-
       );
 
       $id = DB::table('estimate_detail')->insertGetId($challan_det);

@@ -307,10 +307,10 @@
                                 <div class="col-12">
                                     <div class="mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label" for="password">Estimate# </label>
+                                            <label class="col-form-label" for="password">QUOTATION# </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" name="EstimateNo" autocomplete="off" class="form-control" value="EST-{{$estimate_master[0]->EstimateNo}}">
+                                            <input type="text" name="EstimateNo" autocomplete="off" class="form-control" value="QUO-{{$estimate_master->EstimateNo}}">
 
                                         </div>
                                     </div>
@@ -347,7 +347,7 @@
                                             <label class="col-form-label" for="password">Reference No </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" name="ReferenceNo" autocomplete="off" class="form-control">
+                                            <input type="text" name="ReferenceNo" autocomplete="off" class="form-control" value="QUO-R0-{{$estimate_master->EstimateNo}}-{{ date('Y')}}"> 
 
                                         </div>
                                     </div>
@@ -464,16 +464,16 @@
                         <div class="row mt-4">
 
                             <div class="col-lg-8 col-12  ">
-                                <h6>Customer Notes: </h6>
+                                <h6>Scope of Notes: </h6>
+                                <textarea class="form-control" rows='5' name="CustomerNotes" id="note" placeholder=""></textarea>
 
-
-                                <textarea class="form-control" rows='5' name="CustomerNotes" id="note" placeholder="">Thanks for your business.</textarea>
-
-                                <label for="" class="mt-2">Description</label>
+                                <label for="" class="mt-2">Exclusion</label>
                                 <textarea class="form-control" rows='5' name="DescriptionNotes" id="note" placeholder="Description notes if any."></textarea>
 
-                                                        <br>
-                                <iframe src="{{URL('/Attachment')}}" width="100%" height="40%" border="0" scrolling="yes" style="overflow: hidden;"></iframe>
+                                 <label for="" class="mt-2">Terms & Conditions</label>
+                                <textarea class="form-control" rows='5' name="TermAndCondition" id="note" placeholder="Description notes if any."></textarea>
+
+                                         
 
                                 <div class="mt-2"><button type="submit" class="btn btn-success w-md float-right">Save</button>
                                     <a href="{{URL('/DeliveryChallan')}}" class="btn btn-secondary w-md float-right">Cancel</a>

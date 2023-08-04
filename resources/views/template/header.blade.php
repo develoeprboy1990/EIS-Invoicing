@@ -29,7 +29,7 @@
 <div class="d-flex gap-2 flex-wrap">
 
 
-<div class="btn-group">
+<!-- <div class="btn-group">
 <button type="button" class="  btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class=" text-success far fa-bookmark
 font-size-16 align-middle me-2"></i>Favorite <i class="mdi mdi-chevron-down"></i></button>
 <div class="dropdown-menu" style="margin: 0px;">
@@ -47,7 +47,7 @@ font-size-16 align-middle me-2"></i>Favorite <i class="mdi mdi-chevron-down"></i
     
     
 </div>
-</div><!-- /btn-group -->
+</div>
 <div class="btn-group">
     <button type="button" class="  btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Party Reports <i class="mdi mdi-chevron-down"></i></button>
     <div class="dropdown-menu" style="margin: 0px;">
@@ -56,15 +56,13 @@ font-size-16 align-middle me-2"></i>Favorite <i class="mdi mdi-chevron-down"></i
         <a class="dropdown-item" href="{{URL('/PartyBalance')}}">Party Balance</a>
         <a class="dropdown-item" href="{{URL('/PartyYearlyBalance')}}">Yearly Report</a>
            <a class="dropdown-item" href="{{URL('/PartyAgingPDF')}}">Aging Report</a>
-        <!-- <a class="dropdown-item" href="#">Party Analysis</a> -->
         <a class="dropdown-item" href="{{URL('/PartyList')}}">Party List</a>
         <a class="dropdown-item" href="{{URL('/PartyWiseSale')}}">Partywise Sale</a>
         <a class="dropdown-item" href="{{URL('/OutStandingInvoice')}}">Outstanding Invoices</a>
             <a class="dropdown-item" href="{{URL('/TaxReport')}}">Tax Report</a>
             <a class="dropdown-item" href="{{URL('/CitywiseReport')}}">Saleman Party Balances</a>
     </div>
-    </div><!-- /btn-group -->
-    
+    </div>
 <div class="btn-group">
 <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Supplier Reports <i class="mdi mdi-chevron-down"></i></button>
 <div class="dropdown-menu">
@@ -75,14 +73,13 @@ font-size-16 align-middle me-2"></i>Favorite <i class="mdi mdi-chevron-down"></i
     <a class="dropdown-item" href="{{URL('/TaxReportSupplier')}}">Tax Report</a>
     <a class="dropdown-item" href="{{URL('/SupplierWiseSale')}}">Sales Report</a>
 </div>
-</div><!-- /btn-group -->
+</div>
 <div class="btn-group">
     <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Accounts Reports <i class="mdi mdi-chevron-down"></i></button>
     <div class="dropdown-menu">
         <a class="dropdown-item  " href="{{URL('/VoucherReport')}}">Voucher</a>
         <a class="dropdown-item" href="{{URL('/CashbookReport')}}">Cash Book</a>
         <div class="dropdown-divider"></div>
-        <!-- <a class="dropdown-item" href="#">Sales man wise cash book</a> -->
         <a class="dropdown-item" href="{{URL('/DailyIncomeExpense')}}">Daily Income / Expense</a>
 
 
@@ -95,12 +92,9 @@ font-size-16 align-middle me-2"></i>Favorite <i class="mdi mdi-chevron-down"></i
 
 
         <a class="dropdown-item" href="{{URL('/TrialBalanceActivity')}}">Trial with acitivity</a>
-        <!-- <a class="dropdown-item" href="#">yearly summary</a> -->
         <a class="dropdown-item" href="{{URL('/ProfitAndLoss')}}">profit and loss</a>
         <a class="dropdown-item" href="{{URL('/BalanceSheet')}}">balance sheet</a>
         <a class="dropdown-item" href="{{URL('/PartyBalance')}}">party balance</a>
-        <!--     <a class="dropdown-item" href="#">ageing report</a>
-        <a class="dropdown-item" href="#">cash flow</a> -->
         <a class="dropdown-item" href="{{URL('/TaxOverallReport')}}">Tax Report</a>
         <a class="dropdown-item" href="{{URL('/ReconcileReport')}}">Bank Reconciliation</a>
         <a class="dropdown-item" href="{{URL('/InvoiceSummary')}}">invoice summary list</a>
@@ -109,7 +103,7 @@ font-size-16 align-middle me-2"></i>Favorite <i class="mdi mdi-chevron-down"></i
         
     </div>
     </div> 
-
+ -->
 
 
 
@@ -282,38 +276,37 @@ font-size-16 align-middle me-2"></i>Favorite <i class="mdi mdi-chevron-down"></i
 </div>
 -->
 
-    <div class="btn-group">
-<button type="button" class="  btn  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class=" text-danger mdi mdi-plus-circle-outline
-font-size-16 align-middle me-2"></i>Create <i class="mdi mdi-chevron-down"></i></button>
-<div class="dropdown-menu" style="margin: 0px;">
-    
-    <a class="dropdown-item" href="{{URL('/Item')}}"></i> Item</a>
-    <a class="dropdown-item" href="{{URL('/Parties')}}"></i> Customer</a>
-    <a class="dropdown-item" href="{{URL('/Supplier')}}"></i> Supplier</a>
-    <div class="dropdown-divider"></div>
+<!-- <div class="btn-group">
+    <button type="button" class="  btn  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class=" text-danger mdi mdi-plus-circle-outline
+    font-size-16 align-middle me-2"></i>Create <i class="mdi mdi-chevron-down"></button>
+    <div class="dropdown-menu" style="margin: 0px;">
+        
+        <a class="dropdown-item" href="{{URL('/Item')}}"> Item</a>
+        <a class="dropdown-item" href="{{URL('/Parties')}}"> Customer</a>
+        <a class="dropdown-item" href="{{URL('/Supplier')}}"> Supplier</a>
+        <div class="dropdown-divider"></div>
 
-    <a class="dropdown-item" href="{{URL('/EstimateCreate')}}"></i> Quotation</a>
-     
-    <a class="dropdown-item" href="{{URL('SaleInvoiceCreate')}}"></i> Invoice</a>
-    <a class="dropdown-item" href="{{URL('CreditNoteCreate')}}"></i> Sale Return</a>
-    <a class="dropdown-item" href="{{URL('/PaymentCreate')}}"></i> Payment from Client</a>
-    <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{URL('/EstimateCreate')}}"> Quotation</a>
+         
+        <a class="dropdown-item" href="{{URL('SaleInvoiceCreate')}}"> Invoice</a>
+        <a class="dropdown-item" href="{{URL('CreditNoteCreate')}}"> Sale Return</a>
+        <a class="dropdown-item" href="{{URL('/PaymentCreate')}}"> Payment from Client</a>
+        <div class="dropdown-divider"></div>
 
-       <a class="dropdown-item" href="{{URL('/ExpenseCreate')}}"></i> Expense</a>
-     
-    <a class="dropdown-item" href="{{URL('PurchaseOrderCreate')}}"></i> Purchase Order</a>
-    <a class="dropdown-item" href="{{URL('BillCreate')}}"></i> Bill</a>
+           <a class="dropdown-item" href="{{URL('/ExpenseCreate')}}"> Expense</a>
+         
+        <a class="dropdown-item" href="{{URL('PurchaseOrderCreate')}}"> Purchase Order</a>
+        <a class="dropdown-item" href="{{URL('BillCreate')}}"> Bill</a>
 
 
-    <a class="dropdown-item" href="{{URL('DebitNoteCreate')}}"></i> Purchase Return</a>
-    <a class="dropdown-item" href="{{URL('/PurchasePaymentCreate')}}"></i> Payment to Vendor</a>
-    <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="{{URL('Salesman')}}"></i> Saleman</a>
+        <a class="dropdown-item" href="{{URL('DebitNoteCreate')}}"> Purchase Return</a>
+        <a class="dropdown-item" href="{{URL('/PurchasePaymentCreate')}}"> Payment to Vendor</a>
+        <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{URL('Salesman')}}"> Saleman</a>
 
-    
-</div>
-</div><!-- /btn-group -->
-
+        
+    </div>
+</div> -->
 
 <div class="dropdown d-inline-block">
     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
