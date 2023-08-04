@@ -1,13 +1,10 @@
-
-
-
-
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>Invoice</title>
-        <style type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Invoice</title>
+    <style type="text/css">
             @font-face {
                 font-family: 'Open Sans';
                 font-style: normal;
@@ -34,25 +31,13 @@
                 margin-left: 0.5cm;
                 margin-right: 0.5cm;
             }
-            body {
-    background: #fff;
-    color: #000;
-    margin: 0.02cm;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 11pt;
-    line-height: 100%;
-             }
-
-             body
-{
-background-position: center;
-background-repeat: no-repeat;
-opacity: 0.15;
-z-index:-1000;
-background-image: url({{URL('/documents/'.$company[0]->BackgroundLogo)}});
-  background-size: 300px 300px;
-
-}
+            body { 
+                    color: #000;
+                    margin: 0.02cm;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 11pt;
+                    line-height: 100%;
+                }
             h1, h2, h3, h4 {
                 font-weight: bold;
                 margin: 0;
@@ -70,8 +55,14 @@ background-image: url({{URL('/documents/'.$company[0]->BackgroundLogo)}});
             ol,
             ul {
                 list-style: none;
-                margin: 0;
+                margin-left: 30;
                 padding: 0;
+                text-decoration: none;
+                color:#000;
+            }
+            li{
+                text-decoration: none;
+                color:#000;
             }
             li,
             ul {
@@ -178,9 +169,7 @@ background-image: url({{URL('/documents/'.$company[0]->BackgroundLogo)}});
                 text-align: left;
             }
             .order-details thead th {
-                color: black;
-                background-color: #b8b8b8;
-                border-color: #b8b8b8;
+                color: black; 
 
             }
 
@@ -254,105 +243,162 @@ background-image: url({{URL('/documents/'.$company[0]->BackgroundLogo)}});
             }
 
             #xyz_main {
-    width: 1000px;
-    border: 0px solid #666666;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -500px;
-     z-index:1000;
-}
+                width: 1000px;
+                border: 0px solid #666666;
+                text-align: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -500px;
+                z-index:1000;
+            }
 
             #bg_logo {
-    width: 1000px;
-    height: 500px;
-    border: 0px solid #666666;
-    text-align: center;
-    position: absolute;
-    top: 33%;
-    left: 25%;
-    opacity: 0.3;
-     z-index:-1000;
-     background-repeat: no-repeat;
+                        width: 1000px;
+                        height: 500px;
+                        border: 0px solid #666666;
+                        text-align: center;
+                        position: absolute;
+                        top: 33%;
+                        left: 25%;
+                        opacity: 0.3;
+                        z-index:-1000;
+                        background-repeat: no-repeat;
 
-     background-image: url({{URL('/documents/'.$company[0]->BackgroundLogo)}});
+                        background-image: url("{{asset('assets/images/logo/EIS-LOGO.png')}}");
     
      
+                    }
+
+
+  .pcs-itemtable-header {
+    background-color: #87B7F7;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .pcs-itemtable-breakword {
+    background-color: #CBE1FF;
+  }
+
+
+  th,
+  td {
+    padding: 10px; 
+  }
+
+
+
+
+
+  .table-of-contents {
+  padding: 10px; 
+  float: left;
 }
 
+.table-of-contents h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
 
-        </style>
+.table-of-contents ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+.table-of-contents li {
+  margin-bottom: 5px;
+}
+ 
+
+ </style>
 </head>
-<body class="invoice"  >
 
-<div id="bg_logo"> </div>
-     
-        <table class="head container">
-            <tr>
-                <td class="header">
-                    <img src="{{URL('/documents/'.$company[0]->Logo)}}" width="188" height="104" />                </td>
-                <td class="shop-info">
-                    <div class="shop-name">
-                        <div align="right"><div style="font-size: 16pt;line-height: 20pt;"><strong> {{$company[0]->Name}}<br>{{$company[0]->Name2}}</strong></div> 
-      {{$company[0]->Address}}<br />
-      Contact:{{$company[0]->Contact}}<br />
-      TRN:{{$company[0]->TRN}}<br />
-      Email:{{$company[0]->Email}}<br />
-      Website:{{$company[0]->Website}}<br />
-    </div>
+<body class="invoice">
+    <div id="bg_logo"> </div>
+    <table class="head container" border="0">
+        <tr>
+            <td class="header">
+                <img src="{{URL('/documents/'.$company[0]->Logo)}}" width="188" height="104" />
+            </td>
+            <td class="shop-info">
+                <div class="shop-name">
+                    <div align="right">
+                        <div style="font-size: 16pt;line-height: 20pt;"><strong> Quotation</strong></div>
+                        Date: <br />
+                        Contact:{{$company[0]->Contact}}<br /> 
+                        RefNo : {{$estimate[0]->EstimateNo}}
                     </div>
-                   
-                    
-                    <div class="shop-address"></div>                </td>
-            </tr>
-            <tr>
-              <td colspan="2" class="header"><div align="center">
-                <h2><u>ESTIMATE</u></h2>
-              </div></td>
-            </tr>
-</table>
-        <table class="order-data-addresses">
-            <tr>
-                <td valign="bottom" class="address billing-address">
-                <strong>Buyer</strong><br>
-                    <strong>{{$estimate[0]->PartyName}}  {{($estimate[0]->WalkinCustomerName==1) ? ' -'.$estimate[0]->WalkinCustomerName : ''}}</strong><br />
-                     @if($estimate[0]->PartyID !=1)
-            
-                Address: {{$estimate[0]->Address}}<br />
-          Phone: {{$estimate[0]->Phone}}<br />
-          TRN: {{$estimate[0]->TRN}}<br /> 
-            @endif
+                </div>
+                <div class="shop-address"></div>
+            </td>
+        </tr> 
+        
+    </table>
+    <table class="order-data-addresses">
+    <tr>  
+        <td style="width:50%;vertical-align:bottom;word-wrap: break-word; ">
+  <table style="table-layout: fixed;word-wrap: break-word;width: 100%;" border="2" cellspacing="0" cellpadding="1">  
+                      <tbody>
+                        <tr class="pcs-itemtable-header">
+                        <td><strong>SERVICE PROVIDER</strong></td>
+                        </tr>
 
-            <br />          </td>
-                <td class="order-data">
-                    <table align="right">
-                        <tr class="order-number">
-                            <th><strong>Estimate # </strong></th>
-                            <td><div align="right">{{$estimate[0]->EstimateNo}}</div></td>
+                        <tr>
+                          <td>
+                            <div class="shop-name" style="height:150px">
+                              <div>
+                                <div style="font-size: 16pt;line-height: 20pt;"><strong> EXTENSIVE IT SERVICES</strong></div>
+                                {{$estimate[0]->Address}}<br />
+                                Contact:{{$estimate[0]->Phone}}<br />
+                                TRN: {{$estimate[0]->TRN}}<br />
+                                Email:{{$estimate[0]->Email}}<br />
+                                Website:{{$company[0]->Website}}<br />
+                              </div>
+                            </div>
+                          </td>
+                        </tr> 
+                      </tbody>
+
+                    </table>
+
+                  </td>
+
+                  <td align="right" style="vertical-align:bottom;width: 40%;">
+                    <table style="float:right;table-layout: fixed;word-wrap: break-word;width: 100%;" border="2" cellspacing="0" cellpadding="1">
+
+                      <tbody>
+                        <tr class="pcs-itemtable-header">
+                          <td><strong>CLIENT</strong></td>
                         </tr>
-                        <tr class="order-date">
-                            <th><strong>Date:</strong></th>
-                            <td><div align="right">{{dateformatman($estimate[0]->Date)}}</div></td>
-                        </tr>
-                        <tr class="payment-method">
-                            <th><strong>Expiry Date :</strong></th>
-                            <td><div align="right">{{dateformatman($estimate[0]->ExpiryDate)}}</div></td>
-                        </tr>
-                        <tr class="payment-method">
-                          <th><strong>Ref (L.P.O) No: </strong></th>
-                          <td><div align="right">{{$estimate[0]->ReferenceNo}}</div></td>
-                        </tr>
-                    </table>                </td>
-            </tr>
-            <tr>
-              <td colspan="2" valign="bottom" class="billing-address address"><strong>Subject : </strong>{{$estimate[0]->Subject}}</td>
-            </tr>
-        </table>
+
+                        <tr>
+                          <td>
+                            <div class="shop-name" style="height:150px">
+                              <div>
+                                <div style="font-size: 16pt;line-height: 20pt;"><strong> {{$company[0]->Name}}<br>{{$company[0]->Name2}}</strong></div>
+                                {{$company[0]->Address}}<br />
+                                Contact:{{$company[0]->Contact}}<br />
+                                TRN:{{$company[0]->TRN}}<br />
+                                Email:{{$company[0]->Email}}<br />
+                                Website:{{$company[0]->Website}}<br />
+                              </div>
+                            </div>
+                          </td>
+                        </tr> 
+                      </tbody>
+                    </table>
+                  </td>            
+                </tr> 
+        <tr class="pcs-itemtable-header">
+            <td colspan="2" valign="bottom"><strong> {{$estimate[0]->Subject}}</strong></td>
+        </tr>
+    </table>
     <table class="order-details">
         <thead>
-            <tr>
-                  <th width="5%" class="sno">S#</th>
+            <tr class="pcs-itemtable-breakword">
+                <th width="5%" class="sno">S#</th>
                 <th width="20%" class="product">Description</th>
                 <th width="10%" class="quantity">Qty</th>
                 <th width="10%" class="price">Rate</th>
@@ -364,76 +410,70 @@ background-image: url({{URL('/documents/'.$company[0]->BackgroundLogo)}});
             @foreach($estimate_detail as $key => $value)
 
             <tr>
-                  <td height="13px">{{$key+1}}</td>
+                <td height="13px">{{$key+1}}</td>
                 <td>{{$value->ItemName}}</td>
                 <td>{{$value->Qty}}</td>
                 <td>{{number_format($value->Rate,2)}}</td>
                 <td>{{number_format($value->Tax,2)}}</td>
                 <td>{{number_format($value->Total,2)}}</td>
-      </tr>
-            @endforeach
-            <?php  for($i = 10; $i>=count($estimate_detail);$i--) { ?>
-
-            <tr>
-                  <td height="13px"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
+            @endforeach
+            <?php for ($i = 10; $i >= count($estimate_detail); $i--) { ?> 
 
             <?php } ?>
         </tbody>
-        <tfoot>
-            <tr class="no-borders">
-                  <td colspan="3" class="no-borders">
-                  <div class="customer-notes"><strong>Customer Notes: </strong>{{$estimate[0]->CustomerNotes}}. </div>                    
-                  <div class="customer-notes"><strong>Description Notes: </strong>{{$estimate[0]->DescriptionNotes}}. </div>
-
-                  <div style="padding-top: 10px;"><strong>In words </strong>: <em>{{ucwords(convert_number_to_words($estimate[0]->GrandTotal))}} only/-</em></div>
-               @if($company[0]->Signature!=null)   
-              <img src="{{URL('/documents/'.$company[0]->Signature)}}" width="200"  />
-              @endif
-                        </td>
-                <td class="no-borders" colspan="3">
-                    <table class="totals">
-                        <tfoot>
-                          <tr class="cart_subtotal">
-                              <td class="no-borders"></td>
-                              <th class="description">Subtotal</th>
-                              <td class="price"><span class="totals-price"><span class="amount"> {{number_format($estimate[0]->SubTotal-$estimate[0]->Tax,2)}}</span></span></td>
-                          </tr>
-                          <tr class="order_total">
-                              <td class="no-borders"></td>
-                              <th class="description">Tax @ {{$estimate[0]->TaxPer}} %</th>
-                              <td class="price"><span class="totals-price"><span class="amount">{{number_format($estimate[0]->Tax,2)}}</span></span></td>
-                          </tr>
-                          <tr class="order_total">
-                              <td class="no-borders"></td>
-                              <th class="description">Total</th>
-                              <td class="price"><span class="totals-price"><span class="amount">{{number_format($estimate[0]->SubTotal,2)}}</span></span></td>
-                          </tr>
-                          <tr class="order_total">
-                              <td class="no-borders"></td>
-                              <th class="description">Dis {{$estimate[0]->DiscountPer}}%</th>
-                              <td class="price"><span class="totals-price"><span class="amount">{{number_format($estimate[0]->Discount,2)}}</span></span></td>
-                          </tr>
-                          <tr class="order_total">
-                              <td class="no-borders"></td>
-                              <th class="description">Shipping</th>
-                              <td class="price"><span class="totals-price"><span class="amount">{{number_format($estimate[0]->Shipping,2)}}</span></span></td>
-                          </tr>
-                          <tr class="order_total">
-                              <td class="no-borders"></td>
-                              <th class="description">Grand Total</th>
-                              <td class="price"><span class="totals-price"><span class="amount">{{number_format($estimate[0]->GrandTotal,2)}}</span></span></td>
-                          </tr>  
-                          
-                        </tfoot>
-                    </table>                </td>
+        <tfoot> 
+        <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                <td colspan="5">Subtotal</td> 
+                <td>{{number_format($estimate[0]->SubTotal-$estimate[0]->Tax,2)}}</td>
             </tr>
+
+            <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                <td colspan="5">Tax @ {{$estimate[0]->TaxPer}} %</td> 
+                <td>{{number_format($estimate[0]->Tax,2)}}</td>
+            </tr>
+
+            <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                <td colspan="5">Total</td> 
+                <td>{{number_format($estimate[0]->SubTotal,2)}}</td>
+            </tr>
+
+            <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                <td colspan="5">Grand Total</td>  
+                <td>{{number_format($estimate[0]->GrandTotal,2)}}</td>
+            </tr>
+
         </tfoot>
     </table>
+
+ 
+  <div class="table-of-contents">
+    <h2>Scope of work</h2>
+    <ol>
+      <li>Cable Pulling,Termination and Configuration</li>
+      <li>Supply Installation and Configuration of Time Attendance System</li> 
+    </ol>
+
+    <h2>Exclusive</h2>
+    <ol>
+      <li>Any Approval or NOC from any Local Authorites or Government</li>
+      <li>Any Extra items not premetted in contract</li>
+   
+    </ol>
+
+    <h2>Terms And Condtions</h2>
+    <ol>
+      <li> 
+Amount in AED
+      <ul>
+        <li>50% Advance (Non Refundable)</li>
+      </ul>
+      </li> 
+    </ol>
+ 
+
+ 
+
 </body>
+
 </html>
