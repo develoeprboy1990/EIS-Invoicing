@@ -480,14 +480,44 @@
                         <div class="row mt-4">
 
                             <div class="col-lg-8 col-12  ">
-                                <h6>Scope of Notes: </h6>
-                                <textarea class="form-control" rows='5' name="CustomerNotes" id="note" placeholder=""></textarea>
+                                <h6>Scope of Work: </h6>
+                                <textarea name="CustomerNotes" id="CustomerNotes" cols="10" rows="5"  class="form-control" ></textarea>
+                                <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+                                <script>
+                                CKEDITOR.replace( 'CustomerNotes',{
+                                height:350,
+                                });
+                                </script>
+
+
+
+                                <label for="" class="mt-2">Exclusion</label>
+                                <textarea name="DescriptionNotes" id="DescriptionNotes" cols="10" rows="5"  class="form-control" ></textarea>
+                                <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+                                <script>
+                                CKEDITOR.replace( 'DescriptionNotes',{
+                                height:350,
+                                });
+                                </script>
+
+
+                                <label for="" class="mt-2">Terms & Conditions</label>
+                                <textarea name="TermAndCondition" id="TermAndCondition" cols="10" rows="5"  class="form-control" ></textarea>
+                                <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+                                <script>
+                                CKEDITOR.replace( 'TermAndCondition',{
+                                height:350,
+                                });
+                                </script>
+
+
+                                <!-- <textarea class="form-control" rows='5' name="CustomerNotes" id="note" placeholder=""></textarea>
 
                                 <label for="" class="mt-2">Exclusion</label>
                                 <textarea class="form-control" rows='5' name="DescriptionNotes" id="note" placeholder="Description notes if any."></textarea>
 
                                  <label for="" class="mt-2">Terms & Conditions</label>
-                                <textarea class="form-control" rows='5' name="TermAndCondition" id="note" placeholder="Description notes if any."></textarea>
+                                <textarea class="form-control" rows='5' name="TermAndCondition" id="note" placeholder="Description notes if any."></textarea> -->
 
                                          
 

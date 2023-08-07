@@ -179,12 +179,12 @@ $DebitNoteTitle       = old('DebitNoteTitle') ? old('DebitNoteTitle') : $company
                         <textarea name="DigitalSignature" id="DigitalSignature" cols="30" rows="10">
                           {{$DigitalSignature}}
                         </textarea>
- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-                         <script>
-                CKEDITOR.replace( 'DigitalSignature',{
-                    height:350,
-                });
-        </script>
+                        <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+                        <script>
+                        CKEDITOR.replace( 'DigitalSignature',{
+                        height:350,
+                        });
+                        </script>
                       </div>
 
                     </div>

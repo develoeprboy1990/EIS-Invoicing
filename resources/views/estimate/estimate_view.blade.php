@@ -6,8 +6,8 @@
             } */
 
   .pcs-itemtable-header {
-    background-color: #87B7F7;
-    color: #fff;
+    background-color: #9CC2E5;
+    color: #080704;
     text-transform: uppercase;
     text-align: center;
   }
@@ -44,11 +44,14 @@
             <table style="width:100%;table-layout: fixed;">
               <tbody>
                 <tr>
-                  <td style="vertical-align: top; width:50%;"> <img src="{{asset('assets/images/logo/EIS-LOGO.png')}}" alt="" class="img-fluid" width="120px"></td>
+                  <td style="vertical-align: top; width:50%;"> <img 
+                    src="{{URL('/documents/'.$company->Logo)}}" alt="" class="img-fluid" width="120px"></td>
                   <td style="vertical-align: top; text-align:right;width:50%;">
-                    <span class="pcs-entity-title style1">{{$company[0]->EstimateInvoiceTitle}} </span><span class="style1"><br>
-                      Date : {{date("d/M/yy")}} <br>
-                      <b>RefNo # {{$estimate[0]->EstimateNo}}</b></span>
+                    <span class="pcs-entity-title style1" style="text-decoration: underline;color: #275079;"><b>{{$company->EstimateInvoiceTitle}}</b></span><br>
+                    <span class="style1" style="color: #36709D;">
+                      Date : {{ \Carbon\Carbon::parse($estimate->Date)->format('d M,Y')}}<br>
+                      Ref No. {{$estimate->ReferenceNo}}
+                    </span>
                   </td>
                 </tr>
               </tbody>
@@ -71,12 +74,11 @@
                           <td>
                             <div class="shop-name">
                               <div>
-                                <div style="font-size: 16pt;line-height: 20pt;"><strong> EXTENSIVE IT SERVICES</strong></div>
-                                {{$estimate[0]->Address}}<br />
-                                Contact:{{$estimate[0]->Phone}}<br />
-                                TRN: {{$estimate[0]->TRN}}<br />
-                                Email:{{$estimate[0]->Email}}<br />
-                                Website:{{$company[0]->Website}}<br />
+                                {{$company->Name}}<br />
+                                {{$company->Address}}<br />
+                                {{$company->Contact}}<br />
+                                {{$company->Email}}<br />
+                                TRN: {{$company->TRN}}<br />
                               </div>
                             </div>
                           </td>
@@ -108,13 +110,10 @@
                           <td>
                             <div class="shop-name">
                               <div>
-                                <div style="font-size: 16pt;line-height: 20pt;"><strong> {{$company[0]->Name}}<br>{{$company[0]->Name2}}</strong></div>
-                                {{$company[0]->Address}}<br />
-                                Contact:{{$company[0]->Contact}}<br />
-                                TRN:{{$company[0]->TRN}}<br />
-                                Email:{{$company[0]->Email}}<br />
-                                Website:{{$company[0]->Website}}<br />
-                              </div>
+                                <strong>Name: </strong>{{$estimate->PartyName}}<br />
+                                <strong>Address: </strong>{{$estimate->Address}}<br />
+                                <strong>Contact: </strong>{{$estimate->Mobile}}<br />
+                              <div>
                             </div>
                           </td>
                         </tr>
@@ -137,47 +136,55 @@
             <table style="width:100%;margin-top:20px;table-layout:fixed;" class="pcs-itemtable" border="0" cellspacing="0" cellpadding="0">
               <thead>
                 <tr style="height:32px;" class="pcs-itemtable-header">
-                  <td colspan="6" style="padding: 5px 0px 5px 5px;width: 5%;text-align: center; "><strong>
-                      {{$estimate[0]->Subject}}</strong></td>
-                </tr>
-                <tr style="height:32px;">
-                  <td colspan="6"><strong> </strong></td>
+                  <td colspan="5" style="padding: 5px 0px 5px 5px;width: 5%;text-align: center; "><strong>
+                      {{$estimate->Subject}}</strong></td>
                 </tr>
                 <tr style="height:32px;" class="pcs-itemtable-breakword">
-                  <td width="10%" class="pcs-itemtable-breakword" style="padding: 5px 0px 5px 5px;width: 5%;text-align: center;"><strong>
-                      # </strong></td>
-                  <td width="33%" style="padding: 5px 10px 5px 20px;width: ;text-align: left;"><span style="padding: 5px 10px 5px 20px;width: ;text-align: left;"><strong>Item Name </strong></span></td>
-                  <td id="" style="padding: 5px 10px 5px 20px;width: ;text-align: left;"><span style="padding: 5px 10px 5px 5px;width: 11%;text-align: right;"><strong>Description</strong></span></td>
-                  <td width="10%" style="padding: 5px 10px 5px 5px;width: 11%;text-align: right;"><strong>
-                      Qty </strong></td>
-                  <td width="14%" style="padding: 5px 10px 5px 5px;width: 11%;text-align: right;"><strong>
-                      Rate </strong></td>
+                  <td class="pcs-itemtable-breakword" style="padding: 5px 0px 5px 5px;text-align: center;">
+                    <strong>SNO:</strong>
+                  </td>
+                  
+                  <td style="padding: 5px 10px 5px 20px;text-align: center;">
+                    <span style="padding: 5px 10px 5px 5px;">
+                      <strong>DESCRIPTION</strong>
+                    </span>
+                  </td>
+                  
+                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
+                    <strong>QTY</strong>
+                  </td>
+                  
+                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
+                    <strong>PRICE </strong>
+                  </td>
 
-                  <td width="13%" style="padding: 5px 10px 5px 5px;width: 10%;text-align: right;"><strong>
-                      Amount </strong></td>
+                  
+                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
+                    <strong>TOTAL</strong>
+                  </td>
                 </tr>
               </thead>
               <tbody class="itemBody">
                 @foreach($estimate_detail as $key => $value)
                 <tr class="breakrow-inside breakrow-after">
+                  
                   <td valign="top" style="padding: 10px 0 10px 5px;text-align: center;word-wrap: break-word;" class="pcs-item-row">
                     {{++$key}}
                   </td>
-                  <td valign="top" style="padding: 10px 0px 10px 20px;" class="pcs-item-row"><span class="pcs-item-row" style="padding: 10px 0px 10px 20px;"> {{$value->ItemName}} </span></td>
-                  <td valign="top" class="pcs-item-row" style="padding: 10px 0px 10px 20px;">
-                    <div>
-                      <div> <span style="white-space: pre-wrap;word-wrap: break-word;" class="pcs-item-desc" id="tmp_item_description">{{$value->Description}} </span> </div>
-                    </div>
+
+                  <td valign="top" class="pcs-item-row" style="padding: 10px 0px 10px 20px;text-align: left;" align="left;">
+                    {{@$value->Description}}
                   </td>
 
-                  <td valign="top" style="padding: 10px 10px 5px 10px;text-align:right;word-wrap: break-word;" class="pcs-item-row">
+                  <td valign="top" style="padding: 10px 10px 5px 10px;text-align:center;word-wrap: break-word;" class="pcs-item-row">
                     <span id="tmp_item_qty">{{$value->Qty}}</span>
                   </td>
 
-                  <td valign="top" style="padding: 10px 10px 5px 10px;text-align:right;word-wrap: break-word;" class="pcs-item-row">
+                  <td valign="top" style="padding: 10px 10px 5px 10px;text-align:center;word-wrap: break-word;" class="pcs-item-row">
                     <span id="tmp_item_rate">{{$value->Rate}}</span>
                   </td>
-                  <td valign="top" style="text-align:right;padding: 10px 10px 10px 5px;word-wrap: break-word;" class="pcs-item-row">
+
+                  <td valign="top" style="text-align:center;padding: 10px 10px 10px 5px;word-wrap: break-word;" class="pcs-item-row">
                     <span id="tmp_item_amount">{{$value->Total}}</span>
                   </td>
                 </tr>
@@ -189,10 +196,13 @@
                 <div style="white-space: pre-wrap;">
                   <table width="100%" border="0" cellpadding="0" cellspacing="0">
                     <tr>
-                      <td width="50%"><strong>Description :</strong> {{$estimate[0]->DescriptionNotes}}</td>
+                      <td width="50%"><strong>Description :</strong> {!!$estimate->DescriptionNotes!!}</td>
                     </tr>
                     <tr>
-                      <td width="50%"><strong>Customer Notes : </strong>{{$estimate[0]->CustomerNotes}}</td>
+                      <td width="50%"><strong>Customer Notes : </strong>{!!$estimate->CustomerNotes!!}</td>
+                    </tr>
+                    <tr>
+                      <td width="50%"><strong>Terms And Condition : </strong>{!!$estimate->TermAndCondition!!}</td>
                     </tr>
                   </table>
                 </div>
@@ -203,43 +213,43 @@
                     <tr class="pcs-balance">
                       <td width="474" height="25" align="right" valign="middle">[Exclusive Tax] <b>SubTotal</b></td>
                       <td width="289" height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate[0]->SubTotal}}</b></div>
+                        <div align="right"><b>{{$estimate->SubTotal}}</b></div>
                       </td>
                     </tr>
                     <tr class="pcs-balance">
                       <td height="25" align="right" valign="middle"><b>Tax %</b></td>
                       <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate[0]->TaxPer}}</b></div>
+                        <div align="right"><b>{{$estimate->TaxPer}}</b></div>
                       </td>
                     </tr>
                     <tr class="pcs-balance">
                       <td height="25" align="right" valign="middle"><b>Tax </b></td>
                       <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate[0]->Tax}}</b></div>
+                        <div align="right"><b>{{$estimate->Tax}}</b></div>
                       </td>
                     </tr>
                     <tr class="pcs-balance">
                       <td height="25" align="right" valign="middle">[Inclusive Tax]<b>Total </b></td>
                       <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate[0]->Total}}</b></div>
+                        <div align="right"><b>{{$estimate->Total}}</b></div>
                       </td>
                     </tr>
                     <tr class="pcs-balance">
                       <td height="25" align="right" valign="middle"><b>Discount %</b></td>
                       <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate[0]->DiscountPer}}</b></div>
+                        <div align="right"><b>{{$estimate->DiscountPer}}</b></div>
                       </td>
                     </tr>
                     <tr class="pcs-balance">
                       <td height="25" align="right" valign="middle"><b>Discount</b></td>
                       <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate[0]->Discount}}</b></div>
+                        <div align="right"><b>{{$estimate->Discount}}</b></div>
                       </td>
                     </tr>
                     <tr class="pcs-balance">
                       <td height="25" align="right" valign="middle"><b>Grand Total</b></td>
                       <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate[0]->GrandTotal}}</b></div>
+                        <div align="right"><b>{{$estimate->GrandTotal}}</b></div>
                       </td>
                     </tr>
                   </tbody>
@@ -252,7 +262,7 @@
                 <tbody>
                   <tr class="bg-light" style="height: 30px;">
                     <td width="10%" class="total-in-words-label text-align-right  ">Total In Words:</td>
-                    <td width="90%" class="total-in-words-value text-align-left "><i><b> {{convert_number_to_words($estimate[0]->Total)}} only </b></i></td>
+                    <td width="90%" class="total-in-words-value text-align-left "><i><b> {{convert_number_to_words($estimate->Total)}} only </b></i></td>
                   </tr>
                 </tbody>
               </table>

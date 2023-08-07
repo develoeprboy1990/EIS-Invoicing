@@ -88,7 +88,11 @@
                 margin: 0;
                 padding: 0;
             }
-            th, td {
+            th {
+                vertical-align: top;
+                text-align: center;
+            }
+            td {
                 vertical-align: top;
                 text-align: left;
             }
@@ -143,6 +147,7 @@
             table.order-details {
                 width:100%;
                 margin-bottom: 8mm;
+                border: 2px solid #8EA1B2;
             }
             .quantity,
             .price {
@@ -157,19 +162,21 @@
             .order-details tr {
                 page-break-inside: always;
                 page-break-after: auto;
+                border: 1px solid #080704;
             }
             .order-details td,
             .order-details th {
-                border-bottom: 1px #ccc solid;
-                border-top: 1px #ccc solid;
                 padding: 0.375em;
+                border: 1px solid #080704;
             }
             .order-details th {
                 font-weight: bold;
-                text-align: left;
+                text-align: center;
+                border: 1px solid #080704;
             }
             .order-details thead th {
                 color: black; 
+                border: 1px solid #080704;
 
             }
 
@@ -272,10 +279,10 @@
 
 
   .pcs-itemtable-header {
-    background-color: #87B7F7;
-    color: #fff;
+    background-color: #9CC2E5;
+    color: #080704;
     text-transform: uppercase;
-    text-align: center;
+    text-align: center !important;
   }
 
   .pcs-itemtable-breakword {
@@ -320,15 +327,18 @@
     <table class="head container" border="0">
         <tr>
             <td class="header">
-                <img src="{{URL('/documents/'.$company[0]->Logo)}}" width="188" height="104" />
+                <img src="{{URL('/documents/'.$company->Logo)}}" width="188" height="104" />
             </td>
             <td class="shop-info">
                 <div class="shop-name">
                     <div align="right">
-                        <div style="font-size: 16pt;line-height: 20pt;"><strong> Quotation</strong></div>
-                        Date: <br />
-                        Contact:{{$company[0]->Contact}}<br /> 
-                        RefNo : {{$estimate[0]->EstimateNo}}
+                        <div style="font-size: 16pt;line-height: 40pt;text-decoration: underline;color: #275079;">
+                            <strong> {{$company->EstimateInvoiceTitle}}</strong>
+                        </div>
+                        <span style="color: #36709D;">
+                            Date : {{ \Carbon\Carbon::parse($estimate->Date)->format('d M,Y')}}<br>
+                            Ref No. {{$estimate->ReferenceNo}}
+                        </span>
                     </div>
                 </div>
                 <div class="shop-address"></div>
@@ -342,19 +352,18 @@
   <table style="table-layout: fixed;word-wrap: break-word;width: 100%;" border="2" cellspacing="0" cellpadding="1">  
                       <tbody>
                         <tr class="pcs-itemtable-header">
-                        <td><strong>SERVICE PROVIDER</strong></td>
+                        <th><strong >SERVICE PROVIDER</strong></th>
                         </tr>
 
                         <tr>
                           <td>
-                            <div class="shop-name" style="height:150px">
+                            <div class="shop-name" style="height:120px;line-height: 15pt;">
                               <div>
-                                <div style="font-size: 16pt;line-height: 20pt;"><strong> EXTENSIVE IT SERVICES</strong></div>
-                                {{$estimate[0]->Address}}<br />
-                                Contact:{{$estimate[0]->Phone}}<br />
-                                TRN: {{$estimate[0]->TRN}}<br />
-                                Email:{{$estimate[0]->Email}}<br />
-                                Website:{{$company[0]->Website}}<br />
+                                {{$company->Name}}<br />
+                                {{$company->Address}}<br />
+                                {{$company->Contact}}<br />
+                                <a href = "mailto: {{$company->Email}}">{{$company->Email}}</a><br />
+                                TRN: {{$company->TRN}}<br />
                               </div>
                             </div>
                           </td>
@@ -365,24 +374,21 @@
 
                   </td>
 
-                  <td align="right" style="vertical-align:bottom;width: 40%;">
+                  <td align="right" style="vertical-align:bottom;width: 50%;">
                     <table style="float:right;table-layout: fixed;word-wrap: break-word;width: 100%;" border="2" cellspacing="0" cellpadding="1">
 
                       <tbody>
                         <tr class="pcs-itemtable-header">
-                          <td><strong>CLIENT</strong></td>
+                          <th><strong>CLIENT</strong></th>
                         </tr>
 
                         <tr>
                           <td>
-                            <div class="shop-name" style="height:150px">
+                            <div class="shop-name" style="height:120px;line-height: 15pt;">
                               <div>
-                                <div style="font-size: 16pt;line-height: 20pt;"><strong> {{$company[0]->Name}}<br>{{$company[0]->Name2}}</strong></div>
-                                {{$company[0]->Address}}<br />
-                                Contact:{{$company[0]->Contact}}<br />
-                                TRN:{{$company[0]->TRN}}<br />
-                                Email:{{$company[0]->Email}}<br />
-                                Website:{{$company[0]->Website}}<br />
+                                <strong>Name: </strong>{{$estimate->PartyName}}<br />
+                                <strong>Address: </strong>{{$estimate->Address}}<br />
+                                <strong>Contact: </strong>{{$estimate->Mobile}}<br />
                               </div>
                             </div>
                           </td>
@@ -391,31 +397,30 @@
                     </table>
                   </td>            
                 </tr> 
-        <tr class="pcs-itemtable-header">
-            <td colspan="2" valign="bottom"><strong> {{$estimate[0]->Subject}}</strong></td>
-        </tr>
+        
     </table>
     <table class="order-details">
         <thead>
-            <tr class="pcs-itemtable-breakword">
-                <th width="5%" class="sno">S#</th>
-                <th width="20%" class="product">Description</th>
-                <th width="10%" class="quantity">Qty</th>
-                <th width="10%" class="price">Rate</th>
-                <th width="10%" class="price">Tax</th>
-                <th width="10%" class="price">Amount</th>
+        <tr class="pcs-itemtable-header">
+            <th colspan="5" valign="bottom"><strong> {{$estimate->Subject}}</strong></th>
+        </tr>
+        <tr class="pcs-itemtable-breakword" >
+                <th width="5%" class="sno">SNO:</th>
+                <th width="20%" class="product">DESCRIPTION</th>
+                <th width="10%" class="quantity">QTY</th>
+                <th width="10%" class="price">PRICE</th>
+                <th width="10%" class="price">TOTAL</th>
             </tr>
         </thead>
         <tbody>
             @foreach($estimate_detail as $key => $value)
 
             <tr>
-                <td height="13px">{{$key+1}}</td>
-                <td>{{$value->ItemName}}</td>
-                <td>{{$value->Qty}}</td>
-                <td>{{number_format($value->Rate,2)}}</td>
-                <td>{{number_format($value->Tax,2)}}</td>
-                <td>{{number_format($value->Total,2)}}</td>
+                <td height="13px" style="text-align:center!important;">{{$key+1}}</td>
+                <td>{{$value->Description}}</td>
+                <td  style="text-align:center!important;">{{$value->Qty}}</td>
+                <td  style="text-align:center!important;">{{number_format($value->Rate,2)}}</td>
+                <td  style="text-align:center!important;">{{number_format($value->Total,2)}}</td>
             </tr>
             @endforeach
             <?php for ($i = 10; $i >= count($estimate_detail); $i--) { ?> 
@@ -423,24 +428,21 @@
             <?php } ?>
         </tbody>
         <tfoot> 
-        <tr class="pcs-itemtable-header" style="font-weight: bold;">
-                <td colspan="5">Subtotal</td> 
-                <td>{{number_format($estimate[0]->SubTotal-$estimate[0]->Tax,2)}}</td>
+            <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                <th colspan="4" align="center">Total AED</th> 
+                <td style="text-align:center!important;">{{number_format($estimate->SubTotal,2)}}</td>
             </tr>
 
             <tr class="pcs-itemtable-header" style="font-weight: bold;">
-                <td colspan="5">Tax @ {{$estimate[0]->TaxPer}} %</td> 
-                <td>{{number_format($estimate[0]->Tax,2)}}</td>
+                <th colspan="4" align="center">VAT {{$estimate->TaxPer}} %</th> 
+                <td style="text-align:center!important;">{{number_format($estimate->Tax,2)}}</td>
             </tr>
 
-            <tr class="pcs-itemtable-header" style="font-weight: bold;">
-                <td colspan="5">Total</td> 
-                <td>{{number_format($estimate[0]->SubTotal,2)}}</td>
-            </tr>
+            
 
             <tr class="pcs-itemtable-header" style="font-weight: bold;">
-                <td colspan="5">Grand Total</td>  
-                <td>{{number_format($estimate[0]->GrandTotal,2)}}</td>
+                <th colspan="4" align="center">Grand Total AED</th>  
+                <td style="text-align:center!important;">{{number_format($estimate->GrandTotal,2)}}</td>
             </tr>
 
         </tfoot>
@@ -449,31 +451,13 @@
  
   <div class="table-of-contents">
     <h2>Scope of work</h2>
-    <ol>
-      <li>Cable Pulling,Termination and Configuration</li>
-      <li>Supply Installation and Configuration of Time Attendance System</li> 
-    </ol>
+    {!!@$estimate->CustomerNotes!!}
 
     <h2>Exclusive</h2>
-    <ol>
-      <li>Any Approval or NOC from any Local Authorites or Government</li>
-      <li>Any Extra items not premetted in contract</li>
-   
-    </ol>
+    {!!@$estimate->DescriptionNotes!!}
 
     <h2>Terms And Condtions</h2>
-    <ol>
-      <li> 
-Amount in AED
-      <ul>
-        <li>50% Advance (Non Refundable)</li>
-      </ul>
-      </li> 
-    </ol>
+    {!!@$estimate->TermAndCondition!!}
  
-
- 
-
 </body>
-
 </html>

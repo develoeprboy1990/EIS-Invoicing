@@ -25,12 +25,12 @@
             <!-- start page title -->
 
             <!-- enctype="multipart/form-data" -->
-            <form action="{{URL('/EstimateRevised')}}" method="post" id="form1">
+            <form action="{{URL('/EstimateUpdate')}}" method="post" id="form1">
 
 
                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
 
-                <input type="hidden" name="EstimateMasterID" value="{{$estimate_master[0]->EstimateMasterID}}">
+                <input type="hidden" name="EstimateMasterID" value="{{$estimate_master->EstimateMasterID}}">
                 <div class="card shadow-sm">
                     <div class="card-body">
 
@@ -44,7 +44,7 @@
                                         <select name="PartyID" id="PartyID" class="form-select select2 mt-5" name="PartyID" required="">
                                             <option value="0">Select</option>
                                             <?php foreach ($party as $key => $value) : ?>
-                                                <option value="{{$value->PartyID}}" {{($value->PartyID== $estimate_master[0]->PartyID) ? 'selected=selected':'' }}>{{$value->PartyName}}</option>
+                                                <option value="{{$value->PartyID}}" {{($value->PartyID== $estimate_master->PartyID) ? 'selected=selected':'' }}>{{$value->PartyName}}</option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
@@ -55,7 +55,7 @@
                                         <label class="col-form-label text-danger" for="password">or Walkin Customer </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="WalkinCustomerName" value="{{$estimate_master[0]->WalkinCustomerName}}" placeholder="Walkin cusomter" id="1WalkinCustomerName">
+                                        <input type="text" class="form-control" name="WalkinCustomerName" value="{{$estimate_master->WalkinCustomerName}}" placeholder="Walkin cusomter" id="1WalkinCustomerName">
 
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                         <select name="UserID" id="UserID" class="form-select">
                                             <option value="">Select</option>
                                             <?php foreach ($user as $key => $value) : ?>
-                                                <option value="{{$value->UserID}}" {{($value->UserID== $estimate_master[0]->UserID) ? 'selected=selected':'' }}>{{$value->FullName}}</option>
+                                                <option value="{{$value->UserID}}" {{($value->UserID== $estimate_master->UserID) ? 'selected=selected':'' }}>{{$value->FullName}}</option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
@@ -78,7 +78,7 @@
                                         <label class="col-form-label" for="password">Subject </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" id="first-name" class="form-control" name="Subject" value="{{$estimate_master[0]->Subject}}" placeholder="Let your customer know what this invoice is for">
+                                        <input type="text" id="first-name" class="form-control" name="Subject" value="{{$estimate_master->Subject}}" placeholder="Let your customer know what this invoice is for">
 
                                     </div>
                                 </div>
@@ -103,8 +103,8 @@
 
                                     <div class="col-sm-9">
                                       <select name="TaxType" id="TaxType" class="form-select">
- <option value="TaxInclusive" {{('TaxInclusive'== $estimate_master[0]->TaxType) ? 'selected=selected':'' }} >Tax Inclusive</option>
- <option value="TaxExclusive" {{('TaxExclusive'== $estimate_master[0]->TaxType) ? 'selected=selected':'' }} >Tax Exclusive</option>
+ <option value="TaxInclusive" {{('TaxInclusive'== $estimate_master->TaxType) ? 'selected=selected':'' }} >Tax Inclusive</option>
+ <option value="TaxExclusive" {{('TaxExclusive'== $estimate_master->TaxType) ? 'selected=selected':'' }} >Tax Exclusive</option>
  </select>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                             <label class="col-form-label" for="password">QUOTATION# </label>
                                         </div>
                                         <div class="col-sm-9 pt-2">
-                                            <input type="hidden" class="form-control" name="EstimateNo" value="{{$estimate_master[0]->EstimateNo}}">{{$estimate_master[0]->EstimateNo}}
+                                            <input type="hidden" class="form-control" name="EstimateNo" value="{{$estimate_master->EstimateNo}}">{{$estimate_master->EstimateNo}}
 
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group" id="datepicker21">
-                                                <input type="text" name="EstimateDate" autocomplete="off" class="form-control" placeholder="yyyy-mm-dd" data-date-format="yyyy-mm-dd" data-date-container="#datepicker21" data-provide="datepicker" data-date-autoclose="true" value="{{$estimate_master[0]->EstimateDate}}">
+                                                <input type="text" name="EstimateDate" autocomplete="off" class="form-control" placeholder="yyyy-mm-dd" data-date-format="yyyy-mm-dd" data-date-container="#datepicker21" data-provide="datepicker" data-date-autoclose="true" value="{{$estimate_master->EstimateDate}}">
                                                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                             </div>
                                         </div>
@@ -142,7 +142,7 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="input-group" id="datepicker22">
-                                                <input type="text" name="DueDate" autocomplete="off" class="form-control" placeholder="yyyy-mm-dd" data-date-format="yyyy-mm-dd" data-date-container="#datepicker22" data-provide="datepicker" data-date-autoclose="true" value="{{$estimate_master[0]->ExpiryDate}}">
+                                                <input type="text" name="DueDate" autocomplete="off" class="form-control" placeholder="yyyy-mm-dd" data-date-format="yyyy-mm-dd" data-date-container="#datepicker22" data-provide="datepicker" data-date-autoclose="true" value="{{$estimate_master->ExpiryDate}}">
                                                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                             </div>
                                         </div>
@@ -154,7 +154,7 @@
                                             <label class="col-form-label" for="password">Reference No </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" readonly id="first-name" class="form-control" name="ReferenceNo" value="{{$estimate_master[0]->ReferenceNo}}">
+                                            <input type="text" readonly id="first-name" class="form-control" name="ReferenceNo" value="{{$estimate_master->ReferenceNo}}">
 
                                         </div>
                                     </div>
@@ -297,15 +297,45 @@
                         <div class="row mt-4">
 
                             <div class="col-lg-8 col-12  ">
-                                <h6>Scope of Notes: </h6>
-                                <textarea class="form-control" rows='5' name="CustomerNotes" id="note" placeholder="">{{$estimate_master[0]->CustomerNotes}}</textarea>
+                                <h6>Scope of Work: </h6>
+                                <textarea name="CustomerNotes" id="CustomerNotes" cols="10" rows="5"  class="form-control" >{!! $estimate_master->CustomerNotes !!}</textarea>
+                                <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+                                <script>
+                                CKEDITOR.replace( 'CustomerNotes',{
+                                height:350,
+                                });
+                                </script>
+
+
+                                <label for="" class="mt-2">Exclusion</label>
+                                <textarea name="DescriptionNotes" id="DescriptionNotes" cols="10" rows="5"  class="form-control" >{!! $estimate_master->DescriptionNotes !!}</textarea>
+                                <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+                                <script>
+                                CKEDITOR.replace( 'DescriptionNotes',{
+                                height:350,
+                                });
+                                </script>
+
+
+                                <label for="" class="mt-2">Terms & Conditions</label>
+                                <textarea name="TermAndCondition" id="TermAndCondition" cols="10" rows="5"  class="form-control" >{!! $estimate_master->TermAndCondition !!}</textarea>
+                                <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+                                <script>
+                                CKEDITOR.replace( 'TermAndCondition',{
+                                height:350,
+                                });
+                                </script>
+
+
+
+                                <!-- <textarea class="form-control" rows='5' name="CustomerNotes" id="note" placeholder="">{{$estimate_master->CustomerNotes}}</textarea>
 
                                 <label for="" class="mt-2">Exclusion: </label>
-                                <textarea class="form-control" rows='5' name="DescriptionNotes" id="note" placeholder="Exclusion notes if any.">{{$estimate_master[0]->DescriptionNotes}}</textarea>
+                                <textarea class="form-control" rows='5' name="DescriptionNotes" id="note" placeholder="Exclusion notes if any.">{{$estimate_master->DescriptionNotes}}</textarea>
 
 
                                 <label for="" class="mt-2">Terms & Conditions: </label>
-                                <textarea class="form-control" rows='5' name="TermAndCondition" id="note" placeholder="Term And Condition notes if any.">{{$estimate_master[0]->TermAndCondition}}</textarea>
+                                <textarea class="form-control" rows='5' name="TermAndCondition" id="note" placeholder="Term And Condition notes if any.">{{$estimate_master->TermAndCondition}}</textarea> -->
 
                                 
                                 <div class="mt-2">
@@ -327,7 +357,7 @@
                                         <div class="input-group">
                                             <span class="input-group-text bg-light">{{session::get('Currency')}}</span>
 
-                                            <input type="text" class="form-control" id="grandtotaltax" name="grandtotaltax" placeholder="Subtotal" value="{{$estimate_master[0]->Tax}}" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;">
+                                            <input type="text" class="form-control" id="grandtotaltax" name="grandtotaltax" placeholder="Subtotal" value="{{$estimate_master->Tax}}" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;">
                                         </div>
                                     </div>
                                     <div class="form-group mt-1">
@@ -335,7 +365,7 @@
                                         <div class="input-group">
                                             <span class="input-group-text bg-light">{{session::get('Currency')}}</span>
 
-                                            <input type="text" class="form-control" id="subTotal" name="SubTotal" placeholder="Subtotal" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master[0]->SubTotal}}">
+                                            <input type="text" class="form-control" id="subTotal" name="SubTotal" placeholder="Subtotal" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master->SubTotal}}">
                                         </div>
                                     </div>
                                     <div class="form-group mt-1">
@@ -343,11 +373,11 @@
                                         <div class="input-group">
                                             <span class="input-group-text bg-light">%</span>
 
-                                            <input type="text" class="form-control" id="discountper" name="DiscountPer" placeholder="Tax" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master[0]->DiscountPer}}">
+                                            <input type="text" class="form-control" id="discountper" name="DiscountPer" placeholder="Tax" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master->DiscountPer}}">
 
                                             <span class="input-group-text bg-light">{{session::get('Currency')}}</span>
 
-                                            <input type="text" name="DiscountAmount" class="form-control" id="discountAmount" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master[0]->Discount}}">
+                                            <input type="text" name="DiscountAmount" class="form-control" id="discountAmount" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master->Discount}}">
                                         </div>
                                     </div>
 
@@ -358,7 +388,7 @@
                                         <label>Total: &nbsp;</label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-light">{{session::get('Currency')}}</span>
-                                            <input type="number" name="Total" id="Total" class="form-control" step="0.01" id="totalafterdisc"   placeholder="Total" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master[0]->Total}}">
+                                            <input type="number" name="Total" id="Total" class="form-control" step="0.01" id="totalafterdisc"   placeholder="Total" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master->Total}}">
                                         </div>
                                     </div>
                                     <div class="form-group mt-1 d-none">
@@ -366,11 +396,11 @@
                                         <div class="input-group">
                                             <span class="input-group-text bg-light">%</span>
 
-                                            <input type="text" class="form-control" id="taxpercentage" name="Taxpercentage" placeholder="tax %" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master[0]->TaxPer}}">
+                                            <input type="text" class="form-control" id="taxpercentage" name="Taxpercentage" placeholder="tax %" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master->TaxPer}}">
 
                                             <span class="input-group-text bg-light">{{session::get('Currency')}}</span>
 
-                                            <input type="text" name="TaxpercentageAmount" class="form-control" id="taxpercentageAmount" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master[0]->Tax}}">
+                                            <input type="text" name="TaxpercentageAmount" class="form-control" id="taxpercentageAmount" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master->Tax}}">
                                         </div>
                                     </div>
 
@@ -379,7 +409,7 @@
                                         <label>Shipping: &nbsp;</label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-light">{{session::get('Currency')}}</span>
-                                            <input type="number" name="Shipping" class="form-control" step="0.01" id="shipping" placeholder="Grand Total" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master[0]->Shipping}}">
+                                            <input type="number" name="Shipping" class="form-control" step="0.01" id="shipping" placeholder="Grand Total" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master->Shipping}}">
                                         </div>
                                     </div>
 
@@ -388,7 +418,7 @@
                                         <label>Grand Total: &nbsp;</label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-light">{{session::get('Currency')}}</span>
-                                            <input type="number" name="Grandtotal" class="form-control" step="0.01" id="Grandtotal" placeholder="Grand Total"   onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master[0]->GrandTotal}}">
+                                            <input type="number" name="Grandtotal" class="form-control" step="0.01" id="Grandtotal" placeholder="Grand Total"   onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="{{$estimate_master->GrandTotal}}">
                                         </div>
                                     </div>
 
@@ -1155,8 +1185,8 @@ grandtotaltax = $('#grandtotaltax').val();
     
     $('#revised').click(function(){
      
-        $('#form1').attr('action', '{{URL("/PartySalesLedger1PDF")}}');
-        $('#form1').attr('target', '_blank');
+        $('#form1').attr('action', '{{URL("/EstimateRevised")}}');
+        //$('#form1').attr('target', '_blank');
         $('#form1').submit();
     });
 

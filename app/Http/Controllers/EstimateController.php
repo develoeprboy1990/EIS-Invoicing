@@ -70,7 +70,7 @@ class EstimateController extends Controller
         $user = DB::table('user')->get();
         $chartofacc = DB::table('chartofaccount')->get();
         $estimate_master = DB::table('estimate_master')
-          ->select(DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,3)),0)+1,3,0) as EstimateNo'))
+          ->select(DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,5)),0)+1,5,0) as EstimateNo'))
           ->first();
 
          $tax = DB::table('tax')->where('Section','Estimate')->get();
@@ -168,13 +168,15 @@ class EstimateController extends Controller
   {
     // dd('hello');
     $pagetitle = 'Estimate';
-    $estimate = DB::table('v_estimate_master')->where('EstimateMasterID', $id)->get();
-    $estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
-    $company = DB::table('company')->get();
+    $estimate = DB::table('v_estimate_master')->where('EstimateMasterID', $id)->first();
+
+    //$estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
+    $estimate_detail = DB::table('estimate_detail')->where('EstimateMasterID', $id)->get();
+    $company = DB::table('company')->first();
     
     session()->forget('VHNO');
 
-    session::put('VHNO',$estimate[0]->EstimateNo);
+    session::put('VHNO',$estimate->EstimateNo);
 
 
 
@@ -185,9 +187,9 @@ class EstimateController extends Controller
   {
     // dd('hello');
     $pagetitle = 'Estimate';
-    $estimate = DB::table('v_estimate_master')->where('EstimateMasterID', $id)->get();
-    $estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
-    $company = DB::table('company')->get();
+    $estimate = DB::table('v_estimate_master')->where('EstimateMasterID', $id)->first();
+    $estimate_detail = DB::table('estimate_detail')->where('EstimateMasterID', $id)->get();
+    $company = DB::table('company')->first();
      $pdf = PDF::loadView ('estimate.estimate_view_pdf', compact('estimate', 'pagetitle', 'company', 'estimate_detail'));
     //return $pdf->download('pdfview.pdf');
       // $pdf->setpaper('A4', 'portiate');
@@ -212,7 +214,7 @@ class EstimateController extends Controller
       ->select(DB::raw('LPAD(IFNULL(MAX(ChallanMasterID),0)+1,4,0) as ChallanMasterID'))
       ->get();
     $challan_type = DB::table('challan_type')->get();
-    $estimate_master = DB::table('estimate_master')->where('EstimateMasterID', $id)->get();
+    $estimate_master = DB::table('estimate_master')->where('EstimateMasterID', $id)->first();
     $estimate_detail = DB::table('estimate_detail')->where('EstimateMasterID', $id)->get();
     // dd($estimate_detail);
 
@@ -246,6 +248,7 @@ class EstimateController extends Controller
       'Grandtotal' => $request->input('Grandtotal'),
       'CustomerNotes' => $request->input('CustomerNotes'),
       'DescriptionNotes' => $request->input('DescriptionNotes'),
+      'TermAndCondition' => $request->input('TermAndCondition'),
       'UserID' => session::get('UserID'),
     );
 
@@ -311,11 +314,11 @@ if($request->EstimateType=='IT')
 {
   $d = 'QOU';
   $data = DB::table('estimate_master')
-     ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,3)),0)+1,3,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,3)'),['QOU'])->get();    
+     ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,3)'),['QOU'])->get();    
 }elseif ($request->EstimateType=='Software') {
   $d = 'SO';
   $data = DB::table('estimate_master')
-     ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,3)),0)+1,3,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,2)'),['SO'])->get();    
+     ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,2)'),['SO'])->get();    
 }
 return view('ajax_estimate_vhno',compact('data','d'));
 }
@@ -331,24 +334,34 @@ if($request->EstimateType=='IT')
 {
   $d = 'QOU';
   $data = DB::table('estimate_master')
-     ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,3)),0)+1,3,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,3)'),['QOU'])->get();    
+     ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,3)'),['QOU'])->get();    
 }elseif ($request->EstimateType=='Software') {
   $d = 'SO';
   $data = DB::table('estimate_master')
-     ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,3)),0)+1,3,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,2)'),['SO'])->get();    
+     ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,2)'),['SO'])->get();    
 }
 return view('ajax_estimate_ref',compact('data','d'));
 }
 
   public  function EstimateRevised(request $request)
   {
+
+     $ref = explode('-', $request->input('ReferenceNo'));
+     $current_revision = $ref[1];
+
+     $current_revision_number =  preg_replace("/[^0-9]/", '', $current_revision);
+
+     $new_version_number = $current_revision_number+1;
+
+     $ReferenceNo =  $ref[0].'-R'.$new_version_number.'-'.$ref[2].'-'.$ref[3];
+
  
      $estimate_mst = array(
       'EstimateNo' => $request->input('EstimateNo'),
       'PartyID' => $request->input('PartyID'),
       'WalkinCustomerName' => $request->input('WalkinCustomerName'),
       'PlaceOfSupply' => $request->input('PlaceOfSupply'),
-      'ReferenceNo' => $request->input('ReferenceNo'),
+      'ReferenceNo' => $ReferenceNo,
       'Date' => $request->input('EstimateDate'),
       'EstimateDate' => $request->input('EstimateDate'),
       'ExpiryDate' => $request->input('DueDate'),
@@ -364,6 +377,7 @@ return view('ajax_estimate_ref',compact('data','d'));
       'Grandtotal' => $request->input('Grandtotal'),
       'CustomerNotes' => $request->input('CustomerNotes'),
       'DescriptionNotes' => $request->input('DescriptionNotes'),
+      'TermAndCondition' => $request->input('TermAndCondition'),
       'UserID' => session::get('UserID'),
     );
 
@@ -371,23 +385,18 @@ return view('ajax_estimate_ref',compact('data','d'));
     // dd($challan_mst);
     // $id= DB::table('')->insertGetId($data);
     // dd($request->EstimateMasterID);
-    $challanmaster = DB::table('estimate_master')->where('EstimateMasterID', $request->EstimateMasterID)->update($estimate_mst);
 
-      $challanmasterdelete = DB::table('estimate_detail')->where('EstimateMasterID', $request->EstimateMasterID)->delete();
-
+     $EstimateMasterID = DB::table('estimate_master')->insertGetId($estimate_mst);
 
 
 
-
-    $EstimateMasterID=$request->EstimateMasterID;
-     
   // dd($ChallanMasterID);
     // when full payment is made
 
 
     // END OF SALE RETURN
 
-    //  start for item array from invoice
+    //  start for item array fromi Invoice
     for ($i = 0; $i < count($request->ItemID); $i++) {
       $estimate_detail = array(
        'EstimateMasterID' =>  $EstimateMasterID,
@@ -415,7 +424,7 @@ return view('ajax_estimate_ref',compact('data','d'));
     // end foreach
 
 
-    return redirect('Estimate')->with('error', 'Challan Saved')->with('class', 'success');
+    return redirect('Estimate')->with('error', 'Qoutation Revised Saved')->with('class', 'success');
   }
 
 }
