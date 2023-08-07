@@ -390,6 +390,8 @@ route::get('/EstimateViewPDF/{id}',[EstimateController::class,'EstimateViewPDF']
 Route::post('/ajax_estimate_vhno',[EstimateController::class,'ajax_estimate_vhno']);
 Route::post('/ajax_estimate_ref',[EstimateController::class,'ajax_estimate_ref']);
 route::post('/EstimateRevised/',[EstimateController::class,'EstimateRevised']);
+Route::post('/ajax_quotoinv',[EstimateController::class,'ajax_quotoinv']);
+
 
 
 //.............Complete Journal..............

@@ -34,6 +34,10 @@
         <div class="col-12">
           <div class="page-title-box d-print-block d-sm-flex align-items-center justify-content-between">
             <h4 class="mb-sm-0 font-size-18">Quotation</h4>
+            <div class="text-sm-end">
+              <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
+            <button type="button" id="QuotationToInvoice" data-id="{{$estimate->EstimateNo}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">Covert To Invoice</button>
+            </div>
           </div>
         </div>
       </div> 
@@ -290,5 +294,47 @@
 </div>
 </div>
 <!-- END: Content-->
+<script>
+    $("#QuotationToInvoice").click(function() {
+        var QoutationNo =$(this).attr("data-id");
+        console.log(QoutationNo);
 
+        if (QoutationNo != "") {
+            /*  $("#butsave").attr("disabled", "disabled"); */
+            // alert('next stage if else');
+            // console.log(EstimateType);
+            $.ajax({
+                url: "{{URL('/ajax_quotoinv')}}",
+                type: "POST",
+                data: {
+                    "_token": $("#csrf").val(),
+                    QoutationNo: QoutationNo,
+
+                },
+                cache: false,
+
+                success: function(data) {
+                  console.log(data);
+                  /*Swal.fire({
+                    icon: 'success',
+                    title: 'Qoutation Converted to Invoice Successfully',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    allowOutsideClick: false
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.replace('Invoice');
+                    } 
+                  }); 
+*/
+                }
+            });
+
+            $.ajax({});
+            
+
+        }
+
+    });
+</script>
 @endsection

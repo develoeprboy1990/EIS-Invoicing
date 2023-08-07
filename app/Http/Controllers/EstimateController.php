@@ -200,7 +200,7 @@ class EstimateController extends Controller
   public function EstimateEdit($id)
   {
     // dd($id);
-    $pagetitle = 'Estimate';
+    $pagetitle = 'Qoutation';
     $party = DB::table('party')->get();
 
     $tax = DB::table('tax')->get();
@@ -258,19 +258,9 @@ class EstimateController extends Controller
     // dd($request->EstimateMasterID);
     $challanmaster = DB::table('estimate_master')->where('EstimateMasterID', $request->EstimateMasterID)->update($estimate_mst);
 
-      $challanmasterdelete = DB::table('estimate_detail')->where('EstimateMasterID', $request->EstimateMasterID)->delete();
-
-
-
-
+    $challanmasterdelete = DB::table('estimate_detail')->where('EstimateMasterID', $request->EstimateMasterID)->delete();
 
     $EstimateMasterID=$request->EstimateMasterID;
-     
-  // dd($ChallanMasterID);
-    // when full payment is made
-
-
-    // END OF SALE RETURN
 
     //  start for item array from invoice
     for ($i = 0; $i < count($request->ItemID); $i++) {
@@ -343,8 +333,8 @@ if($request->EstimateType=='IT')
 return view('ajax_estimate_ref',compact('data','d'));
 }
 
-  public  function EstimateRevised(request $request)
-  {
+public  function EstimateRevised(request $request)
+{
 
      $ref = explode('-', $request->input('ReferenceNo'));
      $current_revision = $ref[1];
@@ -426,5 +416,73 @@ return view('ajax_estimate_ref',compact('data','d'));
 
     return redirect('Estimate')->with('error', 'Qoutation Revised Saved')->with('class', 'success');
   }
+
+
+public  function ajax_quotoinv(request $request)
+{
+
+  $QoutationNo = $request->input('QoutationNo');
+
+  $estimate_mst = DB::table('estimate_master')->where('EstimateNo',$QoutationNo)->orderBy('EstimateMasterID','DESC')->first();
+
+  $vhno = DB::table('invoice_master')
+     ->select( DB::raw('LPAD(IFNULL(MAX(right(InvoiceNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(InvoiceNo,3)'),['INV'])->get();    
+
+  $InvoiceNo = 'INV-'.$vhno[0];
+  /*$ReferenceNo ='INV-'.date(Y).'-'.$vhno[0];
+
+        $invoice_mst = array(
+              'InvoiceNo' => $InvoiceNo, 
+              'InvoiceType' => 'Invoice', 
+              'Date' => date('Y-m-d'),  
+              'PartyID' => $estimate_mst->PartyID, 
+              'WalkinCustomerName' => $estimate_mst->WalkinCustomerName, 
+              'ReferenceNo' => $ReferenceNo, 
+              'PaymentMode' => $estimate_mst->PaymentMode, 
+              'PaymentDetails' => $estimate_mst->PaymentDetails, 
+              'Subject' => $estimate_mst->Subject, 
+              'SubTotal' => $estimate_mst->SubTotal, 
+              'DiscountPer' => $estimate_mst->DiscountPer, 
+              'DiscountAmount' => $estimate_mst->DiscountAmount, 
+              'Total' => $estimate_mst->Total, 
+              'TaxType' => $estimate_mst->TaxType, 
+              'TaxPer' => $estimate_mst->Taxpercentage, 
+              'Tax' => $estimate_mst->grandtotaltax, 
+              'Shipping' => $estimate_mst->Shipping, 
+              'GrandTotal' => $estimate_mst->Grandtotal, 
+              'Paid' => $estimate_mst->amountPaid, 
+              'Balance' => $estimate_mst->amountDue, 
+              'CustomerNotes' => $estimate_mst->CustomerNotes,               
+              'DescriptionNotes' => $estimate_mst->DescriptionNotes,      
+              'UserID' => session::get('UserID'), 
+      );
+      
+     $InvoiceMasterID= DB::table('invoice_master')->insertGetId($invoice_mst);
+      $invoice_details = DB::table('estimate_detail')->where('EstimateMasterID', $estimate_mst->EstimateMasterID)->get();
+
+      foreach($invoice_details as $invoice_detail){
+
+          $invoice_det_data = array (
+            'InvoiceMasterID' =>  $InvoiceMasterID, 
+            'InvoiceNo' => $InvoiceNo, 
+            'ItemID' => $invoice_detail->ItemID,
+            'PartyID' => $invoice_detail->PartyID, 
+            'Qty' => $invoice_detail->Qty,
+            'Description' => $invoice_detail->Description,
+            'TaxPer' => $invoice_detail->Tax,
+            'Tax' => $invoice_detail->TaxVal,
+            'Rate' => $invoice_detail->Price,
+            'Total' => $invoice_detail->ItemTotal,
+            'Discount' => $invoice_detail->Discount,
+            'DiscountType' => $invoice_detail->DiscountType,
+            'Gross' => $invoice_detail->Gross,
+            'DiscountAmountItem' => $invoice_detail->DiscountAmountItem, 
+        );
+
+        $id= DB::table('invoice_detail')->insertGetId($invoice_det_data);
+      } */
+
+return response()->json(['success' => 'success', 'message' => $InvoiceNo]);
+}
 
 }
