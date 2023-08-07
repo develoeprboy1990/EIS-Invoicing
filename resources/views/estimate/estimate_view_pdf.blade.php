@@ -5,26 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Invoice</title>
     <style type="text/css">
-            @font-face {
-                font-family: 'Open Sans';
-                font-style: normal;
-                font-weight: normal;
-             }
-            @font-face {
-                font-family: 'Open Sans';
-                font-style: normal;
-                font-weight: bold;
-             }
-            @font-face {
-                font-family: 'Open Sans';
-                font-style: italic;
-                font-weight: normal;
-             }
-            @font-face {
-                font-family: 'Open Sans';
-                font-style: italic;
-                font-weight: bold;
-             }
+
+
             @page {
                 margin-top: 0.5cm;
                 margin-bottom: 0.5cm;
@@ -32,9 +14,9 @@
                 margin-right: 0.5cm;
             }
             body { 
+                font-family: 'Bookman Old Style', serif !important;
                     color: #000;
-                    margin: 0.02cm;
-                    font-family: 'Open Sans', sans-serif;
+                    margin: 0.02cm; 
                     font-size: 11pt;
                     line-height: 100%;
                 }
@@ -244,11 +226,7 @@
  
             .pagenum:before {
                 content: counter(page);
-            }
-            .pagenum,.pagecount {
-                font-family: sans-serif;
-            }
-
+            } 
             #xyz_main {
                 width: 1000px;
                 border: 0px solid #666666;
