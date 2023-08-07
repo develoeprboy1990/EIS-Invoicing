@@ -426,38 +426,39 @@ public  function ajax_quotoinv(request $request)
   $estimate_mst = DB::table('estimate_master')->where('EstimateNo',$QoutationNo)->orderBy('EstimateMasterID','DESC')->first();
 
   $vhno = DB::table('invoice_master')
-     ->select( DB::raw('LPAD(IFNULL(MAX(right(InvoiceNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(InvoiceNo,3)'),['INV'])->get();    
+     ->select( DB::raw('LPAD(IFNULL(MAX(right(InvoiceNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(InvoiceNo,3)'),['INV'])->get(); 
 
-  $InvoiceNo = 'INV-'.$vhno[0];
-  /*$ReferenceNo ='INV-'.date(Y).'-'.$vhno[0];
 
-        $invoice_mst = array(
+
+  $InvoiceNo = 'INV-'.$vhno[0]->VHNO;
+  $ReferenceNo = 'INV-'.date('Y').'-'.$vhno[0]->VHNO;
+
+          $invoice_mst = array(
               'InvoiceNo' => $InvoiceNo, 
               'InvoiceType' => 'Invoice', 
               'Date' => date('Y-m-d'),  
               'PartyID' => $estimate_mst->PartyID, 
               'WalkinCustomerName' => $estimate_mst->WalkinCustomerName, 
               'ReferenceNo' => $ReferenceNo, 
-              'PaymentMode' => $estimate_mst->PaymentMode, 
-              'PaymentDetails' => $estimate_mst->PaymentDetails, 
+              'PaymentMode' => 'Cash', 
               'Subject' => $estimate_mst->Subject, 
               'SubTotal' => $estimate_mst->SubTotal, 
               'DiscountPer' => $estimate_mst->DiscountPer, 
-              'DiscountAmount' => $estimate_mst->DiscountAmount, 
+              'DiscountAmount' => $estimate_mst->Discount, 
               'Total' => $estimate_mst->Total, 
               'TaxType' => $estimate_mst->TaxType, 
-              'TaxPer' => $estimate_mst->Taxpercentage, 
-              'Tax' => $estimate_mst->grandtotaltax, 
+              'TaxPer' => $estimate_mst->TaxPer, 
+              'Tax' => $estimate_mst->Tax, 
               'Shipping' => $estimate_mst->Shipping, 
-              'GrandTotal' => $estimate_mst->Grandtotal, 
-              'Paid' => $estimate_mst->amountPaid, 
-              'Balance' => $estimate_mst->amountDue, 
+              'GrandTotal' => $estimate_mst->GrandTotal, 
               'CustomerNotes' => $estimate_mst->CustomerNotes,               
-              'DescriptionNotes' => $estimate_mst->DescriptionNotes,      
+              'DescriptionNotes' => $estimate_mst->DescriptionNotes, 
+              'Paid' => 0, 
+              'Balance' => $request->GrandTotal,      
               'UserID' => session::get('UserID'), 
       );
       
-     $InvoiceMasterID= DB::table('invoice_master')->insertGetId($invoice_mst);
+   $InvoiceMasterID= DB::table('invoice_master')->insertGetId($invoice_mst);
       $invoice_details = DB::table('estimate_detail')->where('EstimateMasterID', $estimate_mst->EstimateMasterID)->get();
 
       foreach($invoice_details as $invoice_detail){
@@ -466,23 +467,23 @@ public  function ajax_quotoinv(request $request)
             'InvoiceMasterID' =>  $InvoiceMasterID, 
             'InvoiceNo' => $InvoiceNo, 
             'ItemID' => $invoice_detail->ItemID,
-            'PartyID' => $invoice_detail->PartyID, 
+            'PartyID' => $estimate_mst->PartyID, 
             'Qty' => $invoice_detail->Qty,
             'Description' => $invoice_detail->Description,
-            'TaxPer' => $invoice_detail->Tax,
-            'Tax' => $invoice_detail->TaxVal,
-            'Rate' => $invoice_detail->Price,
-            'Total' => $invoice_detail->ItemTotal,
+            'TaxPer' => $invoice_detail->TaxPer,
+            'Tax' => $invoice_detail->Tax,
+            'Rate' => $invoice_detail->Rate,
+            'Total' => $invoice_detail->Total,
             'Discount' => $invoice_detail->Discount,
-            'DiscountType' => $invoice_detail->DiscountType,
+            'DiscountType' => $invoice_detail->Discount,
             'Gross' => $invoice_detail->Gross,
             'DiscountAmountItem' => $invoice_detail->DiscountAmountItem, 
         );
 
         $id= DB::table('invoice_detail')->insertGetId($invoice_det_data);
-      } */
+      } 
 
-return response()->json(['success' => 'success', 'message' => $InvoiceNo]);
+return response()->json(['success' => 'success', 'message' => $InvoiceMasterID]);
 }
 
 }

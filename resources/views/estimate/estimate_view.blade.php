@@ -36,7 +36,7 @@
             <h4 class="mb-sm-0 font-size-18">Quotation</h4>
             <div class="text-sm-end">
               <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-            <button type="button" id="QuotationToInvoice" data-id="{{$estimate->EstimateNo}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">Covert To Invoice</button>
+            <button type="button" id="QuotationToInvoice" data-id="{{$estimate->EstimateNo}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">Convert To Invoice</button>
             </div>
           </div>
         </div>
@@ -315,7 +315,7 @@
 
                 success: function(data) {
                   console.log(data);
-                  /*Swal.fire({
+                  Swal.fire({
                     icon: 'success',
                     title: 'Qoutation Converted to Invoice Successfully',
                     showConfirmButton: true,
@@ -323,10 +323,9 @@
                     allowOutsideClick: false
                   }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.replace('Invoice');
+                      window.location.href = "{{ url('Invoice')}}";
                     } 
                   }); 
-*/
                 }
             });
 
