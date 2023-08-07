@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 03, 2023 at 09:28 AM
+-- Generation Time: Aug 07, 2023 at 09:30 AM
 -- Server version: 8.0.27
 -- PHP Version: 8.1.0
 
@@ -389,7 +389,7 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`CompanyID`, `Name`, `Name2`, `TRN`, `Currency`, `Mobile`, `Contact`, `Email`, `Website`, `Address`, `Logo`, `BackgroundLogo`, `CreatedDate`, `UpdatedDate`, `Signature`, `DigitalSignature`, `EstimateInvoiceTitle`, `SaleInvoiceTitle`, `DeliveryChallanTitle`, `CreditNoteTitle`, `PurchaseInvoiceTitle`, `DebitNoteTitle`) VALUES
-(1, 'Allianz Marketing Management', NULL, '1111', 'AED', NULL, '@+971 55 192 3008', 'info@almm.ae', 'www.almm.ae', 'Office 1212 Clover Bay Tower Business Bay Dubai PO Box :84003', '1665053385.jpg', '1665053385.jpg', '2022-10-06 10:52:20', '2022-10-06 10:52:20', 'fayyaz sahb.png', '<h2><strong>Finance Director,</strong></h2>\r\n\r\n<p><strong>Kashif</strong></p>', 'Quotation', 'Sale Inoice by', 'Delivery Note', 'Credit Note', 'Purchase Bill', 'Debit Note');
+(1, 'EXTENSIVE IT SERVICES', NULL, '1111', 'AED', NULL, '+971 4 584 8310, 058 591 9050', 'sales@eits.ae', 'www.eits.ae', 'Office 1807, Clover Bay Tower, Business Bay, Dubai, U. A, E.', '1691389419.png', '1665053385.jpg', '2023-08-07 06:23:39', '2023-08-07 06:23:39', 'fayyaz sahb.png', '<h2><strong>Finance Director,</strong></h2>\r\n\r\n<p><strong>Kashif</strong></p>', 'Quotation', 'Sale Inoice by', 'Delivery Note', 'Credit Note', 'Purchase Bill', 'Debit Note');
 
 -- --------------------------------------------------------
 
@@ -415,6 +415,42 @@ CREATE TABLE `estimate_detail` (
   `DiscountAmountItem` double(12,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
+--
+-- Dumping data for table `estimate_detail`
+--
+
+INSERT INTO `estimate_detail` (`EstimateDetailID`, `EstimateMasterID`, `EstimateNo`, `EstimateDate`, `ItemID`, `Description`, `Qty`, `Rate`, `Discount`, `DiscountType`, `TaxPer`, `Tax`, `Total`, `Gross`, `DiscountAmountItem`) VALUES
+(25, 2, 'SO-001', '2023-08-04', NULL, 'Includes:\r\nPOS machine', 1, 4000.00, 0.00, 1.00, 5.00, 200.00, 4000.00, 4000.00, 0.00),
+(26, 2, 'SO-001', '2023-08-04', NULL, 'Yearly Cloud', 1, 400.00, 0.00, 1.00, 5.00, 20.00, 400.00, 400.00, 0.00),
+(32, 3, 'QOU-001', NULL, NULL, 'ZKT Figerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
+(33, 3, 'QOU-001', NULL, NULL, 'ZKT Slave', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
+(34, 3, 'QOU-001', NULL, NULL, 'MiFare (Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
+(35, 3, 'QOU-001', NULL, NULL, 'MiFare (Printed)', 10, 35.00, 0.00, 1.00, 5.00, 17.50, 332.50, 350.00, 0.00),
+(42, 5, 'QUO-00001', NULL, NULL, 'ZKT Fingerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
+(43, 5, 'QUO-00001', NULL, NULL, 'ZKT Slave Fingerprint Reader', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
+(44, 5, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
+(45, 5, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Printed)', 18, 35.00, 0.00, 1.00, 5.00, 31.50, 630.00, 630.00, 0.00),
+(46, 5, 'QUO-00001', NULL, NULL, 'CAT 6 Cable, 23 AWG', 1, 120.00, 0.00, 1.00, 5.00, 6.00, 120.00, 120.00, 0.00),
+(47, 5, 'QUO-00001', NULL, NULL, 'Servics Charges.\r\n-Cable\r\n-Time Attendance\r\n-Door\r\n-Software Installation,', 1, 550.00, 0.00, 1.00, 5.00, 27.50, 550.00, 550.00, 0.00),
+(48, 6, 'QUO-00001', NULL, NULL, 'ZKT Fingerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
+(49, 6, 'QUO-00001', NULL, NULL, 'ZKT Slave Fingerprint Reader', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
+(50, 6, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
+(51, 6, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Printed)', 18, 35.00, 0.00, 1.00, 5.00, 31.50, 630.00, 630.00, 0.00),
+(52, 6, 'QUO-00001', NULL, NULL, 'CAT 6 Cable, 23 AWG', 1, 120.00, 0.00, 1.00, 5.00, 6.00, 120.00, 120.00, 0.00),
+(53, 6, 'QUO-00001', NULL, NULL, 'Servics Charges.\r\n-Cable\r\n-Time Attendance\r\n-Door\r\n-Software Installation,', 1, 550.00, 0.00, 1.00, 5.00, 27.50, 550.00, 550.00, 0.00),
+(84, 4, 'QUO-00001', NULL, NULL, 'ZKT Fingerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
+(85, 4, 'QUO-00001', NULL, NULL, 'ZKT Slave Fingerprint Reader', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
+(86, 4, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
+(87, 4, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Printed)', 18, 35.00, 0.00, 1.00, 5.00, 31.50, 630.00, 630.00, 0.00),
+(88, 4, 'QUO-00001', NULL, NULL, 'CAT 6 Cable, 23 AWG', 1, 120.00, 0.00, 1.00, 5.00, 6.00, 120.00, 120.00, 0.00),
+(89, 4, 'QUO-00001', NULL, NULL, 'Servics Charges.\r\n-Cable\r\n-Time Attendance\r\n-Door\r\n-Software Installation,', 1, 550.00, 0.00, 1.00, 5.00, 27.50, 550.00, 550.00, 0.00),
+(90, 7, 'QUO-00001', NULL, NULL, 'ZKT Fingerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
+(91, 7, 'QUO-00001', NULL, NULL, 'ZKT Slave Fingerprint Reader', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
+(92, 7, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
+(93, 7, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Printed)', 18, 35.00, 0.00, 1.00, 5.00, 31.50, 630.00, 630.00, 0.00),
+(94, 7, 'QUO-00001', NULL, NULL, 'CAT 6 Cable, 23 AWG', 1, 120.00, 0.00, 1.00, 5.00, 6.00, 120.00, 120.00, 0.00),
+(95, 7, 'QUO-00001', NULL, NULL, 'Servics Charges.\r\n-Cable\r\n-Time Attendance\r\n-Door\r\n-Software Installation,', 1, 550.00, 0.00, 1.00, 5.00, 27.50, 550.00, 550.00, 0.00);
+
 -- --------------------------------------------------------
 
 --
@@ -424,6 +460,7 @@ CREATE TABLE `estimate_detail` (
 CREATE TABLE `estimate_master` (
   `EstimateMasterID` int NOT NULL,
   `EstimateNo` varchar(10) DEFAULT NULL,
+  `EstimateType` varchar(255) DEFAULT NULL,
   `PartyID` int DEFAULT NULL,
   `WalkinCustomerName` varchar(55) DEFAULT NULL,
   `PlaceOfSupply` varchar(25) DEFAULT NULL,
@@ -440,13 +477,40 @@ CREATE TABLE `estimate_master` (
   `Discount` double(8,2) DEFAULT NULL,
   `Shipping` double(8,2) DEFAULT NULL,
   `GrandTotal` double(8,2) DEFAULT NULL,
-  `CustomerNotes` varchar(255) DEFAULT NULL,
-  `DescriptionNotes` varchar(255) DEFAULT NULL,
-  `TermAndCondition` varchar(255) DEFAULT NULL,
+  `CustomerNotes` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+  `DescriptionNotes` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+  `TermAndCondition` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
   `File` varchar(75) DEFAULT NULL,
   `UserID` int DEFAULT NULL,
-  `Subject` varchar(255) DEFAULT NULL
+  `Subject` varchar(255) DEFAULT NULL,
+  `CreatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `estimate_master`
+--
+
+INSERT INTO `estimate_master` (`EstimateMasterID`, `EstimateNo`, `EstimateType`, `PartyID`, `WalkinCustomerName`, `PlaceOfSupply`, `ReferenceNo`, `TaxType`, `EstimateDate`, `Date`, `ExpiryDate`, `SubTotal`, `TaxPer`, `Tax`, `Total`, `DiscountPer`, `Discount`, `Shipping`, `GrandTotal`, `CustomerNotes`, `DescriptionNotes`, `TermAndCondition`, `File`, `UserID`, `Subject`, `CreatedAt`) VALUES
+(4, 'QUO-00001', NULL, 2216, NULL, NULL, 'QUO-R0-00001-2023', 'TaxExclusive', '2023-08-07', '2023-08-07', '2023-08-07', 2388.00, NULL, 119.40, 2388.00, 0.00, 0.00, 0.00, 2507.40, '<ol>\r\n	<li>Cable Pulling, Termination and Configuration.</li>\r\n	<li>Supply, Installation and Configuration of Time attendance System.</li>\r\n</ol>', '<ol>\r\n	<li>Any approval or NOC from any Local Authorities or Government.</li>\r\n	<li>Any extra items not mentioned in contract.</li>\r\n</ol>', '<ol>\r\n	<li>Amount in AED,\r\n	<ul>\r\n		<li>50% Advance (Non-Refundable)</li>\r\n		<li>50% After completion</li>\r\n	</ul>\r\n	</li>\r\n	<li>Quotation valid for 20 days from date of submission.</li>\r\n	<li>One-year warranty for the devices provided by EIS. Liquid and Physical Damage is not covered.</li>\r\n	<li>Any Additional work will be charged as variation.</li>\r\n	<li>Each additional access card will be charged 70 AED which includes Printing, delivery and Configuration of card in the machine.</li>\r\n</ol>', NULL, 1, 'TIME ATTENDANCE SYSTEM', '2023-08-07 05:38:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `estimate_type`
+--
+
+CREATE TABLE `estimate_type` (
+  `EstimateTypeID` int NOT NULL,
+  `EstimateType` varchar(75) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `estimate_type`
+--
+
+INSERT INTO `estimate_type` (`EstimateTypeID`, `EstimateType`) VALUES
+(1, 'IT'),
+(2, 'Software');
 
 -- --------------------------------------------------------
 
@@ -681,7 +745,9 @@ CREATE TABLE `party` (
 --
 
 INSERT INTO `party` (`PartyID`, `PartyName`, `TRN`, `Address`, `City`, `Mobile`, `Phone`, `Email`, `Website`, `Active`, `InvoiceDueDays`, `eDate`) VALUES
-(1, 'Walkin Customer', '00000', '000000', NULL, '0000', '00000', '00000', '0000', 'Yes', 0, '2022-07-08 04:12:14');
+(1, 'Walkin Customer', '00000', '000000', NULL, '0000', '00000', '00000', '0000', 'Yes', 0, '2022-07-08 04:12:14'),
+(2215, 'Shnill Electronics', '11111', 'Sharjah, UAE', NULL, '+971 50 502 4148', NULL, NULL, NULL, 'Yes', NULL, '2023-08-04 12:41:42'),
+(2216, 'Blue Water Shipping Middel East', NULL, '2804, Al Moosa Tower 2, Sheikh Zaid Road, Dubai U.A.E', NULL, '054 3970096', NULL, NULL, NULL, 'Yes', NULL, '2023-08-07 05:33:42');
 
 -- --------------------------------------------------------
 
@@ -1973,8 +2039,8 @@ CREATE TABLE `v_estimate_master` (
 ,`ReferenceNo` varchar(25)
 ,`EstimateDate` date
 ,`Total` double(8,2)
-,`CustomerNotes` varchar(255)
-,`TermAndCondition` varchar(255)
+,`CustomerNotes` text
+,`TermAndCondition` text
 ,`File` varchar(75)
 ,`UserID` int
 ,`Subject` varchar(255)
@@ -1989,7 +2055,7 @@ CREATE TABLE `v_estimate_master` (
 ,`Discount` double(8,2)
 ,`WalkinCustomerName` varchar(55)
 ,`Shipping` double(8,2)
-,`DescriptionNotes` varchar(255)
+,`DescriptionNotes` text
 ,`ExpiryDate` date
 ,`GrandTotal` double(8,2)
 ,`TRN` varchar(150)
@@ -2859,7 +2925,7 @@ CREATE TABLE `v_voucher_master` (
 --
 DROP TABLE IF EXISTS `v_bill_balance`;
 
-CREATE OR REPLACE VIEW `v_bill_balance`  AS SELECT `journal`.`InvoiceMasterID` AS `InvoiceMasterID`, sum(ifnull(`journal`.`Cr`,0)) AS `INVOICE`, sum(ifnull(`journal`.`Dr`,0)) AS `Payment`, (sum(ifnull(`journal`.`Cr`,0)) - sum(ifnull(`journal`.`Dr`,0))) AS `Remaining`, `journal`.`SupplierID` AS `SupplierID` FROM `journal` WHERE (`journal`.`ChartOfAccountID` = 210100) GROUP BY `journal`.`SupplierID`, `journal`.`InvoiceMasterID` ;
+CREATE OR REPLACE VIEW `v_bill_balance`  AS SELECT `journal`.`InvoiceMasterID` AS `InvoiceMasterID`, sum(ifnull(`journal`.`Cr`,0)) AS `INVOICE`, sum(ifnull(`journal`.`Dr`,0)) AS `Payment`, (sum(ifnull(`journal`.`Cr`,0)) - sum(ifnull(`journal`.`Dr`,0))) AS `Remaining`, `journal`.`SupplierID` AS `SupplierID` FROM `journal` WHERE (`journal`.`ChartOfAccountID` = 210100) GROUP BY `journal`.`SupplierID`, `journal`.`InvoiceMasterID`  ;
 
 -- --------------------------------------------------------
 
@@ -3370,6 +3436,12 @@ ALTER TABLE `estimate_master`
   ADD PRIMARY KEY (`EstimateMasterID`);
 
 --
+-- Indexes for table `estimate_type`
+--
+ALTER TABLE `estimate_type`
+  ADD PRIMARY KEY (`EstimateTypeID`);
+
+--
 -- Indexes for table `expense_detail`
 --
 ALTER TABLE `expense_detail`
@@ -3599,13 +3671,19 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `estimate_detail`
 --
 ALTER TABLE `estimate_detail`
-  MODIFY `EstimateDetailID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `EstimateDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `estimate_master`
 --
 ALTER TABLE `estimate_master`
-  MODIFY `EstimateMasterID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `EstimateMasterID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `estimate_type`
+--
+ALTER TABLE `estimate_type`
+  MODIFY `EstimateTypeID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `expense_detail`
@@ -3659,7 +3737,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `party`
 --
 ALTER TABLE `party`
-  MODIFY `PartyID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2215;
+  MODIFY `PartyID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2217;
 
 --
 -- AUTO_INCREMENT for table `payment_detail`
