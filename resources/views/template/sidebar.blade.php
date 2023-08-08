@@ -26,8 +26,8 @@
                        <!--  <li><a href="{{URL('/DeliveryChallan')}}" key="t-products" >Delivery Challans</a></li> -->
                         <li><a href="{{URL('/Estimate')}}" key="t-products" >Quotation</a></li>
                         <li><a href="{{URL('/Invoice')}}" key="t-products" >Invoices</a></li>
-                        <!-- <li><a href="{{URL('/Payment')}}" key="t-products" >Payment Received</a></li>
-                        <li><a href="{{URL('/BulkPaymentCreate')}}" key="t-products" >Bulk Payment Received</a></li>
+                         <li><a href="{{URL('/Payment')}}" key="t-products" >Payment Received</a></li>
+                        <!--<li><a href="{{URL('/BulkPaymentCreate')}}" key="t-products" >Bulk Payment Received</a></li>
                         <li><a href="{{URL('/CreditNote')}}" key="t-products" >Credit Notes</a></li> -->
                     </ul>
                 </li>
