@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 07, 2023 at 09:30 AM
+-- Generation Time: Aug 08, 2023 at 12:35 PM
 -- Server version: 8.0.27
 -- PHP Version: 8.1.0
 
@@ -381,15 +381,20 @@ CREATE TABLE `company` (
   `DeliveryChallanTitle` varchar(150) DEFAULT NULL,
   `CreditNoteTitle` varchar(150) DEFAULT NULL,
   `PurchaseInvoiceTitle` varchar(150) DEFAULT NULL,
-  `DebitNoteTitle` varchar(150) DEFAULT NULL
+  `DebitNoteTitle` varchar(150) DEFAULT NULL,
+  `ScopeofWork` text,
+  `Exclusion` text,
+  `TermsConditions` text,
+  `BankDetails1` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+  `BankDetails2` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company`
 --
 
-INSERT INTO `company` (`CompanyID`, `Name`, `Name2`, `TRN`, `Currency`, `Mobile`, `Contact`, `Email`, `Website`, `Address`, `Logo`, `BackgroundLogo`, `CreatedDate`, `UpdatedDate`, `Signature`, `DigitalSignature`, `EstimateInvoiceTitle`, `SaleInvoiceTitle`, `DeliveryChallanTitle`, `CreditNoteTitle`, `PurchaseInvoiceTitle`, `DebitNoteTitle`) VALUES
-(1, 'EXTENSIVE IT SERVICES', NULL, '1111', 'AED', NULL, '+971 4 584 8310, 058 591 9050', 'sales@eits.ae', 'www.eits.ae', 'Office 1807, Clover Bay Tower, Business Bay, Dubai, U. A, E.', '1691389419.png', '1665053385.jpg', '2023-08-07 06:23:39', '2023-08-07 06:23:39', 'fayyaz sahb.png', '<h2><strong>Finance Director,</strong></h2>\r\n\r\n<p><strong>Kashif</strong></p>', 'Quotation', 'Sale Inoice by', 'Delivery Note', 'Credit Note', 'Purchase Bill', 'Debit Note');
+INSERT INTO `company` (`CompanyID`, `Name`, `Name2`, `TRN`, `Currency`, `Mobile`, `Contact`, `Email`, `Website`, `Address`, `Logo`, `BackgroundLogo`, `CreatedDate`, `UpdatedDate`, `Signature`, `DigitalSignature`, `EstimateInvoiceTitle`, `SaleInvoiceTitle`, `DeliveryChallanTitle`, `CreditNoteTitle`, `PurchaseInvoiceTitle`, `DebitNoteTitle`, `ScopeofWork`, `Exclusion`, `TermsConditions`, `BankDetails1`, `BankDetails2`) VALUES
+(1, 'EXTENSIVE IT SERVICES', NULL, '1111', 'AED', NULL, '+971 4 584 8310, 058 591 9050', 'sales@eits.ae', 'www.eits.ae', 'Office 1807, Clover Bay Tower, Business Bay, Dubai, U. A, E.', '1691389419.png', '1665053385.jpg', '2023-08-08 12:20:07', '2023-08-08 12:20:07', 'fayyaz sahb.png', '<h2><strong>Finance Director,</strong></h2>\r\n\r\n<p><strong>Kashif</strong></p>', 'Quotation', 'Invoice', 'Delivery Note', 'Credit Note', 'Purchase Bill', 'Debit Note', '<ol>\r\n	<li>Cable Pulling, Termination and Configuration.</li>\r\n	<li>Supply, Installation and Configuration of Time attendance System.</li>\r\n</ol>', '<ol>\r\n	<li>Any approval or NOC from any Local Authorities or Government.</li>\r\n	<li>Any extra items not mentioned in contract.</li>\r\n</ol>', '<ol>\r\n	<li>Amount in AED,\r\n	<ul style=\"list-style-type:circle\">\r\n		<li>50% Advance (Non-Refundable)</li>\r\n		<li>50% After completion</li>\r\n	</ul>\r\n	</li>\r\n	<li>Quotation valid for 20 days from date of submission.</li>\r\n	<li>One-year warranty for the devices provided by EIS. Liquid and Physical Damage is not covered.</li>\r\n	<li>Any Additional work will be charged as variation.</li>\r\n	<li>Each additional access card will be charged 70 AED which includes Printing, delivery and Configuration of card in the machine.</li>\r\n</ol>', '<p>EXTENSIVE IT SERVICES<br />\r\nBank Name: Mashreq Bank<br />\r\nAccount No: 019100879199<br />\r\nIBAN: AE280330000019100879199</p>', '<p>EXTENSIVE IT SERVICES<br />\r\nBank Name: ADCB<br />\r\nAccount No: 12323776920001<br />\r\nIBAN: AE260030012323776920001</p>');
 
 -- --------------------------------------------------------
 
@@ -403,7 +408,7 @@ CREATE TABLE `estimate_detail` (
   `EstimateNo` varchar(10) DEFAULT NULL,
   `EstimateDate` date DEFAULT NULL,
   `ItemID` int DEFAULT NULL,
-  `Description` varchar(255) DEFAULT NULL,
+  `Description` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
   `Qty` int DEFAULT NULL,
   `Rate` double(8,2) DEFAULT NULL,
   `Discount` double(12,2) DEFAULT NULL,
@@ -420,36 +425,11 @@ CREATE TABLE `estimate_detail` (
 --
 
 INSERT INTO `estimate_detail` (`EstimateDetailID`, `EstimateMasterID`, `EstimateNo`, `EstimateDate`, `ItemID`, `Description`, `Qty`, `Rate`, `Discount`, `DiscountType`, `TaxPer`, `Tax`, `Total`, `Gross`, `DiscountAmountItem`) VALUES
-(25, 2, 'SO-001', '2023-08-04', NULL, 'Includes:\r\nPOS machine', 1, 4000.00, 0.00, 1.00, 5.00, 200.00, 4000.00, 4000.00, 0.00),
-(26, 2, 'SO-001', '2023-08-04', NULL, 'Yearly Cloud', 1, 400.00, 0.00, 1.00, 5.00, 20.00, 400.00, 400.00, 0.00),
-(32, 3, 'QOU-001', NULL, NULL, 'ZKT Figerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
-(33, 3, 'QOU-001', NULL, NULL, 'ZKT Slave', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
-(34, 3, 'QOU-001', NULL, NULL, 'MiFare (Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
-(35, 3, 'QOU-001', NULL, NULL, 'MiFare (Printed)', 10, 35.00, 0.00, 1.00, 5.00, 17.50, 332.50, 350.00, 0.00),
-(42, 5, 'QUO-00001', NULL, NULL, 'ZKT Fingerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
-(43, 5, 'QUO-00001', NULL, NULL, 'ZKT Slave Fingerprint Reader', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
-(44, 5, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
-(45, 5, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Printed)', 18, 35.00, 0.00, 1.00, 5.00, 31.50, 630.00, 630.00, 0.00),
-(46, 5, 'QUO-00001', NULL, NULL, 'CAT 6 Cable, 23 AWG', 1, 120.00, 0.00, 1.00, 5.00, 6.00, 120.00, 120.00, 0.00),
-(47, 5, 'QUO-00001', NULL, NULL, 'Servics Charges.\r\n-Cable\r\n-Time Attendance\r\n-Door\r\n-Software Installation,', 1, 550.00, 0.00, 1.00, 5.00, 27.50, 550.00, 550.00, 0.00),
-(48, 6, 'QUO-00001', NULL, NULL, 'ZKT Fingerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
-(49, 6, 'QUO-00001', NULL, NULL, 'ZKT Slave Fingerprint Reader', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
-(50, 6, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
-(51, 6, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Printed)', 18, 35.00, 0.00, 1.00, 5.00, 31.50, 630.00, 630.00, 0.00),
-(52, 6, 'QUO-00001', NULL, NULL, 'CAT 6 Cable, 23 AWG', 1, 120.00, 0.00, 1.00, 5.00, 6.00, 120.00, 120.00, 0.00),
-(53, 6, 'QUO-00001', NULL, NULL, 'Servics Charges.\r\n-Cable\r\n-Time Attendance\r\n-Door\r\n-Software Installation,', 1, 550.00, 0.00, 1.00, 5.00, 27.50, 550.00, 550.00, 0.00),
-(84, 4, 'QUO-00001', NULL, NULL, 'ZKT Fingerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
-(85, 4, 'QUO-00001', NULL, NULL, 'ZKT Slave Fingerprint Reader', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
-(86, 4, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
-(87, 4, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Printed)', 18, 35.00, 0.00, 1.00, 5.00, 31.50, 630.00, 630.00, 0.00),
-(88, 4, 'QUO-00001', NULL, NULL, 'CAT 6 Cable, 23 AWG', 1, 120.00, 0.00, 1.00, 5.00, 6.00, 120.00, 120.00, 0.00),
-(89, 4, 'QUO-00001', NULL, NULL, 'Servics Charges.\r\n-Cable\r\n-Time Attendance\r\n-Door\r\n-Software Installation,', 1, 550.00, 0.00, 1.00, 5.00, 27.50, 550.00, 550.00, 0.00),
-(90, 7, 'QUO-00001', NULL, NULL, 'ZKT Fingerprint', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
-(91, 7, 'QUO-00001', NULL, NULL, 'ZKT Slave Fingerprint Reader', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
-(92, 7, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Blank)', 5, 9.00, 0.00, 1.00, 5.00, 2.25, 45.00, 45.00, 0.00),
-(93, 7, 'QUO-00001', NULL, NULL, 'MiFare Access Cards(Printed)', 18, 35.00, 0.00, 1.00, 5.00, 31.50, 630.00, 630.00, 0.00),
-(94, 7, 'QUO-00001', NULL, NULL, 'CAT 6 Cable, 23 AWG', 1, 120.00, 0.00, 1.00, 5.00, 6.00, 120.00, 120.00, 0.00),
-(95, 7, 'QUO-00001', NULL, NULL, 'Servics Charges.\r\n-Cable\r\n-Time Attendance\r\n-Door\r\n-Software Installation,', 1, 550.00, 0.00, 1.00, 5.00, 27.50, 550.00, 550.00, 0.00);
+(13, 8, 'QUO-00002', '2023-08-08', 25, 'tesast', 1, 23.00, 0.00, 1.00, 0.00, 0.00, 23.00, 23.00, 0.00),
+(15, 9, 'QUO-00001', NULL, 25, 'asdfasdf', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 644.10, 678.00, 0.00),
+(17, 11, 'QUO-00002', '2023-08-08', 22, NULL, 1, 100.00, 0.00, 1.00, 5.00, 5.00, 100.00, 100.00, 0.00),
+(18, 10, 'QUO-00001', NULL, 25, 'ZKT Fingerprint & Password Time Attendance Device with Standalone Software', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
+(19, 10, 'QUO-00001', NULL, 25, 'ZKT Slave Fingerprint Reader (Door Exit)', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 346.75, 365.00, 0.00);
 
 -- --------------------------------------------------------
 
@@ -491,7 +471,7 @@ CREATE TABLE `estimate_master` (
 --
 
 INSERT INTO `estimate_master` (`EstimateMasterID`, `EstimateNo`, `EstimateType`, `PartyID`, `WalkinCustomerName`, `PlaceOfSupply`, `ReferenceNo`, `TaxType`, `EstimateDate`, `Date`, `ExpiryDate`, `SubTotal`, `TaxPer`, `Tax`, `Total`, `DiscountPer`, `Discount`, `Shipping`, `GrandTotal`, `CustomerNotes`, `DescriptionNotes`, `TermAndCondition`, `File`, `UserID`, `Subject`, `CreatedAt`) VALUES
-(4, 'QUO-00001', NULL, 2216, NULL, NULL, 'QUO-R0-00001-2023', 'TaxExclusive', '2023-08-07', '2023-08-07', '2023-08-07', 2388.00, NULL, 119.40, 2388.00, 0.00, 0.00, 0.00, 2507.40, '<ol>\r\n	<li>Cable Pulling, Termination and Configuration.</li>\r\n	<li>Supply, Installation and Configuration of Time attendance System.</li>\r\n</ol>', '<ol>\r\n	<li>Any approval or NOC from any Local Authorities or Government.</li>\r\n	<li>Any extra items not mentioned in contract.</li>\r\n</ol>', '<ol>\r\n	<li>Amount in AED,\r\n	<ul>\r\n		<li>50% Advance (Non-Refundable)</li>\r\n		<li>50% After completion</li>\r\n	</ul>\r\n	</li>\r\n	<li>Quotation valid for 20 days from date of submission.</li>\r\n	<li>One-year warranty for the devices provided by EIS. Liquid and Physical Damage is not covered.</li>\r\n	<li>Any Additional work will be charged as variation.</li>\r\n	<li>Each additional access card will be charged 70 AED which includes Printing, delivery and Configuration of card in the machine.</li>\r\n</ol>', NULL, 1, 'TIME ATTENDANCE SYSTEM', '2023-08-07 05:38:21');
+(10, 'QUO-00001', 'IT', 2216, NULL, NULL, 'QUO-R0-23-00001', 'TaxExclusive', '2023-08-08', '2023-08-08', '2023-08-08', 1043.00, NULL, 52.15, 1043.00, 0.00, 0.00, 0.00, 1095.15, '<ol>\r\n	<li>Cable Pulling, Termination and Configuration.</li>\r\n	<li>Supply, Installation and Configuration of Time attendance System.</li>\r\n</ol>', '<ol>\r\n	<li>Any approval or NOC from any Local Authorities or Government.</li>\r\n	<li>Any extra items not mentioned in contract.</li>\r\n</ol>', '<ol>\n	<li>Amount in AED,</li>\n</ol>\n\n<ul style=\"list-style-type:circle\">\n	<li>50% Advance (Non-Refundable)</li>\n	<li>50% After completion</li>\n</ul>\n\n<ol>\n	<li>Quotation valid for 20 days from date of submission.</li>\n	<li>One-year warranty for the devices provided by EIS. Liquid and Physical Damage is not covered.</li>\n	<li>Any Additional work will be charged as variation.</li>\n	<li>Each additional access card will be charged 70 AED which includes Printing, delivery and Configuration of card in the machine.</li>\n</ol>', NULL, 1, 'TIME ATTENDANCE SYSTEM', '2023-08-08 11:20:21');
 
 -- --------------------------------------------------------
 
@@ -586,6 +566,14 @@ CREATE TABLE `invoice_detail` (
   `Total` double(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `invoice_detail`
+--
+
+INSERT INTO `invoice_detail` (`InvoiceDetailID`, `InvoiceMasterID`, `InvoiceNo`, `ItemID`, `Description`, `SupplierID`, `PartyID`, `Qty`, `Rate`, `TaxPer`, `Tax`, `Discount`, `DiscountType`, `DiscountAmountItem`, `Gross`, `Total`) VALUES
+(22, 5, 'INV-00004', 25, 'ZKT Fingerprint & Password Time Attendance Device with Standalone Software', NULL, 2216, 1, 678.00, 5.00, 33.90, 0.00, 1.00, 0.00, 678.00, 678.00),
+(23, 5, 'INV-00004', 25, 'ZKT Slave Fingerprint Reader (Door Exit)', NULL, 2216, 1, 365.00, 5.00, 18.25, 0.00, 1.00, 0.00, 365.00, 346.75);
+
 -- --------------------------------------------------------
 
 --
@@ -620,6 +608,13 @@ CREATE TABLE `invoice_master` (
   `Paid` double(8,2) DEFAULT NULL,
   `Balance` double(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `invoice_master`
+--
+
+INSERT INTO `invoice_master` (`InvoiceMasterID`, `InvoiceNo`, `InvoiceType`, `Date`, `DueDate`, `PartyID`, `WalkinCustomerName`, `SupplierID`, `ReferenceNo`, `UserID`, `PaymentMode`, `PaymentDetails`, `Subject`, `TaxType`, `DescriptionNotes`, `CustomerNotes`, `SubTotal`, `DiscountPer`, `Total`, `DiscountAmount`, `TaxPer`, `Tax`, `Shipping`, `GrandTotal`, `Paid`, `Balance`) VALUES
+(5, 'INV-00004', 'Invoice', '2023-08-08', NULL, 2216, NULL, NULL, 'INV-23-00004', 1, 'Cash', NULL, 'TIME ATTENDANCE SYSTEM', 'TaxExclusive', '<ol>\r\n	<li>Any approval or NOC from any Local Authorities or Government.</li>\r\n	<li>Any extra items not mentioned in contract.</li>\r\n</ol>', '<ol>\r\n	<li>Cable Pulling, Termination and Configuration.</li>\r\n	<li>Supply, Installation and Configuration of Time attendance System.</li>\r\n</ol>', 1043.00, 0.00, 1043.00, 0.00, NULL, 52.15, 0.00, 1095.15, 0.00, NULL);
 
 -- --------------------------------------------------------
 
@@ -668,9 +663,10 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`ItemID`, `ItemType`, `ItemCode`, `ItemName`, `UnitName`, `Taxable`, `Percentage`, `CostPrice`, `CostChartofAccountID`, `CostDescription`, `SellingPrice`, `SellingChartofAccountID`, `SellingDescription`) VALUES
-(22, NULL, NULL, 'Pepsi 1 Ltr', NULL, 'Yes', 5.00, 80.00, NULL, NULL, 100.00, NULL, NULL),
-(23, NULL, NULL, 'Malaysia Silver Pkg', NULL, 'No', NULL, 5000.00, NULL, NULL, 5500.00, NULL, NULL),
-(24, NULL, NULL, 'Sales', NULL, 'No', NULL, 80.00, NULL, NULL, 80.00, NULL, NULL);
+(22, 'Goods', NULL, 'Pepsi 1 Ltr', NULL, 'Yes', 5.00, 80.00, NULL, NULL, 100.00, NULL, NULL),
+(23, 'Goods', NULL, 'Malaysia Silver Pkg', NULL, 'No', NULL, 5000.00, NULL, NULL, 5500.00, NULL, NULL),
+(24, 'Goods', NULL, 'Sales', NULL, 'No', NULL, 80.00, NULL, NULL, 80.00, NULL, NULL),
+(25, 'Service', NULL, 'Service', NULL, 'No', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -699,6 +695,15 @@ CREATE TABLE `journal` (
   `BankReconcile` varchar(15) DEFAULT NULL,
   `ReconcileDate` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `journal`
+--
+
+INSERT INTO `journal` (`JournalID`, `VHNO`, `JournalType`, `ChartOfAccountID`, `PartyID`, `SupplierID`, `VoucherMstID`, `PettyMstID`, `InvoiceMasterID`, `ExpenseMasterID`, `PaymentMasterID`, `PurchasePaymentMasterID`, `Narration`, `Date`, `Dr`, `Cr`, `Trace`, `BankReconcile`, `ReconcileDate`) VALUES
+(4, 'INV-00004', NULL, 110400, 2216, NULL, NULL, NULL, 5, NULL, NULL, NULL, 'TIME ATTENDANCE SYSTEM', '2023-08-08', 1095.15, NULL, '123', NULL, NULL),
+(5, 'INV-00004', NULL, 410100, 2216, NULL, NULL, NULL, 5, NULL, NULL, NULL, 'TIME ATTENDANCE SYSTEM', '2023-08-08', NULL, 1043.00, '12345', NULL, NULL),
+(6, 'INV-00004', NULL, 210300, 2216, NULL, NULL, NULL, 5, NULL, NULL, NULL, 'TIME ATTENDANCE SYSTEM', '2023-08-08', NULL, 52.15, '12346', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1845,8 +1850,8 @@ INSERT INTO `voucher_type` (`VoucherTypeID`, `VoucherCode`, `VoucherTypeName`) V
 -- (See below for the actual view)
 --
 CREATE TABLE `v_bill_balance` (
-`InvoiceMasterID` int
-,`INVOICE` double(19,2)
+`INVOICE` double(19,2)
+,`InvoiceMasterID` int
 ,`Payment` double(19,2)
 ,`Remaining` double(22,2)
 ,`SupplierID` int
@@ -1859,9 +1864,9 @@ CREATE TABLE `v_bill_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_cashflow` (
-`Dr` double(19,2)
+`Balance` double(22,2)
 ,`Cr` double(19,2)
-,`Balance` double(22,2)
+,`Dr` double(19,2)
 ,`MonthName` varchar(37)
 );
 
@@ -1872,22 +1877,22 @@ CREATE TABLE `v_cashflow` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_challan_detail` (
-`ChallanDetailID` int
+`ChallanDate` date
+,`ChallanDetailID` int
 ,`ChallanMasterID` int
 ,`ChallanNo` varchar(10)
-,`ChallanDate` date
+,`Description` varchar(255)
+,`Discount` double(8,2)
+,`ItemCode` varchar(5)
 ,`ItemID` int
+,`ItemName` varchar(55)
+,`ItemType` varchar(55)
 ,`Qty` int
 ,`Rate` double(8,2)
 ,`TaxAmount` double(8,2)
 ,`TaxPer` double(8,2)
-,`Discount` double(8,2)
 ,`Total` double(8,2)
-,`ItemType` varchar(55)
-,`ItemCode` varchar(5)
-,`ItemName` varchar(55)
 ,`UnitName` varchar(10)
-,`Description` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -1897,37 +1902,37 @@ CREATE TABLE `v_challan_detail` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_challan_master` (
-`ChallanMasterID` int
+`Active` varchar(3)
+,`Address` varchar(75)
+,`ChallanDate` varchar(10)
+,`ChallanMasterID` int
 ,`ChallanNo` varchar(10)
+,`ChallanType` varchar(25)
+,`CustomerNotes` varchar(255)
+,`DescriptionNotes` varchar(255)
+,`DiscountAmount` double(8,2)
+,`DiscountPer` double(8,2)
+,`eDate` timestamp
+,`Email` varchar(25)
+,`File` varchar(75)
+,`GrandTotal` double(8,2)
+,`InvoiceDueDays` int
+,`Mobile` varchar(150)
 ,`PartyID` int
 ,`PartyName` varchar(150)
+,`Phone` varchar(25)
 ,`PlaceOfSupply` varchar(25)
 ,`ReferenceNo` varchar(25)
-,`ChallanDate` varchar(10)
-,`ChallanType` varchar(25)
-,`Total` double(8,2)
-,`CustomerNotes` varchar(255)
-,`TermAndCondition` varchar(255)
-,`File` varchar(75)
-,`TRN` varchar(150)
-,`Address` varchar(75)
-,`Mobile` varchar(150)
-,`Phone` varchar(25)
-,`Email` varchar(25)
-,`Website` varchar(150)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
-,`eDate` timestamp
-,`Subject` varchar(255)
-,`DescriptionNotes` varchar(255)
-,`WalkinCustomerName` varchar(75)
-,`DiscountPer` double(8,2)
-,`SubTotal` double(8,2)
-,`DiscountAmount` double(8,2)
-,`TaxPer` double(8,2)
-,`Tax` double(8,2)
 ,`Shipping` double(8,2)
-,`GrandTotal` double(8,2)
+,`Subject` varchar(255)
+,`SubTotal` double(8,2)
+,`Tax` double(8,2)
+,`TaxPer` double(8,2)
+,`TermAndCondition` varchar(255)
+,`Total` double(8,2)
+,`TRN` varchar(150)
+,`WalkinCustomerName` varchar(75)
+,`Website` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -1949,15 +1954,15 @@ CREATE TABLE `v_chartofaccount` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_chartofaccount_mini` (
-`ChartOfAccountID` int
-,`CODE` varchar(15)
+`Category` varchar(55)
+,`ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
-,`OpenDebit` int
-,`OpenCredit` int
+,`CODE` varchar(15)
 ,`L1` int
 ,`L2` int
 ,`L3` int
-,`Category` varchar(55)
+,`OpenCredit` int
+,`OpenDebit` int
 );
 
 -- --------------------------------------------------------
@@ -1967,40 +1972,40 @@ CREATE TABLE `v_chartofaccount_mini` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_delivery_challan` (
-`ChallanMasterID` int
+`Active` varchar(3)
+,`Address` varchar(75)
+,`Balance` double(8,2)
+,`ChallanDate` date
+,`ChallanMasterID` int
 ,`ChallanNo` varchar(10)
+,`ChallanType` varchar(25)
+,`CustomerNotes` varchar(255)
+,`DescriptionNotes` varchar(255)
+,`DiscountAmount` double(8,2)
+,`DiscountPer` double(8,2)
+,`eDate` timestamp
+,`Email` varchar(25)
+,`File` varchar(75)
+,`GrandTotal` double(8,2)
+,`InvoiceDueDays` int
+,`Mobile` varchar(150)
+,`Paid` double(8,2)
 ,`PartyID` int
+,`PartyName` varchar(150)
+,`Phone` varchar(25)
 ,`PlaceOfSupply` varchar(25)
 ,`ReferenceNo` varchar(25)
-,`ChallanDate` date
-,`ChallanType` varchar(25)
-,`Total` double(8,2)
-,`CustomerNotes` varchar(255)
-,`TermAndCondition` varchar(255)
-,`File` varchar(75)
-,`UserID` int
-,`PartyName` varchar(150)
-,`Address` varchar(75)
-,`Phone` varchar(25)
-,`Email` varchar(25)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
-,`TRN` varchar(150)
-,`Mobile` varchar(150)
-,`Website` varchar(150)
-,`eDate` timestamp
-,`Subject` varchar(255)
-,`DescriptionNotes` varchar(255)
-,`WalkinCustomerName` varchar(75)
-,`SubTotal` double(8,2)
-,`DiscountPer` double(8,2)
-,`DiscountAmount` double(8,2)
-,`TaxPer` double(8,2)
-,`Tax` double(8,2)
 ,`Shipping` double(8,2)
-,`GrandTotal` double(8,2)
-,`Paid` double(8,2)
-,`Balance` double(8,2)
+,`Subject` varchar(255)
+,`SubTotal` double(8,2)
+,`Tax` double(8,2)
+,`TaxPer` double(8,2)
+,`TermAndCondition` varchar(255)
+,`Total` double(8,2)
+,`TRN` varchar(150)
+,`UserID` int
+,`WalkinCustomerName` varchar(75)
+,`Website` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -2010,18 +2015,18 @@ CREATE TABLE `v_delivery_challan` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_estimate_detail` (
-`EstimateDetailID` int
+`Description` text
+,`EstimateDate` date
+,`EstimateDetailID` int
 ,`EstimateMasterID` int
 ,`EstimateNo` varchar(10)
-,`EstimateDate` date
 ,`ItemID` int
 ,`ItemName` varchar(55)
 ,`Qty` int
 ,`Rate` double(8,2)
-,`Total` double(8,2)
-,`Description` varchar(255)
-,`TaxPer` double(8,2)
 ,`Tax` double(8,2)
+,`TaxPer` double(8,2)
+,`Total` double(8,2)
 );
 
 -- --------------------------------------------------------
@@ -2031,39 +2036,39 @@ CREATE TABLE `v_estimate_detail` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_estimate_master` (
-`EstimateMasterID` int
+`Active` varchar(3)
+,`Address` varchar(75)
+,`CustomerNotes` text
+,`Date` date
+,`DescriptionNotes` text
+,`Discount` double(8,2)
+,`DiscountPer` double(8,2)
+,`eDate` timestamp
+,`Email` varchar(25)
+,`EstimateDate` date
+,`EstimateMasterID` int
 ,`EstimateNo` varchar(10)
+,`ExpiryDate` date
+,`File` varchar(75)
+,`GrandTotal` double(8,2)
+,`InvoiceDueDays` int
+,`Mobile` varchar(150)
 ,`PartyID` int
 ,`PartyName` varchar(150)
+,`Phone` varchar(25)
 ,`PlaceOfSupply` varchar(25)
 ,`ReferenceNo` varchar(25)
-,`EstimateDate` date
-,`Total` double(8,2)
-,`CustomerNotes` text
-,`TermAndCondition` text
-,`File` varchar(75)
-,`UserID` int
-,`Subject` varchar(255)
-,`Address` varchar(75)
-,`Phone` varchar(25)
-,`Email` varchar(25)
-,`Date` date
-,`SubTotal` double(8,2)
-,`TaxPer` double(8,2)
-,`Tax` double(8,2)
-,`DiscountPer` double(8,2)
-,`Discount` double(8,2)
-,`WalkinCustomerName` varchar(55)
 ,`Shipping` double(8,2)
-,`DescriptionNotes` text
-,`ExpiryDate` date
-,`GrandTotal` double(8,2)
+,`Subject` varchar(255)
+,`SubTotal` double(8,2)
+,`Tax` double(8,2)
+,`TaxPer` double(8,2)
+,`TermAndCondition` text
+,`Total` double(8,2)
 ,`TRN` varchar(150)
-,`Mobile` varchar(150)
+,`UserID` int
+,`WalkinCustomerName` varchar(55)
 ,`Website` varchar(150)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
-,`eDate` timestamp
 );
 
 -- --------------------------------------------------------
@@ -2073,16 +2078,16 @@ CREATE TABLE `v_estimate_master` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_expense` (
-`ExpenseMasterID` int
+`ChartOfAccountID` int
+,`ChartOfAccountName` varchar(75)
 ,`Date` date
 ,`Date1` varchar(10)
-,`ChartOfAccountID` int
-,`ChartOfAccountName` varchar(75)
-,`SupplierID` int
-,`SupplierName` varchar(150)
-,`ReferenceNo` varchar(55)
+,`ExpenseMasterID` int
 ,`ExpenseNo` varchar(55)
 ,`GrantTotal` double(8,2)
+,`ReferenceNo` varchar(55)
+,`SupplierID` int
+,`SupplierName` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -2092,9 +2097,9 @@ CREATE TABLE `v_expense` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_expense_chart` (
-`MonthName` varchar(69)
-,`Balance` double(22,2)
+`Balance` double(22,2)
 ,`ChartOfAccountName` varchar(75)
+,`MonthName` varchar(69)
 );
 
 -- --------------------------------------------------------
@@ -2104,17 +2109,17 @@ CREATE TABLE `v_expense_chart` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_expense_detail` (
-`ExpenseNo` varchar(55)
-,`Date` date
+`Amount` double(8,2)
+,`ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
+,`Date` date
 ,`ExpenseDetailID` int
 ,`ExpenseMasterID` int
-,`ChartOfAccountID` int
+,`ExpenseNo` varchar(55)
 ,`Notes` varchar(255)
-,`TaxPer` double(8,2)
-,`Tax` double(8,2)
-,`Amount` double(8,2)
 ,`SupplierName` varchar(150)
+,`Tax` double(8,2)
+,`TaxPer` double(8,2)
 );
 
 -- --------------------------------------------------------
@@ -2124,12 +2129,12 @@ CREATE TABLE `v_expense_detail` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_expense_master` (
-`Date` date
+`ChartOfAccountName` varchar(75)
+,`Date` date
 ,`ExpenseNo` varchar(55)
-,`ChartOfAccountName` varchar(75)
+,`GrantTotal` double(8,2)
 ,`ReferenceNo` varchar(55)
 ,`SupplierName` varchar(150)
-,`GrantTotal` double(8,2)
 );
 
 -- --------------------------------------------------------
@@ -2139,9 +2144,9 @@ CREATE TABLE `v_expense_master` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_income_exp_chart` (
-`Dr` double(19,2)
+`Balance` double(22,2)
 ,`Cr` double(19,2)
-,`Balance` double(22,2)
+,`Dr` double(19,2)
 ,`MonthName` varchar(37)
 );
 
@@ -2152,11 +2157,11 @@ CREATE TABLE `v_income_exp_chart` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_invoice_bal` (
-`PartyID` int
-,`InvoiceMasterID` int
+`due` double(22,2)
 ,`INVOICE` double(19,2)
+,`InvoiceMasterID` int
 ,`PAID` double(19,2)
-,`due` double(22,2)
+,`PartyID` int
 );
 
 -- --------------------------------------------------------
@@ -2166,17 +2171,17 @@ CREATE TABLE `v_invoice_bal` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_invoice_balance` (
-`InvoiceMasterID` int
-,`PartyID` int
-,`InvoiceNo` varchar(10)
-,`INVOICE` double(19,2)
-,`PAID` double(19,2)
-,`BALANCE` double(19,2)
+`BALANCE` double(19,2)
 ,`Date` date
 ,`DueDate` date
-,`ReferenceNo` varchar(255)
-,`PartyName` varchar(150)
 ,`GrandTotal` double(8,2)
+,`INVOICE` double(19,2)
+,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
+,`PAID` double(19,2)
+,`PartyID` int
+,`PartyName` varchar(150)
+,`ReferenceNo` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -2186,43 +2191,43 @@ CREATE TABLE `v_invoice_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_invoice_both` (
-`InvoiceMasterID` int
-,`Date` date
-,`UserID` int
-,`PaymentMode` varchar(25)
-,`Total` double(8,2)
-,`Paid` double(8,2)
-,`Balance` double(22,2)
-,`DueDate` date
-,`PartyName` varchar(150)
+`Active` varchar(3)
 ,`Address` varchar(75)
-,`Phone` varchar(25)
-,`Email` varchar(25)
-,`InvoiceNo` varchar(10)
+,`Balance` double(22,2)
 ,`CustomerNotes` varchar(255)
-,`Subject` varchar(255)
-,`ReferenceNo` varchar(255)
-,`SupplierID` int
-,`PartyID` int
-,`SubTotal` double(8,2)
-,`DiscountPer` double(8,2)
-,`DiscountAmount` double(8,2)
-,`InvoiceType` varchar(30)
-,`WalkinCustomerName` varchar(155)
+,`Date` date
 ,`DescriptionNotes` varchar(255)
-,`TaxPer` double(8,2)
-,`Tax` double(8,2)
-,`Shipping` double(8,2)
-,`GrandTotal` double(8,2)
-,`Mobile` varchar(150)
-,`TRN` varchar(150)
-,`Website` varchar(150)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
+,`DiscountAmount` double(8,2)
+,`DiscountPer` double(8,2)
+,`DueDate` date
 ,`eDate` timestamp
-,`PaymentDetails` varchar(255)
+,`Email` varchar(25)
 ,`FullName` varchar(55)
+,`GrandTotal` double(8,2)
+,`InvoiceDueDays` int
+,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
+,`InvoiceType` varchar(30)
+,`Mobile` varchar(150)
+,`Paid` double(8,2)
+,`PartyID` int
+,`PartyName` varchar(150)
+,`PaymentDetails` varchar(255)
+,`PaymentMode` varchar(25)
+,`Phone` varchar(25)
+,`ReferenceNo` varchar(255)
+,`Shipping` double(8,2)
+,`Subject` varchar(255)
+,`SubTotal` double(8,2)
+,`SupplierID` int
 ,`SupplierName` varchar(150)
+,`Tax` double(8,2)
+,`TaxPer` double(8,2)
+,`Total` double(8,2)
+,`TRN` varchar(150)
+,`UserID` int
+,`WalkinCustomerName` varchar(155)
+,`Website` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -2232,22 +2237,22 @@ CREATE TABLE `v_invoice_both` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_invoice_detail` (
-`InvoiceNo` varchar(10)
-,`Date` date
+`Date` date
+,`Description` varchar(255)
 ,`InvoiceDetailID` int
 ,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
+,`InvoiceType` varchar(30)
+,`ItemCode` varchar(5)
 ,`ItemID` int
-,`SupplierID` int
+,`ItemName` varchar(55)
 ,`PartyID` int
 ,`Qty` int
 ,`Rate` double(8,2)
-,`Total` double(8,2)
-,`ItemCode` varchar(5)
-,`ItemName` varchar(55)
-,`Description` varchar(255)
-,`TaxPer` double(8,2)
+,`SupplierID` int
 ,`Tax` double(8,2)
-,`InvoiceType` varchar(30)
+,`TaxPer` double(8,2)
+,`Total` double(8,2)
 );
 
 -- --------------------------------------------------------
@@ -2257,43 +2262,43 @@ CREATE TABLE `v_invoice_detail` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_invoice_master` (
-`InvoiceMasterID` int
-,`Date` date
-,`UserID` int
-,`PaymentMode` varchar(25)
-,`Total` double(8,2)
-,`Paid` double(8,2)
-,`Balance` double(22,2)
-,`DueDate` date
-,`PartyName` varchar(150)
+`Active` varchar(3)
 ,`Address` varchar(75)
-,`Phone` varchar(25)
-,`Email` varchar(25)
-,`InvoiceNo` varchar(10)
+,`Balance` double(22,2)
 ,`CustomerNotes` varchar(255)
-,`Subject` varchar(255)
-,`ReferenceNo` varchar(255)
-,`SupplierID` int
-,`PartyID` int
-,`SubTotal` double(8,2)
-,`DiscountPer` double(8,2)
-,`DiscountAmount` double(8,2)
-,`InvoiceType` varchar(30)
-,`WalkinCustomerName` varchar(155)
+,`Date` date
 ,`DescriptionNotes` varchar(255)
-,`TaxPer` double(8,2)
-,`Tax` double(8,2)
-,`Shipping` double(8,2)
-,`GrandTotal` double(8,2)
-,`Mobile` varchar(150)
-,`TRN` varchar(150)
-,`Website` varchar(150)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
+,`DiscountAmount` double(8,2)
+,`DiscountPer` double(8,2)
+,`DueDate` date
 ,`eDate` timestamp
-,`PaymentDetails` varchar(255)
+,`Email` varchar(25)
 ,`FullName` varchar(55)
+,`GrandTotal` double(8,2)
+,`InvoiceDueDays` int
+,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
+,`InvoiceType` varchar(30)
+,`Mobile` varchar(150)
+,`Paid` double(8,2)
+,`PartyID` int
+,`PartyName` varchar(150)
+,`PaymentDetails` varchar(255)
+,`PaymentMode` varchar(25)
+,`Phone` varchar(25)
+,`ReferenceNo` varchar(255)
+,`Shipping` double(8,2)
+,`Subject` varchar(255)
+,`SubTotal` double(8,2)
+,`SupplierID` int
+,`Tax` double(8,2)
+,`TaxPer` double(8,2)
 ,`TaxType` varchar(55)
+,`Total` double(8,2)
+,`TRN` varchar(150)
+,`UserID` int
+,`WalkinCustomerName` varchar(155)
+,`Website` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -2303,39 +2308,39 @@ CREATE TABLE `v_invoice_master` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_invoice_master_supplier` (
-`InvoiceMasterID` int
-,`Date` date
-,`UserID` int
-,`PaymentMode` varchar(25)
-,`Total` double(8,2)
-,`DueDate` date
-,`InvoiceNo` varchar(10)
-,`CustomerNotes` varchar(255)
-,`Subject` varchar(255)
-,`ReferenceNo` varchar(255)
-,`SupplierID` int
-,`PartyID` int
-,`SubTotal` double(8,2)
-,`DiscountPer` double(8,2)
-,`DiscountAmount` double(8,2)
-,`SupplierName` varchar(150)
+`Active` varchar(3)
 ,`Address` varchar(75)
-,`Phone` varchar(150)
-,`Email` varchar(150)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
-,`WalkinCustomerName` varchar(155)
-,`PaymentDetails` varchar(255)
+,`Balance` double(19,2)
+,`CustomerNotes` varchar(255)
+,`Date` date
 ,`DescriptionNotes` varchar(255)
+,`DiscountAmount` double(8,2)
+,`DiscountPer` double(8,2)
+,`DueDate` date
+,`Email` varchar(150)
 ,`GrandTotal` double(8,2)
+,`InvoiceDueDays` int
+,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
+,`Paid` double(19,2)
+,`PartyID` int
+,`Payment` double(19,2)
+,`PaymentDetails` varchar(255)
+,`PaymentMode` varchar(25)
+,`Phone` varchar(150)
+,`ReferenceNo` varchar(255)
+,`Remaining` double(19,2)
 ,`Shipping` double(8,2)
+,`Subject` varchar(255)
+,`SubTotal` double(8,2)
+,`SupplierID` int
+,`SupplierName` varchar(150)
 ,`Tax` double(8,2)
 ,`TaxPer` double(8,2)
+,`Total` double(8,2)
 ,`TRN` varchar(75)
-,`Remaining` double(19,2)
-,`Payment` double(19,2)
-,`Paid` double(19,2)
-,`Balance` double(19,2)
+,`UserID` int
+,`WalkinCustomerName` varchar(155)
 );
 
 -- --------------------------------------------------------
@@ -2345,8 +2350,8 @@ CREATE TABLE `v_invoice_master_supplier` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_invoice_party_balance` (
-`PartyID` int
-,`BALANCE` double(19,2)
+`BALANCE` double(19,2)
+,`PartyID` int
 );
 
 -- --------------------------------------------------------
@@ -2356,8 +2361,8 @@ CREATE TABLE `v_invoice_party_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_inv_balance` (
-`InvoiceMasterID` int
-,`Balance` double(19,2)
+`Balance` double(19,2)
+,`InvoiceMasterID` int
 );
 
 -- --------------------------------------------------------
@@ -2367,31 +2372,31 @@ CREATE TABLE `v_inv_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_journal` (
-`VHNO` varchar(15)
-,`JournalType` varchar(10)
+`BankReconcile` varchar(15)
+,`Category` varchar(55)
 ,`ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
-,`SupplierID` int
-,`VoucherMstID` int
-,`PettyMstID` int
-,`InvoiceMasterID` int
+,`CODE` varchar(15)
+,`Cr` double(10,2)
 ,`Date` date
 ,`Dr` double(10,2)
-,`Cr` double(10,2)
-,`PartyID` int
-,`Narration` varchar(255)
+,`ExpenseMasterID` int
+,`InvoiceMasterID` int
+,`JournalID` int
+,`JournalType` varchar(10)
 ,`L1` int
 ,`L2` int
 ,`L3` int
-,`CODE` varchar(15)
-,`Trace` decimal(10,0)
-,`BankReconcile` varchar(15)
-,`ReconcileDate` timestamp
-,`JournalID` int
-,`Category` varchar(55)
-,`ExpenseMasterID` int
+,`Narration` varchar(255)
+,`PartyID` int
 ,`PaymentMasterID` int
+,`PettyMstID` int
 ,`PurchasePaymentMasterID` int
+,`ReconcileDate` timestamp
+,`SupplierID` int
+,`Trace` decimal(10,0)
+,`VHNO` varchar(15)
+,`VoucherMstID` int
 );
 
 -- --------------------------------------------------------
@@ -2401,10 +2406,10 @@ CREATE TABLE `v_journal` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_journal_report` (
-`InvoiceMasterID` int
-,`InvoiceNo` varchar(10)
-,`Date` date
+`Date` date
 ,`INVOICE` varchar(7)
+,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
 );
 
 -- --------------------------------------------------------
@@ -2414,32 +2419,32 @@ CREATE TABLE `v_journal_report` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_partywise_sale` (
-`PartyID` int
-,`PartyName` varchar(150)
+`Balance` double(8,2)
+,`CustomerNotes` varchar(255)
+,`Date` date
+,`DescriptionNotes` varchar(255)
+,`DiscountAmount` double(8,2)
+,`DiscountPer` double(8,2)
+,`DueDate` date
+,`GrandTotal` double(8,2)
 ,`InvoiceMasterID` int
 ,`InvoiceNo` varchar(10)
 ,`InvoiceType` varchar(30)
-,`Date` date
-,`DueDate` date
-,`WalkinCustomerName` varchar(155)
-,`SupplierID` int
-,`ReferenceNo` varchar(255)
-,`UserID` int
-,`PaymentMode` varchar(25)
-,`PaymentDetails` varchar(255)
-,`Subject` varchar(255)
-,`DescriptionNotes` varchar(255)
-,`CustomerNotes` varchar(255)
-,`SubTotal` double(8,2)
-,`DiscountPer` double(8,2)
-,`Total` double(8,2)
-,`DiscountAmount` double(8,2)
-,`TaxPer` double(8,2)
-,`Tax` double(8,2)
-,`Shipping` double(8,2)
-,`GrandTotal` double(8,2)
 ,`Paid` double(8,2)
-,`Balance` double(8,2)
+,`PartyID` int
+,`PartyName` varchar(150)
+,`PaymentDetails` varchar(255)
+,`PaymentMode` varchar(25)
+,`ReferenceNo` varchar(255)
+,`Shipping` double(8,2)
+,`Subject` varchar(255)
+,`SubTotal` double(8,2)
+,`SupplierID` int
+,`Tax` double(8,2)
+,`TaxPer` double(8,2)
+,`Total` double(8,2)
+,`UserID` int
+,`WalkinCustomerName` varchar(155)
 );
 
 -- --------------------------------------------------------
@@ -2449,15 +2454,15 @@ CREATE TABLE `v_partywise_sale` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_party_aging` (
-`PartyID` int
-,`age7Days` double(19,2)
-,`age15Days` double(19,2)
+`age15Days` double(19,2)
 ,`age30Days` double(19,2)
 ,`age60Days` double(19,2)
+,`age7Days` double(19,2)
 ,`age90Days` double(19,2)
 ,`age90plusDays` double(19,2)
-,`Total` double(19,2)
+,`PartyID` int
 ,`PartyName` varchar(150)
+,`Total` double(19,2)
 );
 
 -- --------------------------------------------------------
@@ -2467,20 +2472,20 @@ CREATE TABLE `v_party_aging` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_party_balance` (
-`VHNO` varchar(15)
-,`JournalType` varchar(10)
-,`ChartOfAccountID` int
+`ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
-,`SupplierID` int
-,`VoucherMstID` int
-,`PettyMstID` int
-,`InvoiceMasterID` int
+,`Cr` double(10,2)
 ,`Date` date
 ,`Dr` double(10,2)
-,`Cr` double(10,2)
-,`PartyID` int
+,`InvoiceMasterID` int
+,`JournalType` varchar(10)
 ,`Narration` varchar(255)
+,`PartyID` int
 ,`PartyName` varchar(150)
+,`PettyMstID` int
+,`SupplierID` int
+,`VHNO` varchar(15)
+,`VoucherMstID` int
 );
 
 -- --------------------------------------------------------
@@ -2490,10 +2495,10 @@ CREATE TABLE `v_party_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_party_montly_balance` (
-`Date` varchar(37)
-,`Dr` double(19,2)
+`Balance` double(22,2)
 ,`Cr` double(19,2)
-,`Balance` double(22,2)
+,`Date` varchar(37)
+,`Dr` double(19,2)
 ,`PartyID` int
 );
 
@@ -2504,25 +2509,25 @@ CREATE TABLE `v_party_montly_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_payment` (
-`PaymentMasterID` int
+`Active` varchar(3)
+,`Address` varchar(75)
+,`ChartOfAccountID` int
+,`eDate` timestamp
+,`Email` varchar(25)
+,`File` varchar(35)
+,`InvoiceDueDays` int
+,`Mobile` varchar(150)
+,`Notes` longtext
 ,`PartyID` int
 ,`PartyName` varchar(150)
-,`PaymentDate` date
 ,`PaymentAmount` double(8,2)
+,`PaymentDate` date
+,`PaymentMasterID` int
 ,`PaymentMode` varchar(25)
-,`ChartOfAccountID` int
-,`ReferenceNo` varchar(255)
-,`File` varchar(35)
-,`Notes` longtext
-,`eDate` timestamp
-,`TRN` varchar(150)
-,`Address` varchar(75)
-,`Mobile` varchar(150)
 ,`Phone` varchar(25)
-,`Email` varchar(25)
+,`ReferenceNo` varchar(255)
+,`TRN` varchar(150)
 ,`Website` varchar(150)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
 );
 
 -- --------------------------------------------------------
@@ -2532,13 +2537,13 @@ CREATE TABLE `v_payment` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_payment_detail` (
-`InvoiceNo` varchar(10)
+`eDate` timestamp
+,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
+,`Payment` double(8,2)
+,`PaymentDate` date
 ,`PaymentDetailID` int
 ,`PaymentMasterID` int
-,`PaymentDate` date
-,`InvoiceMasterID` int
-,`Payment` double(8,2)
-,`eDate` timestamp
 );
 
 -- --------------------------------------------------------
@@ -2560,14 +2565,14 @@ CREATE TABLE `v_payment_summary` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_pettycash_master` (
-`PettyMstID` int
-,`PettyVoucher` varchar(11)
-,`ChartOfAccountID` int
-,`CODE` varchar(15)
+`ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
+,`CODE` varchar(15)
+,`Credit` double(10,2)
 ,`Date` date
 ,`Narration` varchar(255)
-,`Credit` double(10,2)
+,`PettyMstID` int
+,`PettyVoucher` varchar(11)
 );
 
 -- --------------------------------------------------------
@@ -2577,21 +2582,21 @@ CREATE TABLE `v_pettycash_master` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_purchase_order_detail` (
-`PurchaseOrderDetailID` int
-,`PurchaseOrderMasterID` int
+`Amount` double(8,2)
 ,`Date` date
-,`ItemID` int
 ,`Description` varchar(255)
-,`Rate` double(8,2)
-,`Qty` varchar(10)
-,`Unit` varchar(10)
-,`DiscountPer` double(8,2)
 ,`Discount` double(8,2)
+,`DiscountPer` double(8,2)
+,`ItemID` int
+,`ItemName` varchar(55)
+,`PurchaseOrderDetailID` int
+,`PurchaseOrderMasterID` int
+,`Qty` varchar(10)
+,`Rate` double(8,2)
+,`Remarks` varchar(255)
 ,`Tax` double(8,2)
 ,`TaxPer` double(8,2)
-,`Amount` double(8,2)
-,`Remarks` varchar(255)
-,`ItemName` varchar(55)
+,`Unit` varchar(10)
 );
 
 -- --------------------------------------------------------
@@ -2601,31 +2606,31 @@ CREATE TABLE `v_purchase_order_detail` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_purchase_order_master` (
-`PurchaseOrderMasterID` int
-,`PON` varchar(10)
-,`SupplierID` int
-,`Date` date
-,`PONotes` varchar(255)
-,`UserID` int
-,`Subject` varchar(255)
-,`SupplierName` varchar(150)
-,`TRN` varchar(75)
+`Active` varchar(3)
 ,`Address` varchar(75)
-,`Mobile` varchar(150)
-,`Phone` varchar(150)
-,`Email` varchar(150)
-,`Website` varchar(150)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
-,`ReferenceNo` varchar(255)
-,`Tax` double(8,2)
-,`GrandTotal` double(8,2)
-,`eDate` timestamp
+,`Date` date
 ,`DeliveryDate` date
 ,`DeliveryNotes` longtext
-,`SubTotal` double(8,2)
 ,`Discount` double(8,2)
 ,`DiscountPer` double(8,2)
+,`eDate` timestamp
+,`Email` varchar(150)
+,`GrandTotal` double(8,2)
+,`InvoiceDueDays` int
+,`Mobile` varchar(150)
+,`Phone` varchar(150)
+,`PON` varchar(10)
+,`PONotes` varchar(255)
+,`PurchaseOrderMasterID` int
+,`ReferenceNo` varchar(255)
+,`Subject` varchar(255)
+,`SubTotal` double(8,2)
+,`SupplierID` int
+,`SupplierName` varchar(150)
+,`Tax` double(8,2)
+,`TRN` varchar(75)
+,`UserID` int
+,`Website` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -2635,16 +2640,16 @@ CREATE TABLE `v_purchase_order_master` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_purchase_payment` (
-`PurchasePaymentMasterID` int
-,`SupplierID` int
-,`PaymentDate` date
-,`PaymentAmount` double(8,2)
-,`PaymentMode` varchar(25)
-,`ChartOfAccountID` int
-,`ReferenceNo` varchar(35)
+`ChartOfAccountID` int
+,`eDate` timestamp
 ,`File` varchar(35)
 ,`Notes` longtext
-,`eDate` timestamp
+,`PaymentAmount` double(8,2)
+,`PaymentDate` date
+,`PaymentMode` varchar(25)
+,`PurchasePaymentMasterID` int
+,`ReferenceNo` varchar(35)
+,`SupplierID` int
 ,`SupplierName` varchar(150)
 );
 
@@ -2655,13 +2660,13 @@ CREATE TABLE `v_purchase_payment` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_purchase_payment_detail` (
-`PurchasePaymentDetailID` int
-,`PurchasePaymentMasterID` int
-,`PaymentDate` date
+`eDate` timestamp
 ,`InvoiceMasterID` int
-,`Payment` double(8,2)
-,`eDate` timestamp
 ,`InvoiceNo` varchar(10)
+,`Payment` double(8,2)
+,`PaymentDate` date
+,`PurchasePaymentDetailID` int
+,`PurchasePaymentMasterID` int
 );
 
 -- --------------------------------------------------------
@@ -2671,21 +2676,21 @@ CREATE TABLE `v_purchase_payment_detail` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_purchase_payment_master` (
-`PurchasePaymentMasterID` int
-,`SupplierID` int
-,`PaymentDate` date
-,`PaymentAmount` double(8,2)
-,`PaymentMode` varchar(25)
+`Active` varchar(3)
+,`Address` varchar(75)
 ,`ChartOfAccountID` int
-,`ReferenceNo` varchar(35)
+,`eDate` timestamp
+,`Email` varchar(150)
 ,`File` varchar(35)
 ,`Notes` longtext
-,`eDate` timestamp
-,`SupplierName` varchar(150)
-,`Address` varchar(75)
+,`PaymentAmount` double(8,2)
+,`PaymentDate` date
+,`PaymentMode` varchar(25)
 ,`Phone` varchar(150)
-,`Email` varchar(150)
-,`Active` varchar(3)
+,`PurchasePaymentMasterID` int
+,`ReferenceNo` varchar(35)
+,`SupplierID` int
+,`SupplierName` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -2695,20 +2700,20 @@ CREATE TABLE `v_purchase_payment_master` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_receivabledetail` (
-`InvoiceMasterID` int
-,`InvoiceNo` varchar(10)
-,`Date` date
-,`ReferenceNo` varchar(255)
-,`InvoiceDetailID` int
-,`ItemID` int
-,`Qty` int
-,`Total` double(8,2)
-,`Paid` double(8,2)
+`Address` varchar(75)
 ,`Balance` double(8,2)
-,`PartyName` varchar(150)
-,`Address` varchar(75)
+,`Date` date
+,`InvoiceDetailID` int
+,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
+,`ItemID` int
+,`Paid` double(8,2)
 ,`PartyID` int
+,`PartyName` varchar(150)
+,`Qty` int
+,`ReferenceNo` varchar(255)
 ,`SubTotal` double(8,2)
+,`Total` double(8,2)
 );
 
 -- --------------------------------------------------------
@@ -2718,10 +2723,10 @@ CREATE TABLE `v_receivabledetail` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_rev_exp` (
-`Rev` double(19,2)
-,`Exp` double(19,2)
+`date_format(``v_journal``.``Date``,'%m-%Y')` varchar(7)
 ,`DATE_FORMAT(date,'%M-%Y')` varchar(69)
-,`date_format(``v_journal``.``Date``,'%m-%Y')` varchar(7)
+,`Exp` double(19,2)
+,`Rev` double(19,2)
 );
 
 -- --------------------------------------------------------
@@ -2731,9 +2736,9 @@ CREATE TABLE `v_rev_exp` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_rev_exp_chart` (
-`Rev` double
-,`Exp` double
+`Exp` double
 ,`MonthName` varchar(69)
+,`Rev` double
 );
 
 -- --------------------------------------------------------
@@ -2743,17 +2748,17 @@ CREATE TABLE `v_rev_exp_chart` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_supplier` (
-`SupplierID` int
-,`SupplierName` varchar(150)
-,`TRN` varchar(75)
+`Active` varchar(3)
 ,`Address` varchar(75)
+,`eDate` timestamp
+,`Email` varchar(150)
+,`InvoiceDueDays` int
 ,`Mobile` varchar(150)
 ,`Phone` varchar(150)
-,`Email` varchar(150)
+,`SupplierID` int
+,`SupplierName` varchar(150)
+,`TRN` varchar(75)
 ,`Website` varchar(150)
-,`Active` varchar(3)
-,`InvoiceDueDays` int
-,`eDate` timestamp
 );
 
 -- --------------------------------------------------------
@@ -2763,11 +2768,11 @@ CREATE TABLE `v_supplier` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_supplier_balance` (
-`SupplierID` int
+`Balance` double(19,2)
+,`Cr` double(19,2)
 ,`Date` varchar(37)
 ,`Dr` double(19,2)
-,`Cr` double(19,2)
-,`Balance` double(19,2)
+,`SupplierID` int
 );
 
 -- --------------------------------------------------------
@@ -2777,17 +2782,17 @@ CREATE TABLE `v_supplier_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_supplier_outstanding` (
-`InvoiceMasterID` int
-,`PartyID` int
+`BALANCE` double(22,2)
 ,`ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
-,`InvoiceNo` varchar(10)
 ,`Date` date
 ,`DueDate` date
-,`PAID` double(19,2)
-,`BALANCE` double(22,2)
-,`SupplierID` int
 ,`GrandTotal` double(8,2)
+,`InvoiceMasterID` int
+,`InvoiceNo` varchar(10)
+,`PAID` double(19,2)
+,`PartyID` int
+,`SupplierID` int
 );
 
 -- --------------------------------------------------------
@@ -2797,8 +2802,8 @@ CREATE TABLE `v_supplier_outstanding` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_supplier_over_balance` (
-`SupplierID` int
-,`BALANCE` double(19,2)
+`BALANCE` double(19,2)
+,`SupplierID` int
 );
 
 -- --------------------------------------------------------
@@ -2808,11 +2813,11 @@ CREATE TABLE `v_supplier_over_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_trial` (
-`ChartOfAccountID` int
+`Balance` double(22,2)
+,`ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
-,`Dr` double(19,2)
 ,`Cr` double(19,2)
-,`Balance` double(22,2)
+,`Dr` double(19,2)
 );
 
 -- --------------------------------------------------------
@@ -2822,11 +2827,11 @@ CREATE TABLE `v_trial` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_trialreport` (
-`ChartOfAccountID` int
+`Balance` double(22,2)
+,`ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
-,`Dr` double(19,2)
 ,`Cr` double(19,2)
-,`Balance` double(22,2)
+,`Dr` double(19,2)
 );
 
 -- --------------------------------------------------------
@@ -2838,8 +2843,8 @@ CREATE TABLE `v_trialreport` (
 CREATE TABLE `v_trial_balance` (
 `ChartOfAccountID` int
 ,`ChartOfAccountName` varchar(75)
-,`Dr` double(22,2)
 ,`Cr` double(22,2)
+,`Dr` double(22,2)
 );
 
 -- --------------------------------------------------------
@@ -2849,13 +2854,13 @@ CREATE TABLE `v_trial_balance` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_voucher` (
-`VoucherMstID` int
-,`VoucherCode` varchar(35)
-,`VoucherTypeName` varchar(35)
-,`Voucher` varchar(15)
+`Amount` double(19,2)
 ,`Date` date
 ,`Narration` varchar(255)
-,`Amount` double(19,2)
+,`Voucher` varchar(15)
+,`VoucherCode` varchar(35)
+,`VoucherMstID` int
+,`VoucherTypeName` varchar(35)
 );
 
 -- --------------------------------------------------------
@@ -2866,8 +2871,8 @@ CREATE TABLE `v_voucher` (
 --
 CREATE TABLE `v_voucher_amount` (
 `Amount` double(22,2)
-,`VoucherMstID` int
 ,`Voucher` varchar(15)
+,`VoucherMstID` int
 );
 
 -- --------------------------------------------------------
@@ -2877,22 +2882,22 @@ CREATE TABLE `v_voucher_amount` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_voucher_detail` (
-`VoucherMstID` int
-,`VoucherCodeID` int
-,`Voucher` varchar(15)
-,`NarrationMaster` varchar(255)
-,`Date` date
+`ChartOfAccountName` varchar(75)
 ,`ChOfAcc` int
-,`ChartOfAccountName` varchar(75)
-,`Debit` double(10,2)
 ,`Credit` double(10,2)
+,`Date` date
+,`Debit` double(10,2)
 ,`InvoiceNo` varchar(75)
 ,`Narration` varchar(255)
-,`SupplierID` int
+,`NarrationMaster` varchar(255)
 ,`PartyID` int
-,`RefNo` varchar(75)
 ,`PartyName` varchar(150)
+,`RefNo` varchar(75)
+,`SupplierID` int
 ,`SupplierName` varchar(150)
+,`Voucher` varchar(15)
+,`VoucherCodeID` int
+,`VoucherMstID` int
 );
 
 -- --------------------------------------------------------
@@ -2902,20 +2907,20 @@ CREATE TABLE `v_voucher_detail` (
 -- (See below for the actual view)
 --
 CREATE TABLE `v_voucher_master` (
-`VoucherMstID` int
-,`VoucherCodeID` int
-,`Voucher` varchar(15)
+`Credit` double(10,2)
 ,`Date` date
+,`Debit` double(10,2)
 ,`Narration` varchar(255)
-,`VoucherTypeID` int
-,`VoucherCode` varchar(35)
-,`VoucherTypeName` varchar(35)
 ,`PartyID` int
 ,`PartyName` varchar(150)
-,`Debit` double(10,2)
-,`Credit` double(10,2)
 ,`SupplierID` int
 ,`SupplierName` varchar(150)
+,`Voucher` varchar(15)
+,`VoucherCode` varchar(35)
+,`VoucherCodeID` int
+,`VoucherMstID` int
+,`VoucherTypeID` int
+,`VoucherTypeName` varchar(35)
 );
 
 -- --------------------------------------------------------
@@ -3671,13 +3676,13 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `estimate_detail`
 --
 ALTER TABLE `estimate_detail`
-  MODIFY `EstimateDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `EstimateDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `estimate_master`
 --
 ALTER TABLE `estimate_master`
-  MODIFY `EstimateMasterID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `EstimateMasterID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `estimate_type`
@@ -3701,13 +3706,13 @@ ALTER TABLE `expense_master`
 -- AUTO_INCREMENT for table `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
-  MODIFY `InvoiceDetailID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `InvoiceDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `invoice_master`
 --
 ALTER TABLE `invoice_master`
-  MODIFY `InvoiceMasterID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `InvoiceMasterID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `invoice_type`
@@ -3719,13 +3724,13 @@ ALTER TABLE `invoice_type`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `ItemID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `ItemID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `journal`
 --
 ALTER TABLE `journal`
-  MODIFY `JournalID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `JournalID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`

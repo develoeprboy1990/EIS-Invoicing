@@ -158,7 +158,7 @@
                       <label for="example-url-input" class="col-md-2 col-form-label fw-bold">Digital Signature</label>
                       <div class="col-md-8">
                         <input class="form-control" name="DigitalSignature" type="text" name="InvoiceDueDays">
-         <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+                        <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
                          <script>
     CKEDITOR.replace('DigitalSignature', {
       // Define the toolbar groups as it is a more accessible solution.
@@ -328,7 +328,11 @@ $DeliveryChallanTitle = old('DeliveryChallanTitle') ? old('DeliveryChallanTitle'
 $CreditNoteTitle      = old('CreditNoteTitle') ? old('CreditNoteTitle') : $company[0]->CreditNoteTitle;
 $PurchaseInvoiceTitle = old('PurchaseInvoiceTitle') ? old('PurchaseInvoiceTitle') : $company[0]->PurchaseInvoiceTitle;
 $DebitNoteTitle       = old('DebitNoteTitle') ? old('DebitNoteTitle') : $company[0]->DebitNoteTitle;
-
+$ScopeofWork          = old('ScopeofWork') ? old('ScopeofWork') : $company[0]->ScopeofWork;
+$Exclusion            = old('Exclusion') ? old('Exclusion') : $company[0]->Exclusion;
+$TermsConditions      = old('TermsConditions') ? old('TermsConditions') : $company[0]->TermsConditions;
+$BankDetails1          = old('BankDetails1') ? old('BankDetails1') : $company[0]->BankDetails1;
+$BankDetails2          = old('BankDetails2') ? old('BankDetails2') : $company[0]->BankDetails2;
 ?>
 
 
@@ -450,6 +454,61 @@ $DebitNoteTitle       = old('DebitNoteTitle') ? old('DebitNoteTitle') : $company
                       </div>
 
                     </div>
+
+
+
+                    <div class="mb-2 row">
+                      <label for="example-url-input" class="col-md-3 col-form-label fw-bold">Scope of Work</label>
+                      <div class="col-md-6">
+
+                         {!! $ScopeofWork !!}
+                          
+                      </div>
+
+                    </div>
+
+                    <div class="mb-2 row">
+                      <label for="example-url-input" class="col-md-3 col-form-label fw-bold">Exclusion</label>
+                      <div class="col-md-6">
+
+                         {!! $Exclusion !!}
+                          
+                      </div>
+
+                    </div>
+
+                    <div class="mb-2 row">
+                      <label for="example-url-input" class="col-md-3 col-form-label fw-bold">Terms & Conditions</label>
+                      <div class="col-md-6">
+
+                         {!! $TermsConditions !!}
+                          
+                      </div>
+
+                    </div>
+
+                    <div class="mb-2 row">
+                      <label for="example-url-input" class="col-md-3 col-form-label fw-bold">Bank Details</label>
+                      <div class="col-md-6">
+
+                         {!! $BankDetails1 !!}
+                          
+                      </div>
+
+                    </div>
+
+
+                    <div class="mb-2 row">
+                      <label for="example-url-input" class="col-md-3 col-form-label fw-bold">Bank Details</label>
+                      <div class="col-md-6">
+
+                         {!! $BankDetails2 !!}
+                          
+                      </div>
+
+                    </div>
+
+
 
 
                  

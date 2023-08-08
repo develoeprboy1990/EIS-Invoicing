@@ -110,7 +110,12 @@ $pagetitle = 'Company';
             'CreditNoteTitle' => $request->input('CreditNoteTitle'),
             'PurchaseInvoiceTitle' => $request->input('PurchaseInvoiceTitle'),
             'DebitNoteTitle' => $request->input('DebitNoteTitle'),
- 
+
+            'ScopeofWork' => $request->input('ScopeofWork'),
+            'Exclusion' => $request->input('Exclusion'),
+            'TermsConditions' => $request->input('TermsConditions'),
+            'BankDetails1' => $request->input('BankDetails1'),
+            'BankDetails2' => $request->input('BankDetails2'), 
         );
         $destinationPath = public_path('/documents');
 

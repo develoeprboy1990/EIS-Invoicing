@@ -2,10 +2,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Qoutation</title>
+    <title>INVOICE</title>
     <style type="text/css">
-
-
             @page {
                 margin-top: 0.5cm;
                 margin-bottom: 0.5cm;
@@ -307,11 +305,11 @@
                 <div class="shop-name">
                     <div align="right">
                         <div style="font-size: 16pt;line-height: 40pt;text-decoration: underline;color: #275079;">
-                            <strong> {{$company->EstimateInvoiceTitle}}</strong>
+                            <strong> {{$company->SaleInvoiceTitle}}</strong>
                         </div>
                         <span style="color: #36709D;">
-                            Date : {{ \Carbon\Carbon::parse($estimate->Date)->format('d M,Y')}}<br>
-                            Ref No. {{$estimate->ReferenceNo}}
+                            Date : {{ \Carbon\Carbon::parse($invoice_master->Date)->format('d M,Y')}}<br>
+                            Ref No. {{$invoice_master->ReferenceNo}}
                         </span>
                     </div>
                 </div>
@@ -360,9 +358,9 @@
                           <td>
                             <div class="shop-name" style="height:120px;line-height: 15pt;">
                               <div>
-                                <strong>Name: </strong>{{$estimate->PartyName}}<br />
-                                <strong>Address: </strong>{{$estimate->Address}}<br />
-                                <strong>Contact: </strong>{{$estimate->Mobile}}<br />
+                                <strong>Name: </strong>{{$invoice_master->PartyName}}<br />
+                                <strong>Address: </strong>{{$invoice_master->Address}}<br />
+                                <strong>Contact: </strong>{{$invoice_master->Mobile}}<br />
                               </div>
                             </div>
                           </td>
@@ -375,7 +373,7 @@
     <table class="order-details">
         <thead>
         <tr class="pcs-itemtable-header">
-            <th colspan="5" valign="bottom"><strong> {{$estimate->Subject}}</strong></th>
+            <th colspan="5" valign="bottom"><strong> {{$invoice_master->Subject}}</strong></th>
         </tr>
         <tr class="pcs-itemtable-breakword" >
                 <th width="5%" class="sno">SNO:</th>
@@ -386,7 +384,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($estimate_detail as $key => $value)
+            @foreach($invoice_detail as $key => $value)
 
             <tr>
                 <td height="13px" style="text-align:center!important;">{{$key+1}}</td>
@@ -396,38 +394,36 @@
                 <td  style="text-align:center!important;">{{number_format($value->Total,2)}}</td>
             </tr>
             @endforeach
-            <?php for ($i = 10; $i >= count($estimate_detail); $i--) { ?> 
+            <?php for ($i = 10; $i >= count($invoice_detail); $i--) { ?> 
 
             <?php } ?>
         </tbody>
         <tfoot> 
             <tr class="pcs-itemtable-header" style="font-weight: bold;">
                 <th colspan="4" align="center">Total AED</th> 
-                <td style="text-align:center!important;">{{number_format($estimate->SubTotal,2)}}</td>
+                <td style="text-align:center!important;">{{number_format($invoice_master->SubTotal,2)}}</td>
             </tr>
 
             <tr class="pcs-itemtable-header" style="font-weight: bold;">
-                <th colspan="4" align="center">VAT {{$estimate->TaxPer}} %</th> 
-                <td style="text-align:center!important;">{{number_format($estimate->Tax,2)}}</td>
+                <th colspan="4" align="center">VAT {{$invoice_master->TaxPer}} %</th> 
+                <td style="text-align:center!important;">{{number_format($invoice_master->Tax,2)}}</td>
             </tr>
 
             
 
             <tr class="pcs-itemtable-header" style="font-weight: bold;">
                 <th colspan="4" align="center">Grand Total AED</th>  
-                <td style="text-align:center!important;">{{number_format($estimate->GrandTotal,2)}}</td>
+                <td style="text-align:center!important;">{{number_format($invoice_master->GrandTotal,2)}}</td>
             </tr>
 
         </tfoot>
     </table> 
     <div class="table-of-contents">
-        <h2>Scope of work</h2>
-        {!!@$estimate->CustomerNotes!!}
+        <h2>BANK DETAILS:</h2>
+        {!!@$company->BankDetails1!!}
+        <br>
+        <h2>BANK DETAILS:</h2>
+        {!!@$company->BankDetails2!!}
 
-        <h2>Exclusive</h2>
-        {!!@$estimate->DescriptionNotes!!}
-
-        <h2>Terms And Condtions</h2>
-        {!!@$estimate->TermAndCondition!!}
 </body>
 </html>

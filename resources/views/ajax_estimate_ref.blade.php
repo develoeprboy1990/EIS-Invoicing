@@ -1,1 +1,1 @@
-<input type="text" readonly name="ReferenceNo" autocomplete="off" class="form-control" value="{{$d}}-R0-{{$data[0]->VHNO}}-{{ date('Y')}}">
+<input type="text" readonly name="ReferenceNo" autocomplete="off" class="form-control" value="{{$d}}-R0-{{ date('y')}}-{{$data[0]->VHNO}}">

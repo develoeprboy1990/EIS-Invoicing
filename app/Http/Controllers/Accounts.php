@@ -825,9 +825,13 @@ $btn = '
 
 
 <a href="'.URL('/SaleInvoiceView/'.$row->InvoiceMasterID).'"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-secondary"></i></a>
+<a href="'.URL('/SaleInvoiceViewPDF3/'.$row->InvoiceMasterID).'"><i class="font-size-18 mdi mdi-cloud-print-outline align-middle me-1 text-primary"></i></a>
 <a href="'.URL('/SaleInvoiceViewPDF2/'.$row->InvoiceMasterID).'"><i class="font-size-18 mdi mdi-cloud-print-outline align-middle me-1 text-secondary"></i></a>
 <a href="'.URL('/SaleInvoiceViewPDF/'.$row->InvoiceMasterID).'"><i class="font-size-18 me-1 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>
 <a href="'.URL('/SaleInvoiceEdit/'.$row->InvoiceMasterID).'"><i class="font-size-18 bx bx-pencil align-middle me-1 text-secondary"></i></a>
+
+
+
  
 
 <a href="javascript:void(0)" onclick="delete_invoice('.$row->InvoiceMasterID.')" ><i class="font-size-18 bx bx-trash text-danger align-middle me-1 text-secondary"></i></a>
@@ -1818,6 +1822,7 @@ $this->validate($request,[
 
 ]);
 $data = array(
+'ItemType' => $request->input('ItemType'),
 'ItemCode' => $request->input('ItemCode'),
 'ItemName' => $request->input('ItemName'),
 'Taxable' => $request->input('Taxable'),
@@ -1880,6 +1885,7 @@ $this->validate($request,[
 ]);
 
 $data = array(
+'ItemType' => $request->input('ItemType'),
 'ItemCode' => $request->input('ItemCode'),
 'ItemName' => $request->input('ItemName'),
 'Taxable' => $request->input('Taxable'),
@@ -6002,7 +6008,7 @@ $pagetitle='Sales Invoice';
 
       $tax = DB::table('tax')->where('Section','Invoice')->get();
       $vhno = DB::table('invoice_master')
-     ->select( DB::raw('LPAD(IFNULL(MAX(right(InvoiceNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(InvoiceNo,3)'),['TAX'])->get();  	
+     ->select( DB::raw('LPAD(IFNULL(MAX(right(InvoiceNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(InvoiceNo,3)'),['INV'])->get();  	
 
 $chartofaccount = DB::table('chartofaccount')->whereNotNull('Category')->get();
 session::put('VHNO','TAX-'.$vhno[0]->VHNO);
@@ -6053,8 +6059,8 @@ session::put('VHNO','TAX-'.$vhno[0]->VHNO);
               'GrandTotal' => $request->Grandtotal, 
               'Paid' => $request->amountPaid, 
               'Balance' => $request->amountDue, 
-              'CustomerNotes' => $request->CustomerNotes,               
-              'DescriptionNotes' => $request->DescriptionNotes,               
+             /* 'CustomerNotes' => $request->CustomerNotes,               
+              'DescriptionNotes' => $request->DescriptionNotes,    */           
               'UserID' => session::get('UserID'), 
       );
       // dd($challan_mst);
@@ -6363,8 +6369,8 @@ public  function SaleInvoiceUpdate(request $request)
               'GrandTotal' => $request->Grandtotal, 
               'Paid' => $request->amountPaid, 
               'Balance' => $request->amountDue, 
-              'CustomerNotes' => $request->CustomerNotes,               
-              'DescriptionNotes' => $request->DescriptionNotes,               
+              /*'CustomerNotes' => $request->CustomerNotes,               
+              'DescriptionNotes' => $request->DescriptionNotes,      */         
               'UserID' => session::get('UserID'), 
       );
       // dd($challan_mst);
@@ -6635,7 +6641,28 @@ $invoice_detail = DB::table('v_invoice_detail')->where('InvoiceMasterID',$id)->g
    
 
  
-    $pdf = PDF::loadView  ('sale_invoice_view2', compact('company', 'pagetitle', 'invoice_master','invoice_detail'));
+    $pdf = PDF::loadView  ('sale_invoice_view3', compact('company', 'pagetitle', 'invoice_master','invoice_detail'));
+    //return $pdf->download('pdfview.pdf');
+       $pdf->setpaper('A4', 'portiate');
+         return $pdf->stream();
+ 
+     }
+
+    public  function SaleInvoiceViewPDF3($id)
+        {
+     $pagetitle='Sales Invoice';
+
+
+            session::put('menu','SalesInvoice');     
+ $company = DB::table('company')->first();
+$invoice_master = DB::table('v_invoice_master')->where('InvoiceMasterID',$id)->first();
+$invoice_detail = DB::table('v_invoice_detail')->where('InvoiceMasterID',$id)->get();
+       
+           $party = DB::table('party')->get();  
+   
+
+ 
+    $pdf = PDF::loadView  ('sale_invoice_view3', compact('company', 'pagetitle', 'invoice_master','invoice_detail'));
     //return $pdf->download('pdfview.pdf');
        $pdf->setpaper('A4', 'portiate');
          return $pdf->stream();

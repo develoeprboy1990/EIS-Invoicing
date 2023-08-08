@@ -363,7 +363,7 @@
                                             <label class="col-form-label" for="password">Reference No </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <div id="estimate_ref_no"><input type="text" readonly name="ReferenceNo" autocomplete="off" class="form-control" value="QUO-R0-{{$estimate_master->EstimateNo}}-{{ date('Y')}}"> </div>
+                                            <div id="estimate_ref_no"><input type="text" readonly name="ReferenceNo" autocomplete="off" class="form-control" value="QUO-R0-{{ date('y')}}-{{$estimate_master->EstimateNo}}"> </div>
 
                                         </div>
                                     </div>
@@ -481,7 +481,7 @@
 
                             <div class="col-lg-8 col-12  ">
                                 <h6>Scope of Work: </h6>
-                                <textarea name="CustomerNotes" id="CustomerNotes" cols="10" rows="5"  class="form-control" ></textarea>
+                                <textarea name="CustomerNotes" id="CustomerNotes" cols="10" rows="5"  class="form-control" >{!! $company->ScopeofWork !!}</textarea>
                                 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
                                 <script>
                                 CKEDITOR.replace( 'CustomerNotes',{
@@ -492,7 +492,7 @@
 
 
                                 <label for="" class="mt-2">Exclusion</label>
-                                <textarea name="DescriptionNotes" id="DescriptionNotes" cols="10" rows="5"  class="form-control" ></textarea>
+                                <textarea name="DescriptionNotes" id="DescriptionNotes" cols="10" rows="5"  class="form-control" >{!! $company->Exclusion !!}</textarea>
                                 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
                                 <script>
                                 CKEDITOR.replace( 'DescriptionNotes',{
@@ -502,7 +502,7 @@
 
 
                                 <label for="" class="mt-2">Terms & Conditions</label>
-                                <textarea name="TermAndCondition" id="TermAndCondition" cols="10" rows="5"  class="form-control" ></textarea>
+                                <textarea name="TermAndCondition" id="TermAndCondition" cols="10" rows="5"  class="form-control" >{!! $company->TermsConditions !!}</textarea>
                                 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
                                 <script>
                                 CKEDITOR.replace( 'TermAndCondition',{

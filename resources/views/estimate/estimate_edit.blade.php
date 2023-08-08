@@ -110,6 +110,18 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="col-12">
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label" for="password">QUOTATION Type </label>
+                                        </div>
+                                        <div class="col-sm-9 pt-2">
+                                            <input type="hidden" class="form-control" name="EstimateType" value="{{$estimate_master->EstimateType}}">
+                                            {{$estimate_master->EstimateType}}
+                                        </div>
+                                    </div>
+                                </div>
+                                
 
                                 <div class="col-12">
                                     <div class="mb-1 row">
@@ -117,8 +129,8 @@
                                             <label class="col-form-label" for="password">QUOTATION# </label>
                                         </div>
                                         <div class="col-sm-9 pt-2">
-                                            <input type="hidden" class="form-control" name="EstimateNo" value="{{$estimate_master->EstimateNo}}">{{$estimate_master->EstimateNo}}
-
+                                            <input type="hidden" class="form-control" name="EstimateNo" value="{{$estimate_master->EstimateNo}}">
+                                            {{$estimate_master->EstimateNo}}
                                         </div>
                                     </div>
                                 </div>

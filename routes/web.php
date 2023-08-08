@@ -293,6 +293,7 @@ route::get('/Role/{UserID}',[Accounts::class,'Role']);
  route::get('/SaleInvoiceView/{id}',[Accounts::class,'SaleInvoiceView']);
  route::get('/SaleInvoiceViewPDF/{id}',[Accounts::class,'SaleInvoiceViewPDF']);
  route::get('/SaleInvoiceViewPDF2/{id}',[Accounts::class,'SaleInvoiceViewPDF2']);
+  route::get('/SaleInvoiceViewPDF3/{id}',[Accounts::class,'SaleInvoiceViewPDF3']);
 
 
  

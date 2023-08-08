@@ -543,13 +543,13 @@
                         <div class="row mt-4">
 
                             <div class="col-lg-8 col-12  ">
-                                <h6>Customer Notes: </h6>
+                              <!--   <h6>Customer Notes: </h6>
 
 
                                 <textarea class="form-control" rows='5' name="CustomerNotes" id="note" placeholder="">{{$invoice_master[0]->CustomerNotes}}</textarea>
 
                                 <label for="" class="mt-2">Description</label>
-                                <textarea class="form-control" rows='5' name="DescriptionNotes" id="note" placeholder="Description notes if any.">{{$invoice_master[0]->DescriptionNotes}}</textarea>
+                                <textarea class="form-control" rows='5' name="DescriptionNotes" id="note" placeholder="Description notes if any.">{{$invoice_master[0]->DescriptionNotes}}</textarea> -->
 
 
                                 <iframe src="{{URL('/Attachment')}}" width="100%" height="40%" border="0" scrolling="yes" style="overflow: hidden;"></iframe>

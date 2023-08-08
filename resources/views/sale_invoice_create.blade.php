@@ -315,7 +315,7 @@
                                         <div class="col-sm-9">
                                             <select name="InvoiceType" id="InvoiceType" class="form-select">
                                                 <?php foreach ($invoice_type as $key => $value) : ?>
-                                                    <option value="{{$value->InvoiceType}}">{{$value->InvoiceType}}</option>
+                                                    <option value="{{$value->InvoiceType}}"  {{($value->InvoiceType== 'Invoice') ? 'selected=selected':'' }}>{{$value->InvoiceType}}</option>
                                                 <?php endforeach ?>
                                             </select>
 
@@ -330,7 +330,7 @@
                                             <label class="col-form-label text-danger" for="password">Invoice # </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <div id="invoict_type"> <input type="text" name="InvoiceNo" autocomplete="off" class="form-control" value="TAX-{{$vhno[0]->VHNO}}"></div>
+                                            <div id="invoict_type"> <input type="text" name="InvoiceNo" autocomplete="off" class="form-control" value="INV-{{$vhno[0]->VHNO}}"></div>
 
 
                                         </div>
@@ -516,13 +516,11 @@
                         <div class="row mt-4">
 
                             <div class="col-lg-8 col-12  ">
-                                <h6>Customer Notes: </h6>
-
-
+                                <!-- <h6>Customer Notes: </h6>
                                 <textarea class="form-control" rows='5' name="CustomerNotes" id="note" placeholder="">Thanks for your business.</textarea>
 
                                 <label for="" class="mt-2">Description</label>
-                                <textarea class="form-control" rows='5' name="DescriptionNotes" id="note" placeholder="Description notes if any."></textarea>
+                                <textarea class="form-control" rows='5' name="DescriptionNotes" id="note" placeholder="Description notes if any."></textarea> -->
 
                                                         <br>
                                 <iframe src="{{URL('/Attachment')}}" width="100%" height="40%" border="0" scrolling="yes" style="overflow: hidden;"></iframe>

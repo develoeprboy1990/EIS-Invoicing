@@ -77,7 +77,8 @@ class EstimateController extends Controller
  
         $challan_type = DB::table('challan_type')->get();
         $estimate_type = DB::table('estimate_type')->get();
-        return view('estimate.estimate_create', compact('chartofacc', 'party', 'pagetitle', 'estimate_master', 'items', 'item', 'challan_type', 'user','estimate_type','tax'));
+        $company = DB::table('company')->first();
+        return view('estimate.estimate_create', compact('chartofacc', 'party', 'pagetitle', 'estimate_master', 'items', 'item', 'challan_type', 'user','estimate_type','tax','company'));
       
   }
 
@@ -85,7 +86,8 @@ class EstimateController extends Controller
   {
      
     $challan_mst = array(
-      'EstimateNo' => $request->input('EstimateNo'),
+      'EstimateNo' => $request->input('EstimateNo'),      
+      'EstimateType' => $request->input('EstimateType'),
       'PartyID' => $request->input('PartyID'),
       'WalkinCustomerName' => $request->input('WalkinCustomerName'),
       'PlaceOfSupply' => $request->input('PlaceOfSupply'),
@@ -117,11 +119,20 @@ class EstimateController extends Controller
 
     //  start for item array from invoice
     for ($i = 0; $i < count($request->ItemID); $i++) {
+
+      if($request->ItemID[$i] != '')
+      {
+        $ItemID =  $request->ItemID[$i];
+      }
+      else{
+        $service_item = DB::table('item')->where('ItemType', 'Service')->orderBy('ItemID','ASC')->first();
+        $ItemID =  $service_item->ItemID;
+      }
       $challan_det = array(
         'EstimateMasterID' =>  $EstimateMasterID,
         'EstimateNo' => $request->input('EstimateNo'),
         'EstimateDate' => $request->input('Date'),
-        'ItemID' => $request->ItemID[$i],
+        'ItemID' => $ItemID,
         'Description' => $request->Description[$i],
         'TaxPer' => $request->Tax[$i],
         'Tax' => $request->TaxVal[$i],
@@ -203,7 +214,7 @@ class EstimateController extends Controller
     $pagetitle = 'Qoutation';
     $party = DB::table('party')->get();
 
-    $tax = DB::table('tax')->get();
+    $tax = DB::table('tax')->where('Section','Estimate')->get();
 
     $items = DB::table('item')->get();
     $item = json_encode($items);
@@ -229,6 +240,7 @@ class EstimateController extends Controller
  
      $estimate_mst = array(
       'EstimateNo' => $request->input('EstimateNo'),
+      'EstimateType' => $request->input('EstimateType'),
       'PartyID' => $request->input('PartyID'),
       'WalkinCustomerName' => $request->input('WalkinCustomerName'),
       'PlaceOfSupply' => $request->input('PlaceOfSupply'),
@@ -325,7 +337,8 @@ if($request->EstimateType=='IT')
   $d = 'QOU';
   $data = DB::table('estimate_master')
      ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,3)'),['QOU'])->get();    
-}elseif ($request->EstimateType=='Software') {
+}
+elseif ($request->EstimateType=='Software'){
   $d = 'SO';
   $data = DB::table('estimate_master')
      ->select( DB::raw('LPAD(IFNULL(MAX(right(EstimateNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(EstimateNo,2)'),['SO'])->get();    
@@ -337,17 +350,18 @@ public  function EstimateRevised(request $request)
 {
 
      $ref = explode('-', $request->input('ReferenceNo'));
-     $current_revision = $ref[1];
+     $current_version = $ref[1];
 
-     $current_revision_number =  preg_replace("/[^0-9]/", '', $current_revision);
+     $current_version_number =  preg_replace("/[^0-9]/", '', $current_version);
 
-     $new_version_number = $current_revision_number+1;
+     $new_version_number = $current_version_number+1;
 
-     $ReferenceNo =  $ref[0].'-R'.$new_version_number.'-'.$ref[2].'-'.$ref[3];
+     $ReferenceNo =  $ref[0].'-R'.$new_version_number.'-'.date('y').'-'.$ref[3];
 
  
      $estimate_mst = array(
       'EstimateNo' => $request->input('EstimateNo'),
+      'EstimateType' => $request->input('EstimateType'),
       'PartyID' => $request->input('PartyID'),
       'WalkinCustomerName' => $request->input('WalkinCustomerName'),
       'PlaceOfSupply' => $request->input('PlaceOfSupply'),
@@ -431,7 +445,7 @@ public  function ajax_quotoinv(request $request)
 
 
   $InvoiceNo = 'INV-'.$vhno[0]->VHNO;
-  $ReferenceNo = 'INV-'.date('Y').'-'.$vhno[0]->VHNO;
+  $ReferenceNo = 'INV-'.date('y').'-'.$vhno[0]->VHNO;
 
           $invoice_mst = array(
               'InvoiceNo' => $InvoiceNo, 
@@ -458,8 +472,8 @@ public  function ajax_quotoinv(request $request)
               'UserID' => session::get('UserID'), 
       );
       
-   $InvoiceMasterID= DB::table('invoice_master')->insertGetId($invoice_mst);
-      $invoice_details = DB::table('estimate_detail')->where('EstimateMasterID', $estimate_mst->EstimateMasterID)->get();
+$InvoiceMasterID= DB::table('invoice_master')->insertGetId($invoice_mst);
+$invoice_details = DB::table('estimate_detail')->where('EstimateMasterID', $estimate_mst->EstimateMasterID)->get();
 
       foreach($invoice_details as $invoice_detail){
 
@@ -481,7 +495,7 @@ public  function ajax_quotoinv(request $request)
         );
 
         $id= DB::table('invoice_detail')->insertGetId($invoice_det_data);
-      } 
+      }
 
 return response()->json(['success' => 'success', 'message' => $InvoiceMasterID]);
 }
