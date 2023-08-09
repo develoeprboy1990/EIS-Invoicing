@@ -386,8 +386,8 @@
                                     <thead>
                                         <tr class=" borde-1 border-light " style="height: 40px;">
                                             <th width="1%" class="text-center"><input id="check_all" type="checkbox" /></th>
-                                            <th width="1%">ITEM DETAILS </th>
- 
+                                            <th width="1%">ITEM CATEGORY </th>
+                                            <th width="1%">ITEM DETAILS </th> 
                                             <th width="1%">QUANTITY</th>
                                             <th width="2%">RATE</th>
                                             <th width="2%">DISCOUNT</th>
@@ -402,16 +402,27 @@
                                         <tr class="p-3">
                                           <td bordercolor="1" class="p-1    text-center"><input class="case" type="checkbox" /></td>
 
+                                            <td valign="top">
+                                                <select name="CatID0[]" id="CatID0_1" class="item form-select form-control-sm select2 changesCat" onchange="km(this.value,1);" style="width: 300px !important;">
+                                                    <option value="">select</option>
+                                                    @foreach ($item_categories as $key => $value)
+                                                    <option value="{{$value->ItemCategoryID}}">{{$value->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <input type="hidden" name="CatID[]" id="CatID_1">
+                                            </td>
+
+
                                           <td valign="top">
 
-                                                <select name="ItemID0[]" id="ItemID0_1" class="item form-select form-control-sm select2   changesNoo " onchange="km(this.value,1);" style="width: 300px !important;">
+                                                <select name="ItemID0[]" id="ItemID0_1" class="item form-select form-control-sm select2   changesNoo " onchange="km(this.value,1);" style="width: 400px !important;">
                                                     <option value="">select</option>
                                                     @foreach ($items as $key => $value)
                                                     <option value="{{$value->ItemID}}">{{$value->ItemName}}</option>
                                                     @endforeach
                                                 </select>
                                                 <input type="hidden" name="ItemID[]" id="ItemID_1">
-                                          <textarea name="Description[]" id="Description[]" rows="2" class="form-control" style="width: 300px !important;"></textarea></td>
+                                          <textarea name="Description[]" id="Description[]" rows="2" class="form-control" style="width: 400px !important;"></textarea></td>
 
 
                                              <td valign="top">
@@ -664,7 +675,10 @@
          
         html = '<tr class= borde-1 border-light">';
         html += '<td class="p-1 text-center"><input class="case" type="checkbox"/></td>';
-        html += '<td><select name="ItemID0[]" id="ItemID0_' + i + '"  style="width: 300px !important;" class="form-select select2  changesNoo" onchange="km(this.value,' + i + ');" > <option value="">select</option>}@foreach ($items as $key => $value) <option value="{{$value->ItemID}}|{{$value->Percentage}}">{{$value->ItemCode}}-{{$value->ItemName}}-{{$value->Percentage}}</option>@endforeach</select><input type="hidden" name="ItemID[]" id="ItemID_' + i + '"> <textarea name="Description[]" id="Description[]" rows="2" class="form-control" style="width: 300px !important;"></textarea></td>';
+
+        html += '<td><select name="CatID0[]" id="CatID0_' + i + '"  style="width: 300px !important;" class="form-select select2 changesCat" > <option value="">select</option>}@foreach ($item_categories as $key => $value) <option value="{{$value->ItemCategoryID}}">{{$value->title}}</option>@endforeach</select><input type="hidden" name="CatID[]" id="CatID_' + i + '"></td>';
+
+        html += '<td><select name="ItemID0[]" id="ItemID0_' + i + '"  style="width: 400px !important;" class="form-select select2  changesNoo" onchange="km(this.value,' + i + ');" > <option value="">select</option>}@foreach ($items as $key => $value) <option value="{{$value->ItemID}}">{{$value->ItemName}}</option>@endforeach</select><input type="hidden" name="ItemID[]" id="ItemID_' + i + '"> <textarea name="Description[]" id="Description[]" rows="2" class="form-control" style="width: 400px !important;"></textarea></td>';
 
 
 
@@ -689,6 +703,8 @@
          i++;
         $('table').append(html);
         $('.changesNoo', 'table').select2();
+        $('.changesCat', 'table').select2();
+        
         
 
  
@@ -1025,13 +1041,28 @@ function TaxIncExc()
 
     });
 
+
+    $(document).on('change', '.changesCat', function() {
+
+        id_arr = $(this).attr('id');
+        id = id_arr.split("_");
+
+        val = $('#CatID0_' + id[1]).val();
+
+
+        // alert($('#ItemID0_'+id[1]).val());
+        $('#CatID_' + id[1]).val(val);
+
+    });
+    
+
     ////////////////////////////////////////////
 
     function calculatediscount() {
         
         subTotal = parseFloat($('#subTotal').val());
 
-grandtotaltax = $('#grandtotaltax').val();
+        grandtotaltax = $('#grandtotaltax').val();
         discountper = $('#discountper').val();
          
         if (discountper != '' && typeof(discountper) != "undefined") {

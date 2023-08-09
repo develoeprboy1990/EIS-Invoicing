@@ -67,12 +67,14 @@
                   </div>
                   <div class="col-sm-9">
                   <div class="form-check form-check-inline pt-2">
-                   <input class="form-check-input" type="radio" name="ItemType" id="inlineRadio1" value="Goods" checked {{ old('ItemType') == 'Goods' ? 'checked' : '' }}>
+                   <input class="form-check-input" type="radio" name="ItemType" id="inlineRadio1" value="Goods"  
+                   {{$item[0]->ItemType == 'Goods' ? 'checked' : ''}}>
                    <label class="form-check-label" for="inlineRadio1">Goods</label>
                  </div>
 
                   <div class="form-check form-check-inline pt-2">
-                   <input class="form-check-input" type="radio" name="ItemType" id="inlineRadio1" value="Service" {{ old('ItemType') == 'Service' ? 'checked' : '' }}>
+                   <input class="form-check-input" type="radio" name="ItemType" id="inlineRadio1" value="Service" 
+                   {{$item[0]->ItemType == 'Service' ? 'checked' : ''}}>
                    <label class="form-check-label" for="inlineRadio1">Service</label>
                  </div>
                   </div>
@@ -89,6 +91,23 @@
                     
                   </div>
                 </div>
+
+                <div class="mb-3 row">
+                  <div class="col-sm-2">
+                    <label class="col-form-label fw-bold" for="first-name">Category</label>
+                  </div>
+                  <div class="col-sm-9">
+                    
+                    <select id="categories" name="category_id" class="form-select">
+                      <option value="">Select Category</option>
+                        @foreach($categories as $category)
+                        <option value="{{$category->ItemCategoryID}}" {{$item[0]->ItemCategoryID == $category->ItemCategoryID ? 'selected' : ''}}>{{$category->title}}</option>
+                        @endforeach
+                    </select>
+                    
+                  </div>
+                </div>
+
 
                 <div class="mb-3 row">
                   <div class="col-sm-2">

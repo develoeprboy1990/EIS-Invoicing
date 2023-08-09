@@ -78,7 +78,8 @@ class EstimateController extends Controller
         $challan_type = DB::table('challan_type')->get();
         $estimate_type = DB::table('estimate_type')->get();
         $company = DB::table('company')->first();
-        return view('estimate.estimate_create', compact('chartofacc', 'party', 'pagetitle', 'estimate_master', 'items', 'item', 'challan_type', 'user','estimate_type','tax','company'));
+        $item_categories = DB::table('item_category')->get();
+        return view('estimate.estimate_create', compact('chartofacc', 'party', 'pagetitle', 'estimate_master', 'items', 'item', 'challan_type', 'user','estimate_type','tax','company','item_categories'));
       
   }
 
@@ -99,7 +100,6 @@ class EstimateController extends Controller
       'SubTotal' => $request->input('SubTotal'),
       'Discount' => $request->input('DiscountAmount'),
       'DiscountPer' => $request->input('DiscountPer'),
-
       'TaxType' => $request->input('TaxType'),
       'TaxPer' => $request->input('Taxpercentage'),
       'Tax' => $request->input('grandtotaltax'),
@@ -133,6 +133,7 @@ class EstimateController extends Controller
         'EstimateNo' => $request->input('EstimateNo'),
         'EstimateDate' => $request->input('Date'),
         'ItemID' => $ItemID,
+        'ItemCategoryID' => $request->CatID[$i],
         'Description' => $request->Description[$i],
         'TaxPer' => $request->Tax[$i],
         'Tax' => $request->TaxVal[$i],
@@ -230,8 +231,8 @@ class EstimateController extends Controller
     // dd($estimate_detail);
 
 
-    
-    return view('estimate.estimate_edit', compact('chartofacc', 'party', 'pagetitle', 'estimate_master', 'items', 'item',  'user',  'estimate_detail','tax'));
+    $item_categories = DB::table('item_category')->get();
+    return view('estimate.estimate_edit', compact('chartofacc', 'party', 'pagetitle', 'estimate_master', 'items', 'item',  'user',  'estimate_detail','tax','item_categories'));
   }
 
 
@@ -281,6 +282,7 @@ class EstimateController extends Controller
         'EstimateNo' => $request->input('EstimateNo'),
         'EstimateDate' => $request->input('Date'),
         'ItemID' => $request->ItemID[$i],
+        'ItemCategoryID' => $request->CatID[$i],
         'Description' => $request->Description[$i],
          'TaxPer' => $request->Tax[$i],
          'Tax' => $request->TaxVal[$i],

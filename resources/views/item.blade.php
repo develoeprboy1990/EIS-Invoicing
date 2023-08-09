@@ -94,6 +94,21 @@
                   </div>
                 </div>
 
+
+                 <div class="mb-3 row">
+                      <div class="col-sm-2">
+                        <label class="col-form-label fw-bold" for="first-name">Category</label>
+                      </div>
+                      <div class="col-sm-9">
+                        <select name="item_category_id" id="item_category_id" class="form-select">
+                          <option value="">Select Item Category</option>
+                          @foreach($item_categories as $category)
+                          <option value="{{$category->ItemCategoryID}}">{{$category->title}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    
                 <div class="mb-3 row">
                   <div class="col-sm-2">
                     <label class="col-form-label fw-bold" for="first-name">Unit</label>

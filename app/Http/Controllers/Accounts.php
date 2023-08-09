@@ -1788,9 +1788,9 @@ session::put('menu','Item');
 $pagetitle='Item';
 $item = DB::table('item')->get();
 $unit = DB::table('unit')->get();
-
+$item_categories = DB::table('item_category')->get();
 $chartofaccount = DB::table('chartofaccount')->where(DB::raw('right(ChartOfAccountID,4)'),00000)->where(DB::raw('right(ChartOfAccountID,5)'),'!=',00000)->get();
-return view ('item',compact('pagetitle','item','unit','chartofaccount'));
+return view ('item',compact('pagetitle','item','unit','chartofaccount','item_categories'));
 }
 
 
@@ -1853,9 +1853,10 @@ $pagetitle='Item';
 
 $item = DB::table('item')->where('ItemID',$id)->get();
 $unit = DB::table('unit')->get();
+$categories = DB::table('item_category')->get();
 $chartofaccount = DB::table('chartofaccount')->where(DB::raw('right(ChartOfAccountID,4)'),00000)->where(DB::raw('right(ChartOfAccountID,5)'),'!=',00000)->get();
 
-return view ('item_edit',compact('pagetitle','item','unit','chartofaccount'));
+return view ('item_edit',compact('pagetitle','item','unit','chartofaccount','categories'));
 }
 
 public  function ItemUpdate(request $request)

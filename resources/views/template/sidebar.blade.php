@@ -138,10 +138,10 @@
                     <ul class="sub-menu" aria-expanded="false">
                         
                         
-                <li>  <a   href="{{URL('/User')}}" key="t-products" >User</a></li>
-                <li>  <a   href="{{URL('/Salesman')}}" key="t-products" >Salesman</a></li>
-
-                <li>  <a   href="{{URL('/Company')}}" key="t-products" >Company</a></li>
+                <li><a href="{{URL('/User')}}" key="t-products" >User</a></li>
+                <li><a href="{{URL('/Salesman')}}" key="t-products" >Salesman</a></li>
+                <li><a href="{{URL('/item-category-list')}}" key="t-products">Item Categories</a></li>
+                <li><a href="{{URL('/Company')}}" key="t-products" >Company</a></li>
                 
  
 
