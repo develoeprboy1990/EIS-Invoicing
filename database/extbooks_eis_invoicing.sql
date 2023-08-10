@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 08, 2023 at 12:35 PM
+-- Generation Time: Aug 10, 2023 at 06:18 AM
 -- Server version: 8.0.27
 -- PHP Version: 8.1.0
 
@@ -408,6 +408,7 @@ CREATE TABLE `estimate_detail` (
   `EstimateNo` varchar(10) DEFAULT NULL,
   `EstimateDate` date DEFAULT NULL,
   `ItemID` int DEFAULT NULL,
+  `ItemCategoryID` int DEFAULT NULL,
   `Description` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
   `Qty` int DEFAULT NULL,
   `Rate` double(8,2) DEFAULT NULL,
@@ -424,12 +425,14 @@ CREATE TABLE `estimate_detail` (
 -- Dumping data for table `estimate_detail`
 --
 
-INSERT INTO `estimate_detail` (`EstimateDetailID`, `EstimateMasterID`, `EstimateNo`, `EstimateDate`, `ItemID`, `Description`, `Qty`, `Rate`, `Discount`, `DiscountType`, `TaxPer`, `Tax`, `Total`, `Gross`, `DiscountAmountItem`) VALUES
-(13, 8, 'QUO-00002', '2023-08-08', 25, 'tesast', 1, 23.00, 0.00, 1.00, 0.00, 0.00, 23.00, 23.00, 0.00),
-(15, 9, 'QUO-00001', NULL, 25, 'asdfasdf', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 644.10, 678.00, 0.00),
-(17, 11, 'QUO-00002', '2023-08-08', 22, NULL, 1, 100.00, 0.00, 1.00, 5.00, 5.00, 100.00, 100.00, 0.00),
-(18, 10, 'QUO-00001', NULL, 25, 'ZKT Fingerprint & Password Time Attendance Device with Standalone Software', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
-(19, 10, 'QUO-00001', NULL, 25, 'ZKT Slave Fingerprint Reader (Door Exit)', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 346.75, 365.00, 0.00);
+INSERT INTO `estimate_detail` (`EstimateDetailID`, `EstimateMasterID`, `EstimateNo`, `EstimateDate`, `ItemID`, `ItemCategoryID`, `Description`, `Qty`, `Rate`, `Discount`, `DiscountType`, `TaxPer`, `Tax`, `Total`, `Gross`, `DiscountAmountItem`) VALUES
+(13, 8, 'QUO-00002', '2023-08-08', 25, NULL, 'tesast', 1, 23.00, 0.00, 1.00, 0.00, 0.00, 23.00, 23.00, 0.00),
+(15, 9, 'QUO-00001', NULL, 25, NULL, 'asdfasdf', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 644.10, 678.00, 0.00),
+(17, 11, 'QUO-00002', '2023-08-08', 22, NULL, NULL, 1, 100.00, 0.00, 1.00, 5.00, 5.00, 100.00, 100.00, 0.00),
+(39, 10, 'QUO-00001', NULL, 25, 1, 'ZKT Fingerprint & Password Time Attendance Device with Standalone Software', 1, 678.00, 0.00, 1.00, 5.00, 33.90, 678.00, 678.00, 0.00),
+(40, 10, 'QUO-00001', NULL, 25, 3, 'ZKT Slave Fingerprint Reader (Door Exit)', 1, 365.00, 0.00, 1.00, 5.00, 18.25, 365.00, 365.00, 0.00),
+(41, 10, 'QUO-00001', NULL, 25, 1, 'test', 1, 22.00, 0.00, 1.00, 5.00, 1.10, 22.00, 22.00, 0.00),
+(42, 10, 'QUO-00001', NULL, 22, 1, NULL, 10, 100.00, 0.00, 1.00, 5.00, 50.00, 950.00, 1000.00, 0.00);
 
 -- --------------------------------------------------------
 
@@ -471,7 +474,7 @@ CREATE TABLE `estimate_master` (
 --
 
 INSERT INTO `estimate_master` (`EstimateMasterID`, `EstimateNo`, `EstimateType`, `PartyID`, `WalkinCustomerName`, `PlaceOfSupply`, `ReferenceNo`, `TaxType`, `EstimateDate`, `Date`, `ExpiryDate`, `SubTotal`, `TaxPer`, `Tax`, `Total`, `DiscountPer`, `Discount`, `Shipping`, `GrandTotal`, `CustomerNotes`, `DescriptionNotes`, `TermAndCondition`, `File`, `UserID`, `Subject`, `CreatedAt`) VALUES
-(10, 'QUO-00001', 'IT', 2216, NULL, NULL, 'QUO-R0-23-00001', 'TaxExclusive', '2023-08-08', '2023-08-08', '2023-08-08', 1043.00, NULL, 52.15, 1043.00, 0.00, 0.00, 0.00, 1095.15, '<ol>\r\n	<li>Cable Pulling, Termination and Configuration.</li>\r\n	<li>Supply, Installation and Configuration of Time attendance System.</li>\r\n</ol>', '<ol>\r\n	<li>Any approval or NOC from any Local Authorities or Government.</li>\r\n	<li>Any extra items not mentioned in contract.</li>\r\n</ol>', '<ol>\n	<li>Amount in AED,</li>\n</ol>\n\n<ul style=\"list-style-type:circle\">\n	<li>50% Advance (Non-Refundable)</li>\n	<li>50% After completion</li>\n</ul>\n\n<ol>\n	<li>Quotation valid for 20 days from date of submission.</li>\n	<li>One-year warranty for the devices provided by EIS. Liquid and Physical Damage is not covered.</li>\n	<li>Any Additional work will be charged as variation.</li>\n	<li>Each additional access card will be charged 70 AED which includes Printing, delivery and Configuration of card in the machine.</li>\n</ol>', NULL, 1, 'TIME ATTENDANCE SYSTEM', '2023-08-08 11:20:21');
+(10, 'QUO-00001', 'IT', 2216, NULL, NULL, 'QUO-R0-23-00001', 'TaxExclusive', '2023-08-08', '2023-08-08', '2023-08-08', 2065.00, NULL, 103.25, 2065.00, 0.00, 0.00, 0.00, 2168.25, '<ol>\r\n	<li>Cable Pulling, Termination and Configuration.</li>\r\n	<li>Supply, Installation and Configuration of Time attendance System.</li>\r\n</ol>', '<ol>\r\n	<li>Any approval or NOC from any Local Authorities or Government.</li>\r\n	<li>Any extra items not mentioned in contract.</li>\r\n</ol>', '<ol>\r\n	<li>Amount in AED,</li>\r\n</ol>\r\n\r\n<ul style=\"list-style-type:circle\">\r\n	<li>50% Advance (Non-Refundable)</li>\r\n	<li>50% After completion</li>\r\n</ul>\r\n\r\n<ol>\r\n	<li>Quotation valid for 20 days from date of submission.</li>\r\n	<li>One-year warranty for the devices provided by EIS. Liquid and Physical Damage is not covered.</li>\r\n	<li>Any Additional work will be charged as variation.</li>\r\n	<li>Each additional access card will be charged 70 AED which includes Printing, delivery and Configuration of card in the machine.</li>\r\n</ol>', NULL, 1, 'TIME ATTENDANCE SYSTEM', '2023-08-08 11:20:21');
 
 -- --------------------------------------------------------
 
@@ -566,14 +569,6 @@ CREATE TABLE `invoice_detail` (
   `Total` double(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `invoice_detail`
---
-
-INSERT INTO `invoice_detail` (`InvoiceDetailID`, `InvoiceMasterID`, `InvoiceNo`, `ItemID`, `Description`, `SupplierID`, `PartyID`, `Qty`, `Rate`, `TaxPer`, `Tax`, `Discount`, `DiscountType`, `DiscountAmountItem`, `Gross`, `Total`) VALUES
-(22, 5, 'INV-00004', 25, 'ZKT Fingerprint & Password Time Attendance Device with Standalone Software', NULL, 2216, 1, 678.00, 5.00, 33.90, 0.00, 1.00, 0.00, 678.00, 678.00),
-(23, 5, 'INV-00004', 25, 'ZKT Slave Fingerprint Reader (Door Exit)', NULL, 2216, 1, 365.00, 5.00, 18.25, 0.00, 1.00, 0.00, 365.00, 346.75);
-
 -- --------------------------------------------------------
 
 --
@@ -609,13 +604,6 @@ CREATE TABLE `invoice_master` (
   `Balance` double(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `invoice_master`
---
-
-INSERT INTO `invoice_master` (`InvoiceMasterID`, `InvoiceNo`, `InvoiceType`, `Date`, `DueDate`, `PartyID`, `WalkinCustomerName`, `SupplierID`, `ReferenceNo`, `UserID`, `PaymentMode`, `PaymentDetails`, `Subject`, `TaxType`, `DescriptionNotes`, `CustomerNotes`, `SubTotal`, `DiscountPer`, `Total`, `DiscountAmount`, `TaxPer`, `Tax`, `Shipping`, `GrandTotal`, `Paid`, `Balance`) VALUES
-(5, 'INV-00004', 'Invoice', '2023-08-08', NULL, 2216, NULL, NULL, 'INV-23-00004', 1, 'Cash', NULL, 'TIME ATTENDANCE SYSTEM', 'TaxExclusive', '<ol>\r\n	<li>Any approval or NOC from any Local Authorities or Government.</li>\r\n	<li>Any extra items not mentioned in contract.</li>\r\n</ol>', '<ol>\r\n	<li>Cable Pulling, Termination and Configuration.</li>\r\n	<li>Supply, Installation and Configuration of Time attendance System.</li>\r\n</ol>', 1043.00, 0.00, 1043.00, 0.00, NULL, 52.15, 0.00, 1095.15, 0.00, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -645,6 +633,7 @@ INSERT INTO `invoice_type` (`InvoiceTypeID`, `InvoiceType`) VALUES
 CREATE TABLE `item` (
   `ItemID` int NOT NULL,
   `ItemType` varchar(55) DEFAULT NULL,
+  `ItemCategoryID` int DEFAULT NULL,
   `ItemCode` varchar(5) DEFAULT NULL,
   `ItemName` varchar(55) DEFAULT NULL,
   `UnitName` varchar(10) DEFAULT NULL,
@@ -662,11 +651,34 @@ CREATE TABLE `item` (
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`ItemID`, `ItemType`, `ItemCode`, `ItemName`, `UnitName`, `Taxable`, `Percentage`, `CostPrice`, `CostChartofAccountID`, `CostDescription`, `SellingPrice`, `SellingChartofAccountID`, `SellingDescription`) VALUES
-(22, 'Goods', NULL, 'Pepsi 1 Ltr', NULL, 'Yes', 5.00, 80.00, NULL, NULL, 100.00, NULL, NULL),
-(23, 'Goods', NULL, 'Malaysia Silver Pkg', NULL, 'No', NULL, 5000.00, NULL, NULL, 5500.00, NULL, NULL),
-(24, 'Goods', NULL, 'Sales', NULL, 'No', NULL, 80.00, NULL, NULL, 80.00, NULL, NULL),
-(25, 'Service', NULL, 'Service', NULL, 'No', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `item` (`ItemID`, `ItemType`, `ItemCategoryID`, `ItemCode`, `ItemName`, `UnitName`, `Taxable`, `Percentage`, `CostPrice`, `CostChartofAccountID`, `CostDescription`, `SellingPrice`, `SellingChartofAccountID`, `SellingDescription`) VALUES
+(22, 'Goods', NULL, NULL, 'Pepsi 1 Ltr', NULL, 'Yes', 5.00, 80.00, NULL, NULL, 100.00, NULL, NULL),
+(23, 'Goods', NULL, NULL, 'Malaysia Silver Pkg', NULL, 'No', NULL, 5000.00, NULL, NULL, 5500.00, NULL, NULL),
+(24, 'Goods', NULL, NULL, 'Sales', NULL, 'No', NULL, 80.00, NULL, NULL, 80.00, NULL, NULL),
+(25, 'Service', NULL, NULL, 'Service', NULL, 'No', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_category`
+--
+
+CREATE TABLE `item_category` (
+  `ItemCategoryID` int NOT NULL,
+  `ParentID` int DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `image` varchar(191) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `IsActive` tinyint(1) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `item_category`
+--
+
+INSERT INTO `item_category` (`ItemCategoryID`, `ParentID`, `title`, `image`, `type`, `IsActive`) VALUES
+(1, NULL, 'IP CCTV System Installation', NULL, NULL, 1),
+(3, NULL, 'Amplifier Installation', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -695,15 +707,6 @@ CREATE TABLE `journal` (
   `BankReconcile` varchar(15) DEFAULT NULL,
   `ReconcileDate` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `journal`
---
-
-INSERT INTO `journal` (`JournalID`, `VHNO`, `JournalType`, `ChartOfAccountID`, `PartyID`, `SupplierID`, `VoucherMstID`, `PettyMstID`, `InvoiceMasterID`, `ExpenseMasterID`, `PaymentMasterID`, `PurchasePaymentMasterID`, `Narration`, `Date`, `Dr`, `Cr`, `Trace`, `BankReconcile`, `ReconcileDate`) VALUES
-(4, 'INV-00004', NULL, 110400, 2216, NULL, NULL, NULL, 5, NULL, NULL, NULL, 'TIME ATTENDANCE SYSTEM', '2023-08-08', 1095.15, NULL, '123', NULL, NULL),
-(5, 'INV-00004', NULL, 410100, 2216, NULL, NULL, NULL, 5, NULL, NULL, NULL, 'TIME ATTENDANCE SYSTEM', '2023-08-08', NULL, 1043.00, '12345', NULL, NULL),
-(6, 'INV-00004', NULL, 210300, 2216, NULL, NULL, NULL, 5, NULL, NULL, NULL, 'TIME ATTENDANCE SYSTEM', '2023-08-08', NULL, 52.15, '12346', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -769,6 +772,13 @@ CREATE TABLE `payment_detail` (
   `eDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `payment_detail`
+--
+
+INSERT INTO `payment_detail` (`PaymentDetailID`, `PaymentMasterID`, `PaymentDate`, `InvoiceMasterID`, `Payment`, `eDate`) VALUES
+(1, 1, '2023-08-08', 5, 100.00, '2023-08-08 13:44:06');
+
 -- --------------------------------------------------------
 
 --
@@ -787,6 +797,13 @@ CREATE TABLE `payment_master` (
   `Notes` longtext,
   `eDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payment_master`
+--
+
+INSERT INTO `payment_master` (`PaymentMasterID`, `PartyID`, `PaymentDate`, `PaymentAmount`, `PaymentMode`, `ChartOfAccountID`, `ReferenceNo`, `File`, `Notes`, `eDate`) VALUES
+(1, 2216, '2023-08-08', 100.00, 'Cash', 110201, NULL, NULL, NULL, '2023-08-08 13:44:06');
 
 -- --------------------------------------------------------
 
@@ -1155,7 +1172,7 @@ CREATE TABLE `tax` (
   `TaxPer` varchar(255) NOT NULL,
   `Description` varchar(255) NOT NULL,
   `Section` varchar(55) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tax`
@@ -2020,12 +2037,14 @@ CREATE TABLE `v_estimate_detail` (
 ,`EstimateDetailID` int
 ,`EstimateMasterID` int
 ,`EstimateNo` varchar(10)
+,`ItemCategoryID` int
 ,`ItemID` int
 ,`ItemName` varchar(55)
 ,`Qty` int
 ,`Rate` double(8,2)
 ,`Tax` double(8,2)
 ,`TaxPer` double(8,2)
+,`title` varchar(255)
 ,`Total` double(8,2)
 );
 
@@ -2993,7 +3012,7 @@ CREATE OR REPLACE VIEW `v_delivery_challan`  AS SELECT `challan_master`.`Challan
 --
 DROP TABLE IF EXISTS `v_estimate_detail`;
 
-CREATE OR REPLACE VIEW `v_estimate_detail`  AS SELECT `estimate_detail`.`EstimateDetailID` AS `EstimateDetailID`, `estimate_detail`.`EstimateMasterID` AS `EstimateMasterID`, `estimate_detail`.`EstimateNo` AS `EstimateNo`, `estimate_detail`.`EstimateDate` AS `EstimateDate`, `estimate_detail`.`ItemID` AS `ItemID`, `item`.`ItemName` AS `ItemName`, `estimate_detail`.`Qty` AS `Qty`, `estimate_detail`.`Rate` AS `Rate`, `estimate_detail`.`Total` AS `Total`, `estimate_detail`.`Description` AS `Description`, `estimate_detail`.`TaxPer` AS `TaxPer`, `estimate_detail`.`Tax` AS `Tax` FROM (`estimate_detail` join `item` on((`estimate_detail`.`ItemID` = `item`.`ItemID`)))  ;
+CREATE OR REPLACE VIEW `v_estimate_detail`  AS SELECT `estimate_detail`.`EstimateDetailID` AS `EstimateDetailID`, `estimate_detail`.`EstimateMasterID` AS `EstimateMasterID`, `estimate_detail`.`EstimateNo` AS `EstimateNo`, `estimate_detail`.`EstimateDate` AS `EstimateDate`, `estimate_detail`.`ItemID` AS `ItemID`, `item`.`ItemName` AS `ItemName`, `estimate_detail`.`Qty` AS `Qty`, `estimate_detail`.`Rate` AS `Rate`, `estimate_detail`.`Total` AS `Total`, `estimate_detail`.`Description` AS `Description`, `estimate_detail`.`TaxPer` AS `TaxPer`, `estimate_detail`.`Tax` AS `Tax`, `estimate_detail`.`ItemCategoryID` AS `ItemCategoryID`, `item_category`.`title` AS `title` FROM ((`estimate_detail` join `item` on((`estimate_detail`.`ItemID` = `item`.`ItemID`))) join `item_category` on((`estimate_detail`.`ItemCategoryID` = `item_category`.`ItemCategoryID`)))  ;
 
 -- --------------------------------------------------------
 
@@ -3485,6 +3504,12 @@ ALTER TABLE `item`
   ADD PRIMARY KEY (`ItemID`);
 
 --
+-- Indexes for table `item_category`
+--
+ALTER TABLE `item_category`
+  ADD PRIMARY KEY (`ItemCategoryID`);
+
+--
 -- Indexes for table `journal`
 --
 ALTER TABLE `journal`
@@ -3676,7 +3701,7 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `estimate_detail`
 --
 ALTER TABLE `estimate_detail`
-  MODIFY `EstimateDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `EstimateDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `estimate_master`
@@ -3706,13 +3731,13 @@ ALTER TABLE `expense_master`
 -- AUTO_INCREMENT for table `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
-  MODIFY `InvoiceDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `InvoiceDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `invoice_master`
 --
 ALTER TABLE `invoice_master`
-  MODIFY `InvoiceMasterID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `InvoiceMasterID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `invoice_type`
@@ -3727,10 +3752,16 @@ ALTER TABLE `item`
   MODIFY `ItemID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
+-- AUTO_INCREMENT for table `item_category`
+--
+ALTER TABLE `item_category`
+  MODIFY `ItemCategoryID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `journal`
 --
 ALTER TABLE `journal`
-  MODIFY `JournalID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `JournalID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -3748,13 +3779,13 @@ ALTER TABLE `party`
 -- AUTO_INCREMENT for table `payment_detail`
 --
 ALTER TABLE `payment_detail`
-  MODIFY `PaymentDetailID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `PaymentDetailID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment_master`
 --
 ALTER TABLE `payment_master`
-  MODIFY `PaymentMasterID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `PaymentMasterID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment_mode`

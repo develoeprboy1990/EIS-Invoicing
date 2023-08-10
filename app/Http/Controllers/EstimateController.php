@@ -183,7 +183,7 @@ class EstimateController extends Controller
     $estimate = DB::table('v_estimate_master')->where('EstimateMasterID', $id)->first();
 
     //$estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
-    $estimate_detail = DB::table('estimate_detail')->where('EstimateMasterID', $id)->get();
+    $estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
     $company = DB::table('company')->first();
     
     session()->forget('VHNO');
@@ -200,7 +200,7 @@ class EstimateController extends Controller
     // dd('hello');
     $pagetitle = 'Estimate';
     $estimate = DB::table('v_estimate_master')->where('EstimateMasterID', $id)->first();
-    $estimate_detail = DB::table('estimate_detail')->where('EstimateMasterID', $id)->get();
+    $estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
     $company = DB::table('company')->first();
      $pdf = PDF::loadView ('estimate.estimate_view_pdf', compact('estimate', 'pagetitle', 'company', 'estimate_detail'));
     //return $pdf->download('pdfview.pdf');
