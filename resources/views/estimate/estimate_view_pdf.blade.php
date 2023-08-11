@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Qoutation</title>
     <style type="text/css">
-        @page {
+             @page {
             margin-top: 0.5cm;
             margin-bottom: 0.5cm;
             margin-left: 0.5cm;
             margin-right: 0.5cm;
         }
-
         body {
             font-family: 'Bookman Old Style', serif !important;
             color: #000;
-            margin: 0.02cm;
             font-size: 11pt;
             line-height: 100%;
+            margin-top: 4cm;
+            margin-left: 1cm;
+            margin-right: 1cm;
+            margin-bottom: 1cm;
         }
 
         h1,
@@ -326,7 +327,7 @@
 
 
         .table-of-contents {
-            padding: 10px;
+            padding: 20px;
             float: left;
         }
 
@@ -343,10 +344,36 @@
         .table-of-contents li {
             margin-bottom: 5px;
         }
+
+
+        /** Define the header rules **/
+        header {
+            position: fixed;
+            top: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 4cm;
+            /** Extra personal styles **/
+            color: black;
+            margin-bottom: 2cm;
+        }
+
+
+
+        footer {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 2cm; 
+            color: white;
+            text-align: center;
+            margin-top: 2cm;
+        }
     </style>
 </head>
-
 <body class="invoice">
+<header>
     <div id="bg_logo"> </div>
     <table class="head container" border="0">
         <tr>
@@ -369,7 +396,9 @@
             </td>
         </tr>
 
-    </table>
+    </table></header>
+    <footer></footer>
+
     <table class="order-data-addresses">
         <tr>
             <td style="width:50%;vertical-align:bottom;word-wrap: break-word; ">
@@ -393,19 +422,14 @@
                             </td>
                         </tr>
                     </tbody>
-
                 </table>
-
             </td>
-
             <td align="right" style="vertical-align:bottom;width: 50%;">
                 <table style="float:right;table-layout: fixed;word-wrap: break-word;width: 100%;" border="2" cellspacing="0" cellpadding="1">
-
                     <tbody>
                         <tr class="pcs-itemtable-header">
                             <th><strong>CLIENT</strong></th>
                         </tr>
-
                         <tr>
                             <td>
                                 <div class="shop-name" style="height:120px;line-height: 15pt;">
@@ -498,6 +522,7 @@
 
         <h2>Terms And Condtions</h2>
         {!!@$estimate->TermAndCondition!!}
+    </div>
 </body>
 
 </html>

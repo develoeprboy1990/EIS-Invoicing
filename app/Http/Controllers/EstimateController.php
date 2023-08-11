@@ -181,10 +181,18 @@ class EstimateController extends Controller
     //$estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
     $estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
     $company = DB::table('company')->first();
+    $company = DB::table('company')->first();
+    $categoryBasedInvoice = [];
+    foreach ($estimate_detail as $key => $value) {
+      if (!empty($value->ItemCategoryID)) {
+        $categoryBasedInvoice[$value->title][] = array('Description' => $value->Description, 'Qty' => $value->Qty, 'Rate' => $value->Rate, 'Total' => $value->Total);
+      }
+    }
+
     session()->forget('VHNO');
     session::put('VHNO', $estimate->EstimateNo);
-   
-    
+
+
     return view('estimate.estimate_view', compact('estimate', 'pagetitle', 'company', 'estimate_detail', 'categoryBasedInvoice'));
   }
 
@@ -197,12 +205,12 @@ class EstimateController extends Controller
     $company = DB::table('company')->first();
     $categoryBasedInvoice = [];
     foreach ($estimate_detail as $key => $value) {
-      if (!empty($value->ItemCategoryID)) { 
+      if (!empty($value->ItemCategoryID)) {
         $categoryBasedInvoice[$value->title][] = array('Description' => $value->Description, 'Qty' => $value->Qty, 'Rate' => $value->Rate, 'Total' => $value->Total);
       }
-    }  
+    }
 
-    $pdf = PDF::loadView('estimate.estimate_view_pdf', compact('estimate', 'pagetitle', 'company', 'estimate_detail','categoryBasedInvoice'));
+    $pdf = PDF::loadView('estimate.estimate_view_pdf', compact('estimate', 'pagetitle', 'company', 'estimate_detail', 'categoryBasedInvoice'));
     //return $pdf->download('pdfview.pdf');
     // $pdf->setpaper('A4', 'portiate');
     return $pdf->stream();
@@ -440,8 +448,6 @@ class EstimateController extends Controller
     $vhno = DB::table('invoice_master')
       ->select(DB::raw('LPAD(IFNULL(MAX(right(InvoiceNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(InvoiceNo,3)'), ['INV'])->get();
 
-<<<<<<< HEAD
-
 
     $InvoiceNo = 'INV-' . $vhno[0]->VHNO;
     $ReferenceNo = 'INV-' . date('y') . '-' . $vhno[0]->VHNO;
@@ -480,6 +486,7 @@ class EstimateController extends Controller
         'InvoiceMasterID' =>  $InvoiceMasterID,
         'InvoiceNo' => $InvoiceNo,
         'ItemID' => $invoice_detail->ItemID,
+        'ItemCategoryID' => $invoice_detail->ItemCategoryID,
         'PartyID' => $estimate_mst->PartyID,
         'Qty' => $invoice_detail->Qty,
         'Description' => $invoice_detail->Description,
@@ -491,175 +498,122 @@ class EstimateController extends Controller
         'DiscountType' => $invoice_detail->Discount,
         'Gross' => $invoice_detail->Gross,
         'DiscountAmountItem' => $invoice_detail->DiscountAmountItem,
-=======
-  $InvoiceNo = 'INV-'.$vhno[0]->VHNO;
-  $ReferenceNo = 'INV-'.date('y').'-'.$vhno[0]->VHNO;
-
-          $invoice_mst = array(
-              'InvoiceNo' => $InvoiceNo, 
-              'InvoiceType' => 'Invoice', 
-              'Date' => date('Y-m-d'),  
-              'PartyID' => $estimate_mst->PartyID, 
-              'WalkinCustomerName' => $estimate_mst->WalkinCustomerName, 
-              'ReferenceNo' => $ReferenceNo, 
-              'PaymentMode' => 'Cash', 
-              'Subject' => $estimate_mst->Subject, 
-              'SubTotal' => $estimate_mst->SubTotal, 
-              'DiscountPer' => $estimate_mst->DiscountPer, 
-              'DiscountAmount' => $estimate_mst->Discount, 
-              'Total' => $estimate_mst->Total, 
-              'TaxType' => $estimate_mst->TaxType, 
-              'TaxPer' => $estimate_mst->TaxPer, 
-              'Tax' => $estimate_mst->Tax, 
-              'Shipping' => $estimate_mst->Shipping, 
-              'GrandTotal' => $estimate_mst->GrandTotal, 
-              'CustomerNotes' => $estimate_mst->CustomerNotes,               
-              'DescriptionNotes' => $estimate_mst->DescriptionNotes, 
-              'Paid' => 0,     
-              'UserID' => session::get('UserID'),
->>>>>>> 154a853fcdedadfd4ada72325204065c62581316
       );
 
       $id = DB::table('invoice_detail')->insertGetId($invoice_det_data);
     }
 
-<<<<<<< HEAD
+
+    // end foreach
+
+
+    // Journal Entries 
+
+    // 1. A/R
+
+    // A/R -> Debit
+    $data_ar = array(
+      'VHNO' => $InvoiceNo,
+      'ChartOfAccountID' => '110400',   //A/R
+      'PartyID' => $estimate_mst->PartyID,
+      'InvoiceMasterID' => $InvoiceMasterID, #7A7A7A
+      'Narration' => $estimate_mst->Subject,
+      'Date' => date('Y-m-d'),
+      'Dr' => $estimate_mst->GrandTotal,
+      'Trace' => 123, // for debugging for reverse engineering
+
+    );
+
+    $journal_entry = DB::table('journal')->insertGetId($data_ar);
+
+    // 2. Sale discount
+
+    // Sales-Discount -> Debit
+
+    if ($estimate_mst->Discount > 0) { // if dis is given
+
+
+      $data_saledis = array(
+        'VHNO' => $InvoiceNo,
+        'ChartOfAccountID' => '410155',   //Sales-Discount
+        'PartyID' => $estimate_mst->PartyID,
+        'InvoiceMasterID' => $InvoiceMasterID, #7A7A7A
+        'Narration' => $estimate_mst->Subject,
+        'Date' => date('Y-m-d'),
+        'Dr' => $estimate_mst->Discount,
+        'Trace' => 1234, // for debugging for reverse engineering
+
+      );
+
+
+      $journal_entry = DB::table('journal')->insertGetId($data_saledis);
+    }
+    // 3. sales
+
+    // Sales -> Credit
+    $data_sale = array(
+      'VHNO' => $InvoiceNo,
+      'ChartOfAccountID' => '410100',   //Sales
+      'PartyID' => $estimate_mst->PartyID,
+      'InvoiceMasterID' => $InvoiceMasterID, #7A7A7A
+      'Narration' => $estimate_mst->Subject,
+      'Date' => date('Y-m-d'),
+      'Cr' => $estimate_mst->SubTotal,
+      'Trace' => 12345, // for debugging for reverse engineering
+
+    );
+
+    $journal_entry = DB::table('journal')->insertGetId($data_sale);
+
+    // 4. Tax -> VAT-OUTPUT TAX -> tax payable
+
+    // VAT-OUTPUT TAX -> Credit
+
+    if ($estimate_mst->GrandTotal > 0) { // if tax item is present in invoice
+
+
+      $data_vat_out = array(
+        'VHNO' => $InvoiceNo,
+        'ChartOfAccountID' => '210300',   //VAT-OUTPUT TAX ->tax payable
+        'PartyID' => $estimate_mst->PartyID,
+        'InvoiceMasterID' => $InvoiceMasterID, #7A7A7A
+        'Narration' => $estimate_mst->Subject,
+        'Date' => date('Y-m-d'),
+        'Cr' => $estimate_mst->Tax,
+        'Trace' => 12346, // for debugging for reverse engineering
+
+
+      );
+
+      $journal_entry = DB::table('journal')->insertGetId($data_vat_out);
+    }
+
+
+
+    // 5. shipping charges
+
+    // SHIPPING -> Credit
+
+    if ($estimate_mst->Shipping > 0) { // if tax item is present in invoice
+
+
+      $data_shipping = array(
+        'VHNO' => $InvoiceNo,
+        'ChartOfAccountID' => '500100',   //shipping
+        'PartyID' => $estimate_mst->PartyID,
+        'InvoiceMasterID' => $InvoiceMasterID, #7A7A7A
+        'Narration' => $estimate_mst->Subject,
+        'Date' => date('Y-m-d'),
+        'Cr' => $estimate_mst->Shipping,
+        'Trace' => 123467, // for debugging for reverse engineering
+
+
+      );
+
+      $journal_entry = DB::table('journal')->insertGetId($data_shipping);
+    }
+
+
     return response()->json(['success' => 'success', 'message' => $InvoiceMasterID]);
   }
-=======
-          $invoice_det_data = array (
-            'InvoiceMasterID' =>  $InvoiceMasterID, 
-            'InvoiceNo' => $InvoiceNo, 
-            'ItemID' => $invoice_detail->ItemID,
-            'ItemCategoryID' => $invoice_detail->ItemCategoryID,
-            'PartyID' => $estimate_mst->PartyID, 
-            'Qty' => $invoice_detail->Qty,
-            'Description' => $invoice_detail->Description,
-            'TaxPer' => $invoice_detail->TaxPer,
-            'Tax' => $invoice_detail->Tax,
-            'Rate' => $invoice_detail->Rate,
-            'Total' => $invoice_detail->Total,
-            'Discount' => $invoice_detail->Discount,
-            'DiscountType' => $invoice_detail->Discount,
-            'Gross' => $invoice_detail->Gross,
-            'DiscountAmountItem' => $invoice_detail->DiscountAmountItem, 
-        );
-
-        $id= DB::table('invoice_detail')->insertGetId($invoice_det_data);
-      }
-
-
-// end foreach
-  
-
-// Journal Entries 
-
-// 1. A/R
-
- // A/R -> Debit
-$data_ar = array(
-'VHNO' => $InvoiceNo,
-'ChartOfAccountID' => '110400',   //A/R
-'PartyID' => $estimate_mst->PartyID,
-'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
-'Narration' => $estimate_mst->Subject, 
-'Date' => date('Y-m-d'),
-'Dr' => $estimate_mst->GrandTotal,
-'Trace' => 123, // for debugging for reverse engineering
- 
-);
-
-$journal_entry= DB::table('journal')->insertGetId($data_ar);
-
-// 2. Sale discount
-
- // Sales-Discount -> Debit
-
-if($estimate_mst->Discount > 0) { // if dis is given
-
-
-$data_saledis = array(
-'VHNO' => $InvoiceNo,
-'ChartOfAccountID' => '410155',   //Sales-Discount
-'PartyID' => $estimate_mst->PartyID,
-'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
-'Narration' => $estimate_mst->Subject, 
-'Date' => date('Y-m-d'),
-'Dr' => $estimate_mst->Discount,
-'Trace' => 1234, // for debugging for reverse engineering
- 
-);
-
-
-$journal_entry= DB::table('journal')->insertGetId($data_saledis);
-
-}
-// 3. sales
-
- // Sales -> Credit
-$data_sale = array(
-'VHNO' => $InvoiceNo,
-'ChartOfAccountID' => '410100',   //Sales
-'PartyID' => $estimate_mst->PartyID,
-'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
-'Narration' => $estimate_mst->Subject, 
-'Date' => date('Y-m-d'),
-'Cr' => $estimate_mst->SubTotal,
-'Trace' => 12345, // for debugging for reverse engineering
- 
-);
-
-$journal_entry= DB::table('journal')->insertGetId($data_sale);
-
-// 4. Tax -> VAT-OUTPUT TAX -> tax payable
-
- // VAT-OUTPUT TAX -> Credit
-
-if($estimate_mst->GrandTotal>0) { // if tax item is present in invoice
-
-
-$data_vat_out = array(
-'VHNO' => $InvoiceNo,
-'ChartOfAccountID' => '210300',   //VAT-OUTPUT TAX ->tax payable
-'PartyID' => $estimate_mst->PartyID,
-'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
-'Narration' => $estimate_mst->Subject, 
-'Date' => date('Y-m-d'),
-'Cr' => $estimate_mst->Tax,
-'Trace' => 12346, // for debugging for reverse engineering
-
- 
-);
-
-$journal_entry= DB::table('journal')->insertGetId($data_vat_out); 
-}
-
-
-
-// 5. shipping charges
-
- // SHIPPING -> Credit
-
-if($estimate_mst->Shipping>0) { // if tax item is present in invoice
-
-
-$data_shipping = array(
-'VHNO' => $InvoiceNo,
-'ChartOfAccountID' => '500100',   //shipping
-'PartyID' => $estimate_mst->PartyID,
-'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
-'Narration' => $estimate_mst->Subject, 
-'Date' => date('Y-m-d'),
-'Cr' => $estimate_mst->Shipping,
-'Trace' => 123467, // for debugging for reverse engineering
-
- 
-);
-
-$journal_entry= DB::table('journal')->insertGetId($data_shipping); 
-}
-
-
-return response()->json(['success' => 'success', 'message' => $InvoiceMasterID]);
->>>>>>> 154a853fcdedadfd4ada72325204065c62581316
 }

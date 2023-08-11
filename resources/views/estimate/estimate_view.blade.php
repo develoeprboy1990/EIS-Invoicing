@@ -234,60 +234,7 @@
 
 
 
-
-
-            <table style="width:100%;margin-top:20px;table-layout:fixed;" class="pcs-itemtable" border="0" cellspacing="0" cellpadding="0">
-              <thead>
-                <tr style="height:32px;" class="pcs-itemtable-header">
-                  <td colspan="5" style="padding: 5px 0px 5px 5px;width: 5%;text-align: center; "><strong>{{$estimate->Subject}}</strong></td>
-                </tr>
-                <tr style="height:32px;" class="pcs-itemtable-breakword">
-                  <td class="pcs-itemtable-breakword" style="padding: 5px 0px 5px 5px;text-align: center;">
-                    <strong>SNO:</strong>
-                  </td>
-                  <td style="padding: 5px 10px 5px 20px;text-align: center;">
-                    <span style="padding: 5px 10px 5px 5px;">
-                      <strong>DESCRIPTION</strong>
-                    </span>
-                  </td>
-                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
-                    <strong>QTY</strong>
-                  </td>
-                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
-                    <strong>PRICE </strong>
-                  </td>
-                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
-                    <strong>TOTAL</strong>
-                  </td>
-                </tr>
-              </thead>
-              <tbody class="itemBody">
-                @foreach($estimate_detail as $key => $value)
-                <tr class="breakrow-inside breakrow-after">
-
-                  <td valign="top" style="padding: 10px 0 10px 5px;text-align: center;word-wrap: break-word;" class="pcs-item-row">
-                    {{++$key}}
-                  </td>
-
-                  <td valign="top" class="pcs-item-row" style="padding: 10px 0px 10px 20px;text-align: left;" align="left;">
-                    {{@$value->Description}}
-                  </td>
-
-                  <td valign="top" style="padding: 10px 10px 5px 10px;text-align:center;word-wrap: break-word;" class="pcs-item-row">
-                    <span id="tmp_item_qty">{{$value->Qty}}</span>
-                  </td>
-
-                  <td valign="top" style="padding: 10px 10px 5px 10px;text-align:center;word-wrap: break-word;" class="pcs-item-row">
-                    <span id="tmp_item_rate">{{$value->Rate}}</span>
-                  </td>
-
-                  <td valign="top" style="text-align:center;padding: 10px 10px 10px 5px;word-wrap: break-word;" class="pcs-item-row">
-                    <span id="tmp_item_amount">{{$value->Total}}</span>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
+ 
             <div style="width: 100%;margin-top: 1px;">
               <div style="width: 45%;padding: 3px 10px 3px 3px;font-size: 9pt;float: left;">
                 <div style="white-space: pre-wrap;">
@@ -305,52 +252,7 @@
                 </div>
               </div>
               <div style="width: 50%;float:right;">
-                <table class="pcs-totals" cellspacing="0" border="0" width="100%">
-                  <tbody>
-                    <tr class="pcs-balance">
-                      <td width="474" height="25" align="right" valign="middle">[Exclusive Tax] <b>SubTotal</b></td>
-                      <td width="289" height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate->SubTotal}}</b></div>
-                      </td>
-                    </tr>
-                    <tr class="pcs-balance">
-                      <td height="25" align="right" valign="middle"><b>Tax %</b></td>
-                      <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate->TaxPer}}</b></div>
-                      </td>
-                    </tr>
-                    <tr class="pcs-balance">
-                      <td height="25" align="right" valign="middle"><b>Tax </b></td>
-                      <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate->Tax}}</b></div>
-                      </td>
-                    </tr>
-                    <tr class="pcs-balance">
-                      <td height="25" align="right" valign="middle">[Inclusive Tax]<b>Total </b></td>
-                      <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate->Total}}</b></div>
-                      </td>
-                    </tr>
-                    <tr class="pcs-balance">
-                      <td height="25" align="right" valign="middle"><b>Discount %</b></td>
-                      <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate->DiscountPer}}</b></div>
-                      </td>
-                    </tr>
-                    <tr class="pcs-balance">
-                      <td height="25" align="right" valign="middle"><b>Discount</b></td>
-                      <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate->Discount}}</b></div>
-                      </td>
-                    </tr>
-                    <tr class="pcs-balance">
-                      <td height="25" align="right" valign="middle"><b>Grand Total</b></td>
-                      <td height="25" align="right" valign="middle" id="tmp_total" style="width:120px;;padding: 10px 10px 10px 5px;">
-                        <div align="right"><b>{{$estimate->GrandTotal}}</b></div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+               
               </div>
               <div style="clear: both;"></div>
             </div>
