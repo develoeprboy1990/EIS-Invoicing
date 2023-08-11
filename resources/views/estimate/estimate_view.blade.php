@@ -36,20 +36,19 @@
             <h4 class="mb-sm-0 font-size-18">Quotation</h4>
             <div class="text-sm-end">
               <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-            <button type="button" id="QuotationToInvoice" data-id="{{$estimate->EstimateNo}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">Convert To Invoice</button>
+              <button type="button" id="QuotationToInvoice" data-id="{{$estimate->EstimateNo}}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">Convert To Invoice</button>
             </div>
           </div>
         </div>
-      </div> 
-    
+      </div>
+
       <div class="card ">
         <div class="card-body border-3 border-top border-danger">
           <div class="pcs-template-body">
             <table style="width:100%;table-layout: fixed;">
               <tbody>
                 <tr>
-                  <td style="vertical-align: top; width:50%;"> <img 
-                    src="{{URL('/documents/'.$company->Logo)}}" alt="" class="img-fluid" width="120px"></td>
+                  <td style="vertical-align: top; width:50%;"> <img src="{{URL('/documents/'.$company->Logo)}}" alt="" class="img-fluid" width="120px"></td>
                   <td style="vertical-align: top; text-align:right;width:50%;">
                     <span class="pcs-entity-title style1" style="text-decoration: underline;color: #275079;"><b>{{$company->EstimateInvoiceTitle}}</b></span><br>
                     <span class="style1" style="color: #36709D;">
@@ -66,12 +65,12 @@
                   <td style="width:60%;vertical-align:bottom;word-wrap: break-word;">
 
 
-                    <table style="table-layout: fixed;word-wrap: break-word;width: 60%;" border="2" cellspacing="0" cellpadding="1"> 
+                    <table style="table-layout: fixed;word-wrap: break-word;width: 60%;" border="2" cellspacing="0" cellpadding="1">
 
 
                       <tbody>
                         <tr class="pcs-itemtable-header">
-                        <td><strong>SERVICE PROVIDER</strong></td>
+                          <td><strong>SERVICE PROVIDER</strong></td>
                         </tr>
 
                         <tr>
@@ -117,8 +116,8 @@
                                 <strong>Name: </strong>{{$estimate->PartyName}}<br />
                                 <strong>Address: </strong>{{$estimate->Address}}<br />
                                 <strong>Contact: </strong>{{$estimate->Mobile}}<br />
-                              <div>
-                            </div>
+                                <div>
+                                </div>
                           </td>
                         </tr>
                         <tr>
@@ -137,32 +136,126 @@
                 </tr>
               </tbody>
             </table>
+            @php
+            $cartTotal = 0;
+            @endphp
+
+            @foreach($categoryBasedInvoice as $keys => $values)
             <table style="width:100%;margin-top:20px;table-layout:fixed;" class="pcs-itemtable" border="0" cellspacing="0" cellpadding="0">
               <thead>
                 <tr style="height:32px;" class="pcs-itemtable-header">
-                  <td colspan="5" style="padding: 5px 0px 5px 5px;width: 5%;text-align: center; "><strong>
-                      {{$estimate->Subject}}</strong></td>
+                  <td colspan="5" style="padding: 5px 0px 5px 5px;width: 5%;text-align: center; "><strong> {{++$keys}}</strong></td>
                 </tr>
                 <tr style="height:32px;" class="pcs-itemtable-breakword">
                   <td class="pcs-itemtable-breakword" style="padding: 5px 0px 5px 5px;text-align: center;">
                     <strong>SNO:</strong>
                   </td>
-                  
                   <td style="padding: 5px 10px 5px 20px;text-align: center;">
                     <span style="padding: 5px 10px 5px 5px;">
                       <strong>DESCRIPTION</strong>
                     </span>
                   </td>
-                  
                   <td style="padding: 5px 10px 5px 5px;text-align: center;">
                     <strong>QTY</strong>
                   </td>
-                  
                   <td style="padding: 5px 10px 5px 5px;text-align: center;">
                     <strong>PRICE </strong>
                   </td>
+                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
+                    <strong>TOTAL</strong>
+                  </td>
+                </tr>
+              </thead>
+              <tbody class="itemBody">
+                @php
+                $catTotal = 0;
+                @endphp
+                @foreach($values as $key => $value)
+                @php
+                $catTotal = $catTotal+$value['Total'];
+                @endphp
+                <tr>
+                  <td valign="top" style="padding: 10px 0 10px 5px;text-align: center;word-wrap: break-word;" class="pcs-item-row">
+                    {{++$key}}
+                  </td>
 
-                  
+                  <td valign="top" class="pcs-item-row" style="padding: 10px 0px 10px 20px;text-align: left;" align="left;">
+                    {{@$value['Description']}}
+                  </td>
+
+                  <td valign="top" style="padding: 10px 10px 5px 10px;text-align:center;word-wrap: break-word;" class="pcs-item-row">
+                    <span id="tmp_item_qty">{{$value['Qty']}}</span>
+                  </td>
+
+                  <td valign="top" style="padding: 10px 10px 5px 10px;text-align:center;word-wrap: break-word;" class="pcs-item-row">
+                    <span id="tmp_item_rate">{{$value['Rate']}}</span>
+                  </td>
+
+                  <td valign="top" style="text-align:center;padding: 10px 10px 10px 5px;word-wrap: break-word;" class="pcs-item-row">
+                    <span id="tmp_item_amount">{{$value['Total']}}</span>
+                  </td>
+                </tr>
+                @endforeach
+                <tr style="height:32px;" class="pcs-itemtable-breakword">
+                  <td class="pcs-itemtable-breakword" style="padding: 5px 0px 5px 5px;text-align: center;" colspan="4">
+                    <strong>TOTAL</strong>
+                  </td>
+                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
+                    <strong>{{$catTotal}}</strong>
+                  </td>
+                </tr>
+                @endforeach
+                <tr >
+                  <td  colspan="5">&nbsp
+                  </td>
+                </tr>
+              </tbody>
+
+              <tfoot>
+                <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                  <th colspan="4" align="center">Total AED</th>
+                  <td style="text-align:center!important;">{{number_format($estimate->SubTotal,2)}}</td>
+                </tr>
+
+                <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                  <th colspan="4" align="center">VAT {{$estimate->TaxPer}} %</th>
+                  <td style="text-align:center!important;">{{number_format($estimate->Tax,2)}}</td>
+                </tr>
+
+
+
+                <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                  <th colspan="4" align="center">Grand Total AED</th>
+                  <td style="text-align:center!important;">{{number_format($estimate->GrandTotal,2)}}</td>
+                </tr>
+
+              </tfoot>
+            </table>
+
+
+
+
+
+            <table style="width:100%;margin-top:20px;table-layout:fixed;" class="pcs-itemtable" border="0" cellspacing="0" cellpadding="0">
+              <thead>
+                <tr style="height:32px;" class="pcs-itemtable-header">
+                  <td colspan="5" style="padding: 5px 0px 5px 5px;width: 5%;text-align: center; "><strong>{{$estimate->Subject}}</strong></td>
+                </tr>
+                <tr style="height:32px;" class="pcs-itemtable-breakword">
+                  <td class="pcs-itemtable-breakword" style="padding: 5px 0px 5px 5px;text-align: center;">
+                    <strong>SNO:</strong>
+                  </td>
+                  <td style="padding: 5px 10px 5px 20px;text-align: center;">
+                    <span style="padding: 5px 10px 5px 5px;">
+                      <strong>DESCRIPTION</strong>
+                    </span>
+                  </td>
+                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
+                    <strong>QTY</strong>
+                  </td>
+                  <td style="padding: 5px 10px 5px 5px;text-align: center;">
+                    <strong>PRICE </strong>
+                  </td>
                   <td style="padding: 5px 10px 5px 5px;text-align: center;">
                     <strong>TOTAL</strong>
                   </td>
@@ -171,7 +264,7 @@
               <tbody class="itemBody">
                 @foreach($estimate_detail as $key => $value)
                 <tr class="breakrow-inside breakrow-after">
-                  
+
                   <td valign="top" style="padding: 10px 0 10px 5px;text-align: center;word-wrap: break-word;" class="pcs-item-row">
                     {{++$key}}
                   </td>
@@ -295,45 +388,45 @@
 </div>
 <!-- END: Content-->
 <script>
-    $("#QuotationToInvoice").click(function() {
-        var QoutationNo =$(this).attr("data-id");
-        console.log(QoutationNo);
+  $("#QuotationToInvoice").click(function() {
+    var QoutationNo = $(this).attr("data-id");
+    console.log(QoutationNo);
 
-        if (QoutationNo != "") {
-            /*  $("#butsave").attr("disabled", "disabled"); */
-            // alert('next stage if else');
-            // console.log(EstimateType);
-            $.ajax({
-                url: "{{URL('/ajax_quotoinv')}}",
-                type: "POST",
-                data: {
-                    "_token": $("#csrf").val(),
-                    QoutationNo: QoutationNo,
+    if (QoutationNo != "") {
+      /*  $("#butsave").attr("disabled", "disabled"); */
+      // alert('next stage if else');
+      // console.log(EstimateType);
+      $.ajax({
+        url: "{{URL('/ajax_quotoinv')}}",
+        type: "POST",
+        data: {
+          "_token": $("#csrf").val(),
+          QoutationNo: QoutationNo,
 
-                },
-                cache: false,
+        },
+        cache: false,
 
-                success: function(data) {
-                  console.log(data);
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Qoutation Converted to Invoice Successfully',
-                    showConfirmButton: true,
-                    confirmButtonText: 'OK',
-                    allowOutsideClick: false
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      window.location.href = "{{ url('Invoice')}}";
-                    } 
-                  }); 
-                }
-            });
-
-            $.ajax({});
-            
-
+        success: function(data) {
+          console.log(data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Qoutation Converted to Invoice Successfully',
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+            allowOutsideClick: false
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "{{ url('Invoice')}}";
+            }
+          });
         }
+      });
 
-    });
+      $.ajax({});
+
+
+    }
+
+  });
 </script>
 @endsection
