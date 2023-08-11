@@ -188,11 +188,8 @@ class EstimateController extends Controller
         $categoryBasedInvoice[$value->title][] = array('Description' => $value->Description, 'Qty' => $value->Qty, 'Rate' => $value->Rate, 'Total' => $value->Total);
       }
     }
-
     session()->forget('VHNO');
     session::put('VHNO', $estimate->EstimateNo);
-
-
     return view('estimate.estimate_view', compact('estimate', 'pagetitle', 'company', 'estimate_detail', 'categoryBasedInvoice'));
   }
 
@@ -481,7 +478,6 @@ class EstimateController extends Controller
     $invoice_details = DB::table('estimate_detail')->where('EstimateMasterID', $estimate_mst->EstimateMasterID)->get();
 
     foreach ($invoice_details as $invoice_detail) {
-
       $invoice_det_data = array(
         'InvoiceMasterID' =>  $InvoiceMasterID,
         'InvoiceNo' => $InvoiceNo,

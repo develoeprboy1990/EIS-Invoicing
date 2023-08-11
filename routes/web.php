@@ -319,6 +319,7 @@ route::get('/Role/{UserID}',[Accounts::class,'Role']);
 
 Route::get('/Ajax_PartyInvoices/{id}',[Accounts::class,'Ajax_PartyInvoices']);
 route::get('/PaymentViewPDF/{id}',[Accounts::class,'PaymentViewPDF']);
+route::get('/PaymentViewPDF2/{id}',[Accounts::class,'PaymentViewPDF2']);
 
 
 route::get('/DeliveryChallan/',[Accounts::class,'DeliveryChallan']);

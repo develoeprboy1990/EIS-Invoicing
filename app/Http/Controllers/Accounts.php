@@ -4950,10 +4950,11 @@ class Accounts extends Controller
  
                        <div class="d-flex align-items-center col-actions">
                      
- 
-<a href="' . URL('/PaymentViewPDF/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-secondary"></i></a> 
-<a href="' . URL('/PaymentEdit/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-pencil align-middle me-1 text-secondary"></i></a> 
-<a href="' . URL('/PaymentDelete/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-trash-can-outline align-middle me-1 text-secondary"></i></a> 
+ <a href="'.URL('/PaymentViewPDF2/'.$row->PaymentMasterID).'"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-primary"></i></a> 
+
+<a href="'.URL('/PaymentViewPDF/'.$row->PaymentMasterID).'"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-secondary"></i></a> 
+<a href="'.URL('/PaymentEdit/'.$row->PaymentMasterID).'"><i class="font-size-18 mdi mdi-pencil align-middle me-1 text-secondary"></i></a> 
+<a href="'.URL('/PaymentDelete/'.$row->PaymentMasterID).'"><i class="font-size-18 mdi mdi-trash-can-outline align-middle me-1 text-secondary"></i></a> 
                         
                           
  
@@ -8357,6 +8358,26 @@ class Accounts extends Controller
     $pdf->setpaper('A4', 'portiate');
     return $pdf->stream();
   }
+
+public function PaymentViewPDF2($id)
+{   
+  $pagetitle='Payment Made';
+    $company = DB::table('company')->get();
+ 
+    $payment_master = DB::table('v_payment')->where('PaymentMasterID',$id)->get();
+    $payment_summary = DB::table('v_payment_summary')
+       ->where('PaymentMasterID',$id)->get();
+
+       $v_payment_detail = DB::table('v_payment_detail')->get();
+       
+    //return view('ebooks.payment_view_pdf2',compact('payment_summary','pagetitle','company','payment_master','v_payment_detail'));
+    //  $pdf->setpaper('A4', 'portiate');
+    // return $pdf->stream();
+
+   $pdf = PDF::loadView ('ebooks.payment_view_pdf2', compact('payment_summary','pagetitle','company','payment_master','v_payment_detail'));
+   return $pdf->stream();
+
+}
 
 
   public function PurchasePaymentCreate()
