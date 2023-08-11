@@ -323,11 +323,6 @@
         td {
             padding: 10px;
         }
-
-
-
-
-
         .table-of-contents {
             padding: 20px;
             float: left;
@@ -381,8 +376,7 @@
 </head>
 
 <body class="invoice">
-    <header>
-        <div id="bg_logo"> </div>
+    <header> 
         <table class="head container" border="0">
             <tr>
                 <td class="header">
@@ -392,7 +386,7 @@
                     <div class="shop-name">
                         <div align="right">
                             <div style="font-size: 16pt;line-height: 40pt;text-decoration: underline;color: #275079;">
-                                <strong> {{$company->EstimateInvoiceTitle}}</strong>
+                                <strong>Estimate {{$company->EstimateInvoiceTitle}}</strong>
                             </div>
                             <span style="color: #36709D;">
                                 Date : {{ \Carbon\Carbon::parse($estimate->Date)->format('d M,Y')}}<br>

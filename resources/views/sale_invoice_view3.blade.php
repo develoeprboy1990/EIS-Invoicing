@@ -381,8 +381,7 @@
 </head>
 
 <body class="invoice">
-    <header>
-        <div id="bg_logo"> </div>
+    <header> 
         <table class="head container" border="0">
             <tr>
                 <td class="header">
