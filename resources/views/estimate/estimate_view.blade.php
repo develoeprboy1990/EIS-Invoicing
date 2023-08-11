@@ -1,9 +1,4 @@
-<style type="text/css">
-  /* .style1 {font-weight: bold} */
-
-  /*  .style1 {
-              font-size: 25px
-            } */
+<style type="text/css"> 
 
   .pcs-itemtable-header {
     background-color: #9CC2E5;
@@ -22,6 +17,9 @@
     padding: 10px;
     border: 1px solid #ccc;
   }
+  ol + ul {
+  margin-left: 30px; /* Adjust this value as needed */
+}
 </style>
 @extends('template.tmp')
 @section('title', $pagetitle)

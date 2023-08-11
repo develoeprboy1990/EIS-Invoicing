@@ -367,10 +367,15 @@
             bottom: 0px;
             left: 0px;
             right: 0px;
-            height: 2cm; 
+            height: 2cm;
             color: white;
             text-align: center;
             margin-top: 2cm;
+        }
+
+        ol+ul {
+            margin-left: 30px;
+            /* Adjust this value as needed */
         }
     </style>
 </head>

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Qoutation</title>
     <style type="text/css">
-             @page {
+        @page {
             margin-top: 0.5cm;
             margin-bottom: 0.5cm;
             margin-left: 0.5cm;
             margin-right: 0.5cm;
         }
+
         body {
             font-family: 'Bookman Old Style', serif !important;
             color: #000;
@@ -365,38 +367,45 @@
             bottom: 0px;
             left: 0px;
             right: 0px;
-            height: 2cm; 
+            height: 2cm;
             color: white;
             text-align: center;
             margin-top: 2cm;
         }
+
+        ol+ul {
+            margin-left: 70px;
+            /* Adjust this value as needed */
+        }
     </style>
 </head>
-<body class="invoice">
-<header>
-    <div id="bg_logo"> </div>
-    <table class="head container" border="0">
-        <tr>
-            <td class="header">
-                <img src="{{URL('/documents/'.$company->Logo)}}" width="188" height="104" />
-            </td>
-            <td class="shop-info">
-                <div class="shop-name">
-                    <div align="right">
-                        <div style="font-size: 16pt;line-height: 40pt;text-decoration: underline;color: #275079;">
-                            <strong> {{$company->EstimateInvoiceTitle}}</strong>
-                        </div>
-                        <span style="color: #36709D;">
-                            Date : {{ \Carbon\Carbon::parse($estimate->Date)->format('d M,Y')}}<br>
-                            Ref No. {{$estimate->ReferenceNo}}
-                        </span>
-                    </div>
-                </div>
-                <div class="shop-address"></div>
-            </td>
-        </tr>
 
-    </table></header>
+<body class="invoice">
+    <header>
+        <div id="bg_logo"> </div>
+        <table class="head container" border="0">
+            <tr>
+                <td class="header">
+                    <img src="{{URL('/documents/'.$company->Logo)}}" width="188" height="104" />
+                </td>
+                <td class="shop-info">
+                    <div class="shop-name">
+                        <div align="right">
+                            <div style="font-size: 16pt;line-height: 40pt;text-decoration: underline;color: #275079;">
+                                <strong> {{$company->EstimateInvoiceTitle}}</strong>
+                            </div>
+                            <span style="color: #36709D;">
+                                Date : {{ \Carbon\Carbon::parse($estimate->Date)->format('d M,Y')}}<br>
+                                Ref No. {{$estimate->ReferenceNo}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="shop-address"></div>
+                </td>
+            </tr>
+
+        </table>
+    </header>
     <footer></footer>
 
     <table class="order-data-addresses">
@@ -486,16 +495,16 @@
             @endforeach
         </tbody>
         <tfoot>
-          
-        <tr class="pcs-itemtable-header" style="font-weight: bold;" colspan="2">
-                <th colspan="4" align="center">Total </th>  
+
+            <tr class="pcs-itemtable-header" style="font-weight: bold;" colspan="2">
+                <th colspan="4" align="center">Total </th>
                 <td style="text-align:center!important;">{{number_format($catTotal,2)}}</td>
             </tr>
         </tfoot>
     </table>
     @endforeach
-    <table class="order-details"> 
-        <tfoot> 
+    <table class="order-details">
+        <tfoot>
 
             <tr class="pcs-itemtable-header" style="font-weight: bold;">
                 <th colspan="4" align="center" colspan="2">Total AED</th>
