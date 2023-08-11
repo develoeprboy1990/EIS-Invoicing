@@ -409,6 +409,7 @@ public  function EstimateRevised(request $request)
         'EstimateNo' => $request->input('EstimateNo'),
         'EstimateDate' => $request->input('Date'),
         'ItemID' => $request->ItemID[$i],
+        'ItemCategoryID' => $request->CatID[$i],
         'Description' => $request->Description[$i],
          'TaxPer' => $request->Tax[$i],
          'Tax' => $request->TaxVal[$i],
@@ -444,8 +445,6 @@ public  function ajax_quotoinv(request $request)
   $vhno = DB::table('invoice_master')
      ->select( DB::raw('LPAD(IFNULL(MAX(right(InvoiceNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(InvoiceNo,3)'),['INV'])->get(); 
 
-
-
   $InvoiceNo = 'INV-'.$vhno[0]->VHNO;
   $ReferenceNo = 'INV-'.date('y').'-'.$vhno[0]->VHNO;
 
@@ -469,9 +468,8 @@ public  function ajax_quotoinv(request $request)
               'GrandTotal' => $estimate_mst->GrandTotal, 
               'CustomerNotes' => $estimate_mst->CustomerNotes,               
               'DescriptionNotes' => $estimate_mst->DescriptionNotes, 
-              'Paid' => 0, 
-              'Balance' => $request->GrandTotal,      
-              'UserID' => session::get('UserID'), 
+              'Paid' => 0,     
+              'UserID' => session::get('UserID'),
       );
       
 $InvoiceMasterID= DB::table('invoice_master')->insertGetId($invoice_mst);
@@ -483,6 +481,7 @@ $invoice_details = DB::table('estimate_detail')->where('EstimateMasterID', $esti
             'InvoiceMasterID' =>  $InvoiceMasterID, 
             'InvoiceNo' => $InvoiceNo, 
             'ItemID' => $invoice_detail->ItemID,
+            'ItemCategoryID' => $invoice_detail->ItemCategoryID,
             'PartyID' => $estimate_mst->PartyID, 
             'Qty' => $invoice_detail->Qty,
             'Description' => $invoice_detail->Description,
@@ -498,6 +497,118 @@ $invoice_details = DB::table('estimate_detail')->where('EstimateMasterID', $esti
 
         $id= DB::table('invoice_detail')->insertGetId($invoice_det_data);
       }
+
+
+// end foreach
+  
+
+// Journal Entries 
+
+// 1. A/R
+
+ // A/R -> Debit
+$data_ar = array(
+'VHNO' => $InvoiceNo,
+'ChartOfAccountID' => '110400',   //A/R
+'PartyID' => $estimate_mst->PartyID,
+'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
+'Narration' => $estimate_mst->Subject, 
+'Date' => date('Y-m-d'),
+'Dr' => $estimate_mst->GrandTotal,
+'Trace' => 123, // for debugging for reverse engineering
+ 
+);
+
+$journal_entry= DB::table('journal')->insertGetId($data_ar);
+
+// 2. Sale discount
+
+ // Sales-Discount -> Debit
+
+if($estimate_mst->Discount > 0) { // if dis is given
+
+
+$data_saledis = array(
+'VHNO' => $InvoiceNo,
+'ChartOfAccountID' => '410155',   //Sales-Discount
+'PartyID' => $estimate_mst->PartyID,
+'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
+'Narration' => $estimate_mst->Subject, 
+'Date' => date('Y-m-d'),
+'Dr' => $estimate_mst->Discount,
+'Trace' => 1234, // for debugging for reverse engineering
+ 
+);
+
+
+$journal_entry= DB::table('journal')->insertGetId($data_saledis);
+
+}
+// 3. sales
+
+ // Sales -> Credit
+$data_sale = array(
+'VHNO' => $InvoiceNo,
+'ChartOfAccountID' => '410100',   //Sales
+'PartyID' => $estimate_mst->PartyID,
+'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
+'Narration' => $estimate_mst->Subject, 
+'Date' => date('Y-m-d'),
+'Cr' => $estimate_mst->SubTotal,
+'Trace' => 12345, // for debugging for reverse engineering
+ 
+);
+
+$journal_entry= DB::table('journal')->insertGetId($data_sale);
+
+// 4. Tax -> VAT-OUTPUT TAX -> tax payable
+
+ // VAT-OUTPUT TAX -> Credit
+
+if($estimate_mst->GrandTotal>0) { // if tax item is present in invoice
+
+
+$data_vat_out = array(
+'VHNO' => $InvoiceNo,
+'ChartOfAccountID' => '210300',   //VAT-OUTPUT TAX ->tax payable
+'PartyID' => $estimate_mst->PartyID,
+'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
+'Narration' => $estimate_mst->Subject, 
+'Date' => date('Y-m-d'),
+'Cr' => $estimate_mst->Tax,
+'Trace' => 12346, // for debugging for reverse engineering
+
+ 
+);
+
+$journal_entry= DB::table('journal')->insertGetId($data_vat_out); 
+}
+
+
+
+// 5. shipping charges
+
+ // SHIPPING -> Credit
+
+if($estimate_mst->Shipping>0) { // if tax item is present in invoice
+
+
+$data_shipping = array(
+'VHNO' => $InvoiceNo,
+'ChartOfAccountID' => '500100',   //shipping
+'PartyID' => $estimate_mst->PartyID,
+'InvoiceMasterID' =>$InvoiceMasterID, #7A7A7A
+'Narration' => $estimate_mst->Subject, 
+'Date' => date('Y-m-d'),
+'Cr' => $estimate_mst->Shipping,
+'Trace' => 123467, // for debugging for reverse engineering
+
+ 
+);
+
+$journal_entry= DB::table('journal')->insertGetId($data_shipping); 
+}
+
 
 return response()->json(['success' => 'success', 'message' => $InvoiceMasterID]);
 }
