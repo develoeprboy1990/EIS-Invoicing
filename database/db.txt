@@ -6,3 +6,27 @@ ALTER TABLE `estimate_master` ADD `CreatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT
 
 11-08-2023
 ALTER TABLE `invoice_detail` ADD `ItemCategoryID` INT NULL DEFAULT NULL AFTER `ItemID`;
+
+
+CREATE OR REPLACE VIEW `v_invoice_detail` AS select 
+`invoice_detail`.`InvoiceNo` AS `InvoiceNo`,
+`invoice_master`.`Date` AS `Date`,
+`invoice_detail`.`InvoiceDetailID` AS `InvoiceDetailID`,
+`invoice_detail`.`InvoiceMasterID` AS `InvoiceMasterID`,
+`invoice_detail`.`ItemID` AS `ItemID`,
+`invoice_detail`.`SupplierID` AS `SupplierID`,
+`invoice_detail`.`PartyID` AS `PartyID`,
+`invoice_detail`.`Qty` AS `Qty`,
+`invoice_detail`.`Rate` AS `Rate`,
+`invoice_detail`.`Total` AS `Total`,
+`item`.`ItemCode` AS `ItemCode`,
+`item`.`ItemName` AS `ItemName`,
+`invoice_detail`.`Description` AS `Description`,
+`invoice_detail`.`TaxPer` AS `TaxPer`,
+`invoice_detail`.`Tax` AS `Tax`,
+`invoice_master`.`InvoiceType` AS `InvoiceType`,
+`item_category`.`title` AS `title`,
+`invoice_detail`.`ItemCategoryID` AS `ItemCategoryID` 
+from (((`invoice_detail` join `invoice_master` on((`invoice_master`.`InvoiceMasterID` = `invoice_detail`.`InvoiceMasterID`))) 
+join `item` on((`invoice_detail`.`ItemID` = `item`.`ItemID`))) 
+join `item_category` on((`invoice_detail`.`ItemCategoryID` = `item_category`.`ItemCategoryID`)))

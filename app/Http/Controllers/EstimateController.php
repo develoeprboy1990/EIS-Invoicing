@@ -181,6 +181,14 @@ class EstimateController extends Controller
     //$estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
     $estimate_detail = DB::table('v_estimate_detail')->where('EstimateMasterID', $id)->get();
     $company = DB::table('company')->first();
+    $company = DB::table('company')->first();
+    $categoryBasedInvoice = [];
+    foreach ($estimate_detail as $key => $value) {
+      if (!empty($value->ItemCategoryID)) { 
+        $categoryBasedInvoice[$value->title][] = array('Description' => $value->Description, 'Qty' => $value->Qty, 'Rate' => $value->Rate, 'Total' => $value->Total);
+      }
+    }  
+    
     session()->forget('VHNO');
     session::put('VHNO', $estimate->EstimateNo);
    
@@ -440,8 +448,6 @@ class EstimateController extends Controller
     $vhno = DB::table('invoice_master')
       ->select(DB::raw('LPAD(IFNULL(MAX(right(InvoiceNo,5)),0)+1,5,0) as VHNO '))->whereIn(DB::raw('left(InvoiceNo,3)'), ['INV'])->get();
 
-<<<<<<< HEAD
-
 
     $InvoiceNo = 'INV-' . $vhno[0]->VHNO;
     $ReferenceNo = 'INV-' . date('y') . '-' . $vhno[0]->VHNO;
@@ -474,59 +480,8 @@ class EstimateController extends Controller
     $InvoiceMasterID = DB::table('invoice_master')->insertGetId($invoice_mst);
     $invoice_details = DB::table('estimate_detail')->where('EstimateMasterID', $estimate_mst->EstimateMasterID)->get();
 
-    foreach ($invoice_details as $invoice_detail) {
+    foreach ($invoice_details as $invoice_detail) { 
 
-      $invoice_det_data = array(
-        'InvoiceMasterID' =>  $InvoiceMasterID,
-        'InvoiceNo' => $InvoiceNo,
-        'ItemID' => $invoice_detail->ItemID,
-        'PartyID' => $estimate_mst->PartyID,
-        'Qty' => $invoice_detail->Qty,
-        'Description' => $invoice_detail->Description,
-        'TaxPer' => $invoice_detail->TaxPer,
-        'Tax' => $invoice_detail->Tax,
-        'Rate' => $invoice_detail->Rate,
-        'Total' => $invoice_detail->Total,
-        'Discount' => $invoice_detail->Discount,
-        'DiscountType' => $invoice_detail->Discount,
-        'Gross' => $invoice_detail->Gross,
-        'DiscountAmountItem' => $invoice_detail->DiscountAmountItem,
-=======
-  $InvoiceNo = 'INV-'.$vhno[0]->VHNO;
-  $ReferenceNo = 'INV-'.date('y').'-'.$vhno[0]->VHNO;
-
-          $invoice_mst = array(
-              'InvoiceNo' => $InvoiceNo, 
-              'InvoiceType' => 'Invoice', 
-              'Date' => date('Y-m-d'),  
-              'PartyID' => $estimate_mst->PartyID, 
-              'WalkinCustomerName' => $estimate_mst->WalkinCustomerName, 
-              'ReferenceNo' => $ReferenceNo, 
-              'PaymentMode' => 'Cash', 
-              'Subject' => $estimate_mst->Subject, 
-              'SubTotal' => $estimate_mst->SubTotal, 
-              'DiscountPer' => $estimate_mst->DiscountPer, 
-              'DiscountAmount' => $estimate_mst->Discount, 
-              'Total' => $estimate_mst->Total, 
-              'TaxType' => $estimate_mst->TaxType, 
-              'TaxPer' => $estimate_mst->TaxPer, 
-              'Tax' => $estimate_mst->Tax, 
-              'Shipping' => $estimate_mst->Shipping, 
-              'GrandTotal' => $estimate_mst->GrandTotal, 
-              'CustomerNotes' => $estimate_mst->CustomerNotes,               
-              'DescriptionNotes' => $estimate_mst->DescriptionNotes, 
-              'Paid' => 0,     
-              'UserID' => session::get('UserID'),
->>>>>>> 154a853fcdedadfd4ada72325204065c62581316
-      );
-
-      $id = DB::table('invoice_detail')->insertGetId($invoice_det_data);
-    }
-
-<<<<<<< HEAD
-    return response()->json(['success' => 'success', 'message' => $InvoiceMasterID]);
-  }
-=======
           $invoice_det_data = array (
             'InvoiceMasterID' =>  $InvoiceMasterID, 
             'InvoiceNo' => $InvoiceNo, 
@@ -592,7 +547,6 @@ $data_saledis = array(
 
 
 $journal_entry= DB::table('journal')->insertGetId($data_saledis);
-
 }
 // 3. sales
 
@@ -661,5 +615,6 @@ $journal_entry= DB::table('journal')->insertGetId($data_shipping);
 
 
 return response()->json(['success' => 'success', 'message' => $InvoiceMasterID]);
->>>>>>> 154a853fcdedadfd4ada72325204065c62581316
+
+}
 }
