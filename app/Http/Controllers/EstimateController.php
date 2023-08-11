@@ -207,6 +207,9 @@ class EstimateController extends Controller
       }
     }
 
+
+    //return view('estimate.estimate_view_pdf', compact('estimate', 'pagetitle', 'company', 'estimate_detail', 'categoryBasedInvoice'));
+
     $pdf = PDF::loadView('estimate.estimate_view_pdf', compact('estimate', 'pagetitle', 'company', 'estimate_detail', 'categoryBasedInvoice'));
     //return $pdf->download('pdfview.pdf');
     // $pdf->setpaper('A4', 'portiate');
