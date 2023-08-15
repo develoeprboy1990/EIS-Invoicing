@@ -29,12 +29,12 @@
 
 <body>
     <div class="container mt-5">
-  
 
-        <div class="row"  >
+
+        <div class="row">
             <div class="col-md-3">
-                <div >
-                    <img height="150px;" src="{{asset('/documents/'.$company[0]->Logo)}}" alt="{{$company[0]->Name}}" >
+                <div>
+                    <img height="150px;" src="{{asset('/documents/'.$company[0]->Logo)}}" alt="{{$company[0]->Name}}">
 
                 </div>
 
@@ -68,29 +68,29 @@
                             <tbody class="font">
                                 <tr>
                                     <td>Payment Date</td>
-                                    <th>{{$payment_master[0]->PaymentDate	}}</th>
+                                    <th>{{$payment_master->PaymentDate }}</th>
                                 </tr>
                                 <tr>
                                     <td>Reference Number</td>
-                                    <th>{{$payment_master[0]->ReferenceNo	}}</th>
+                                    <th>{{$payment_master->ReferenceNo }}</th>
                                 </tr>
                                 <tr>
                                     <td>Payment Mode</td>
-                                    <th>{{$payment_master[0]->PaymentMode	}}</th>
+                                    <th>{{$payment_master->PaymentMode }}</th>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                         Bill To:
                         <br>
-                        <strong style="font-weight: bold;" class="font">{{$payment_master[0]->PartyName}}</strong>
-                       
+                        <strong style="font-weight: bold;" class="font">{{$payment_master->PartyName}}</strong>
+
                     </div>
                     <div class="col-4">
                         <div class="bg-info text-center pt-4" style="height: 45%; width: 70%; margin-left: -20%;">
                             <span class="font" style="color: white;">
                                 Amount Paid <br>
-                                PKR {{$payment_master[0]->PaymentAmount	}}
+                                PKR {{$payment_master->PaymentAmount }}
                             </span>
                         </div>
 
@@ -98,39 +98,40 @@
                 </div>
                 <hr>
 
-                 @if(count($v_payment_detail)>0)        
+                @if(count($v_payment_detail)>0)
                 <table class="table table-sm align-middle table-nowrap mb-0">
-                <tbody><tr class="bg-light">
-                <th scope="col" class="col-md-1">S.No</th>
-                <th scope="col" class="col-md-9">Invoice No</th>
-                <th scope="col" class="col-md-2">Amount</th>
-                </tr>
-                </tbody>
-                <tbody>
-                @foreach ($v_payment_detail as $key =>$value)
-                 <tr>
-                 <td class="col-md-1">{{$key+1}}</td>
-                 <td class="col-md-1">{{$value->InvoiceNo}}</td>
-                 <td class="col-md-1">{{$value->Payment}}</td>
-                 </tr>
-                 @endforeach   
-                 <tr class="font-weight-bolder">
-                     <td></td>
-                     <td>Total</td>
-                     <td>{{$payment_master[0]->PaymentAmount    }} {{session::get('Currency')}} </td>
-                 </tr>
-                 </tbody>
+                    <tbody>
+                        <tr class="bg-light">
+                            <th scope="col" class="col-md-1">S.No</th>
+                            <th scope="col" class="col-md-9">Invoice No</th>
+                            <th scope="col" class="col-md-2">Amount</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        @foreach ($v_payment_detail as $key =>$value)
+                        <tr>
+                            <td class="col-md-1">{{$key+1}}</td>
+                            <td class="col-md-1">{{$value->InvoiceNo}}</td>
+                            <td class="col-md-1">{{$value->Payment}}</td>
+                        </tr>
+                        @endforeach
+                        <tr class="font-weight-bolder">
+                            <td></td>
+                            <td>Total</td>
+                            <td>{{$payment_master->PaymentAmount }} {{session::get('Currency')}} </td>
+                        </tr>
+                    </tbody>
 
-                 </table>
-                 @else
-                   <p class=" text-danger">No data found</p>
-                 @endif   
+                </table>
+                @else
+                <p class=" text-danger">No data found</p>
+                @endif
 
             </div>
 
- <hr>
+            <hr>
 
- <div style="height: 250px;">.</div>
+            <div style="height: 250px;">.</div>
 
         </div>
     </div>

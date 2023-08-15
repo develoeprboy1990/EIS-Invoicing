@@ -4950,11 +4950,11 @@ class Accounts extends Controller
  
                        <div class="d-flex align-items-center col-actions">
                      
- <a href="'.URL('/PaymentViewPDF2/'.$row->PaymentMasterID).'"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-primary"></i></a> 
+ <a href="' . URL('/PaymentViewPDF2/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-primary"></i></a> 
 
-<a href="'.URL('/PaymentViewPDF/'.$row->PaymentMasterID).'"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-secondary"></i></a> 
-<a href="'.URL('/PaymentEdit/'.$row->PaymentMasterID).'"><i class="font-size-18 mdi mdi-pencil align-middle me-1 text-secondary"></i></a> 
-<a href="'.URL('/PaymentDelete/'.$row->PaymentMasterID).'"><i class="font-size-18 mdi mdi-trash-can-outline align-middle me-1 text-secondary"></i></a> 
+<a href="' . URL('/PaymentViewPDF/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-secondary"></i></a> 
+<a href="' . URL('/PaymentEdit/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-pencil align-middle me-1 text-secondary"></i></a> 
+<a href="' . URL('/PaymentDelete/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-trash-can-outline align-middle me-1 text-secondary"></i></a> 
                         
                           
  
@@ -6328,7 +6328,7 @@ class Accounts extends Controller
     }
 
 
-    $pdf = PDF::loadView('sale_invoice_view3', compact('company', 'pagetitle', 'invoice_master', 'invoice_detail','categoryBasedInvoice'));
+    $pdf = PDF::loadView('sale_invoice_view3', compact('company', 'pagetitle', 'invoice_master', 'invoice_detail', 'categoryBasedInvoice'));
     //return $pdf->download('pdfview.pdf');
     $pdf->setpaper('A4', 'portiate');
     return $pdf->stream();
@@ -8347,7 +8347,7 @@ class Accounts extends Controller
     $pagetitle = 'Payment Made';
     $company = DB::table('company')->get();
 
-    $payment_master = DB::table('v_payment')->where('PaymentMasterID', $id)->get();
+    $payment_master = DB::table('v_payment')->where('PaymentMasterID', $id)->first();
     $payment_summary = DB::table('v_payment_summary')
       ->where('PaymentMasterID', $id)->get();
 
@@ -8359,24 +8359,21 @@ class Accounts extends Controller
     return $pdf->stream();
   }
 
-public function PaymentViewPDF2($id)
-{   
-  $pagetitle='Payment Made';
-    $company = DB::table('company')->first(); 
-    $payment_master = DB::table('v_payment')->where('PaymentMasterID',$id)->get();
+  public function PaymentViewPDF2($id)
+  {
+    $pagetitle         = 'Payment Made';
+    $company         = DB::table('company')->first();
+    $payment_master  = DB::table('v_payment')->where('PaymentMasterID', $id)->first();
     $payment_summary = DB::table('v_payment_summary')
-       ->where('PaymentMasterID',$id)->get();
+      ->where('PaymentMasterID', $id)->get();
+    $v_payment_detail = DB::table('invoice_master as i')->rightJoin('payment_detail as p', 'i.InvoiceMasterID', '=', 'p.InvoiceMasterID')
+    ->select('p.PaymentDetailID','i.InvoiceMasterID', 'i.InvoiceNo','i.ReferenceNo','p.Payment','p.PaymentDate')->get();
+ 
+    $dueBalance = DB::table('v_invoice_bal')->where('PartyID', $payment_master->PartyID)->first(); 
 
-       $v_payment_detail = DB::table('v_payment_detail')->get();
-       
-    //return view('ebooks.payment_view_pdf2',compact('payment_summary','pagetitle','company','payment_master','v_payment_detail'));
-    //  $pdf->setpaper('A4', 'portiate');
-    // return $pdf->stream();
-
-   $pdf = PDF::loadView ('ebooks.payment_view_pdf2', compact('payment_summary','pagetitle','company','payment_master','v_payment_detail'));
-   return $pdf->stream();
-
-}
+    $pdf = PDF::loadView('ebooks.payment_view_pdf2', compact('payment_summary', 'pagetitle', 'company', 'payment_master', 'v_payment_detail', 'dueBalance'));
+    return $pdf->stream();
+  }
 
 
   public function PurchasePaymentCreate()
