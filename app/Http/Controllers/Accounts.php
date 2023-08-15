@@ -8362,8 +8362,7 @@ class Accounts extends Controller
 public function PaymentViewPDF2($id)
 {   
   $pagetitle='Payment Made';
-    $company = DB::table('company')->get();
- 
+    $company = DB::table('company')->first(); 
     $payment_master = DB::table('v_payment')->where('PaymentMasterID',$id)->get();
     $payment_summary = DB::table('v_payment_summary')
        ->where('PaymentMasterID',$id)->get();
