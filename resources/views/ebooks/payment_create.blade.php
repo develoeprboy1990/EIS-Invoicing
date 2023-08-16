@@ -54,86 +54,70 @@
          
                
 
-<div class="col-md-8">
-  
+              <div class="col-md-8">
 
                  <div class="row mb-4">
                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Party</label>
                    <div class="col-sm-9">
-                   <select name="PartyID" id="PartyID" class="form-select select2">
-                       <option value="0">Select</option>
+                   <select name="PartyID" id="PartyID" class="form-select select2" required="">
+                       <option value="">Select</option>
                        @foreach($party as $value)
                        <option value="{{$value->PartyID}}">{{$value->PartyName}}</option>
                       @endforeach
                   </select>
                    </div> 
-
-</div>
+                 </div>
                    
+                  <div class="row mb-4">
+                  <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Amount Received</label>
+                  <div class="col-sm-9">
+                  <div class="input-group">
+                  <div class="input-group-text">{{session::get('Currency')}}</div>
+                  <input type="text" class="form-control" id="PaymentAmount" name="PaymentAmount" readonly="" required="">
+                  </div>
+                  </div>
+</div>  
+                  <div class="row mb-4">
+                  <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Payment Date</label>
+                  <div class="col-sm-9">
 
+                  <div class="input-group" id="datepicker2">
+                  <input type="text" name="PaymentDate" class="form-control" placeholder="yyyy-mm-dd" data-date-format="yyyy-mm-dd" data-date-container="#datepicker2" data-provide="datepicker" data-date-autoclose="true"  value="{{date('Y-m-d')}}">
+                  <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                  </div>
+                  </div>
+</div>  
+                  <div class="row mb-4">
+                  <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Payment #.</label>
+                  <div class="col-sm-9">
+                  <input type="text" class="form-control" id="horizontal-firstname-input" name="PaymentMasterID" value="{{$payment[0]->PaymentMasterID}}" readonly="">
+                  </div>
+</div>                   
+                  <div class="row mb-4">
+                  <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Payment Mode</label>
+                  <div class="col-sm-9">
+                  <select name="PaymentMode" id="" class="form-select">
+                  <?php foreach ($payment_mode as $key => $value): ?>
+                  <option value="{{$value->PaymentMode}}">{{$value->PaymentMode}}</option>
 
-                    <div class="row mb-4">
-                   <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Amount Received</label>
-                   <div class="col-sm-9">
-                   <div class="input-group">
-                   <div class="input-group-text">{{session::get('Currency')}}</div>
-                   <input type="text" class="form-control" id="PaymentAmount" name="PaymentAmount" readonly="" required="">
-                   </div>
-                   </div>
-                   </div>  
-              
-
-   <div class="row mb-4">
-                   <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Payment Date</label>
-                   <div class="col-sm-9">
-                   
-                     <div class="input-group" id="datepicker2">
-  <input type="text" name="PaymentDate" class="form-control" placeholder="yyyy-mm-dd" data-date-format="yyyy-mm-dd" data-date-container="#datepicker2" data-provide="datepicker" data-date-autoclose="true"  value="{{date('Y-m-d')}}">
-  <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-    </div>
-                   </div>
-                   </div>  
-              
-      
-
- 
-  
-
-
-
-        <div class="row mb-4">
-                   <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Payment #.</label>
-                   <div class="col-sm-9">
-                   <input type="text" class="form-control" id="horizontal-firstname-input" name="PaymentMasterID" value="{{$payment[0]->PaymentMasterID}}" readonly="">
-                   </div>
-                   </div>   
-            
-                
-   <div class="row mb-4">
-                   <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Payment Mode</label>
-                   <div class="col-sm-9">
-                      <select name="PaymentMode" id="" class="form-select">
-                       <?php foreach ($payment_mode as $key => $value): ?>
-                         <option value="{{$value->PaymentMode}}">{{$value->PaymentMode}}</option>
-                      
-                      <?php endforeach ?>
+                  <?php endforeach ?>
                   </select>
-                   </div>
-                   </div>
+                  </div>
+</div>
 
-
-                    <div class="row mb-4">
+                  <div class="row mb-4">
                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Deposit To</label>
                    <div class="col-sm-9">
                       <select name="ChartOfAccountID"  class="form-select select2" required="">
-                     <option value="">Select</option>
-                       @foreach($chartofacc as $value)
-                       <option value="{{$value->ChartOfAccountID}}" {{($value->ChartOfAccountID== 110400) ? 'selected=selected':'' }}>{{$value->ChartOfAccountName}}</option>
-                      @endforeach   
-                  </select>
+                        <option value="">Select</option>
+                        @foreach($chartofacc as $value)
+                        <option value="{{$value->ChartOfAccountID}}" {{($value->ChartOfAccountID== 110400) ? 'selected=selected':'' }}>{{$value->ChartOfAccountName}}</option>
+                        @endforeach   
+                      </select>
                    </div>
-                   </div>
-     <div class="row mb-4">
+                  </div>
+
+                  <div class="row mb-4">
                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Reference #.</label>
                    <div class="col-sm-9">
                    <input type="text" class="form-control" id="horizontal-firstname-input" name="ReferenceNo" >
@@ -196,7 +180,6 @@
 
 
 $(document).on(' click','.check',function(){
-
 
 var paid = parseFloat($('#PaymentAmount').val());
 var amountdue = parseFloat($('#AmountDue').text());

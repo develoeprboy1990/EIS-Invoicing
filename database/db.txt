@@ -30,3 +30,6 @@ CREATE OR REPLACE VIEW `v_invoice_detail` AS select
 from (((`invoice_detail` join `invoice_master` on((`invoice_master`.`InvoiceMasterID` = `invoice_detail`.`InvoiceMasterID`))) 
 join `item` on((`invoice_detail`.`ItemID` = `item`.`ItemID`))) 
 join `item_category` on((`invoice_detail`.`ItemCategoryID` = `item_category`.`ItemCategoryID`)))
+
+-------------------16-08-2023--------------------------------
+ALTER TABLE `invoice_master` ADD `EstimateReferenceNo` VARCHAR(255) NULL DEFAULT NULL AFTER `ReferenceNo`;

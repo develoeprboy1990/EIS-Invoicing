@@ -57,7 +57,7 @@
                   <tr>
                     <th>Date</th>
                     <th>Quotation#</th>
-                    <th>Reference</th>
+                    <th>Ref No.</th>
                     <th>CUSTOMER NAME</th>
                     <th>Amount</th>
                     <th>Action</th>

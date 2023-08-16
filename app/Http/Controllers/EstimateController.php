@@ -362,7 +362,7 @@ class EstimateController extends Controller
 
     $new_version_number = $current_version_number + 1;
 
-    $ReferenceNo =  $ref[0] . '-R' . $new_version_number . '-' . date('y') . '-' . $ref[3];
+    $ReferenceNo =  $ref[0] . '-R' . $new_version_number . '-' .'E'. date('y') . '-' . $ref[3];
 
 
     $estimate_mst = array(
@@ -450,7 +450,7 @@ class EstimateController extends Controller
 
 
     $InvoiceNo = 'INV-' . $vhno[0]->VHNO;
-    $ReferenceNo = 'INV-' . date('y') . '-' . $vhno[0]->VHNO;
+    $ReferenceNo = 'INV-' .'E'. date('y') . '-' . $vhno[0]->VHNO;
 
     $invoice_mst = array(
       'InvoiceNo' => $InvoiceNo,
@@ -459,6 +459,7 @@ class EstimateController extends Controller
       'PartyID' => $estimate_mst->PartyID,
       'WalkinCustomerName' => $estimate_mst->WalkinCustomerName,
       'ReferenceNo' => $ReferenceNo,
+      'EstimateReferenceNo' => $estimate_mst->ReferenceNo,
       'PaymentMode' => 'Cash',
       'Subject' => $estimate_mst->Subject,
       'SubTotal' => $estimate_mst->SubTotal,

@@ -363,7 +363,7 @@
                                             <label class="col-form-label" for="password">Reference No </label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <div id="estimate_ref_no"><input type="text" readonly name="ReferenceNo" autocomplete="off" class="form-control" value="QUO-R0-{{ date('y')}}-{{$estimate_master->EstimateNo}}"> </div>
+                                            <div id="estimate_ref_no"><input type="text" readonly name="ReferenceNo" autocomplete="off" class="form-control" value="QUO-R0-E{{ date('y')}}-{{$estimate_master->EstimateNo}}"> </div>
 
                                         </div>
                                     </div>

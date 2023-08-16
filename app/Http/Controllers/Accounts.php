@@ -4950,9 +4950,12 @@ class Accounts extends Controller
  
                        <div class="d-flex align-items-center col-actions">
                      
- <a href="' . URL('/PaymentViewPDF2/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-primary"></i></a> 
 
-<a href="' . URL('/PaymentViewPDF/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-secondary"></i></a> 
+
+<a href="' . URL('/PaymentViewPDF/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>
+
+<a href="' . URL('/ReceiptViewPDF/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>
+ <a href="' . URL('/ReceiptViewPDF2/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a> 
 <a href="' . URL('/PaymentEdit/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-pencil align-middle me-1 text-secondary"></i></a> 
 <a href="' . URL('/PaymentDelete/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-trash-can-outline align-middle me-1 text-secondary"></i></a> 
                         
@@ -4973,10 +4976,6 @@ class Accounts extends Controller
   }
   public function PaymentCreate()
   {
-
-
-
-
     $pagetitle = 'Create Payment';
     $party = DB::table('party')->get();
     $chartofacc = DB::table('v_chartofaccount_mini')->get();
@@ -4999,7 +4998,7 @@ class Accounts extends Controller
     $payment_mode = DB::table('payment_mode')->get();
 
 
-    $invoice_balance = DB::table('v_invoice_balance')->where('PartyID', $id)->where('BALANCE', '>', 0)->get();
+    $invoice_balance = DB::table('v_invoice_balance')->where('PartyID', $id)->where('BALANCE', '>', 0)->orderBy('InvoiceMasterID','ASC')->first();
 
     $invoice_party_balance = DB::table('v_invoice_party_balance')->where('PartyID', $id)->get();
 
@@ -5019,8 +5018,20 @@ class Accounts extends Controller
     // return view (''); 
 
 
+    $request->InvoiceMasterID;
 
-
+    $invoice_mst = DB::table('invoice_master')->where('InvoiceMasterID', $request->InvoiceMasterID)->first();
+    if($invoice_mst)
+    {
+      $ReferenceNo = $invoice_mst->EstimateReferenceNo;
+      if(is_null($ReferenceNo))
+      {
+        $ReferenceNo = $invoice_mst->ReferenceNo.'-'.$request->PaymentMasterID;
+      }else{
+        $ref = explode('-', $invoice_mst->EstimateReferenceNo);
+        $ReferenceNo = $ref[1].'-'.$ref[2].'-'.$ref[3].'-'.$request->PaymentMasterID;
+      }
+    }
 
     if ($request->hasfile('UploadSlip')) {
 
@@ -5054,7 +5065,7 @@ class Accounts extends Controller
         'PaymentDate' => $request->PaymentDate,
         'PaymentMode' => $request->PaymentMode,
         'ChartOfAccountID' => $request->ChartOfAccountID,
-        'ReferenceNo' => $request->ReferenceNo,
+        'ReferenceNo' => $ReferenceNo,
         'Notes' => $request->Notes,
         'File' => $input['filename'],
       );
@@ -5067,7 +5078,7 @@ class Accounts extends Controller
         'PaymentDate' => $request->PaymentDate,
         'PaymentMode' => $request->PaymentMode,
         'ChartOfAccountID' => $request->ChartOfAccountID,
-        'ReferenceNo' => $request->ReferenceNo,
+        'ReferenceNo' => $ReferenceNo,
         'Notes' => $request->Notes,
       );
     }
@@ -8339,12 +8350,27 @@ class Accounts extends Controller
     $pdf->setpaper('A4', 'portiate');
     return $pdf->stream();
   }
+public function PaymentViewPDF($id)
+{   
+  $pagetitle='Payment Made';
+    $company = DB::table('company')->get();
+    $payment_master = DB::table('v_payment')->where('PaymentMasterID',$id)->get();
+    $payment_summary = DB::table('v_payment_summary')
+       ->where('PaymentMasterID',$id)->get();
+
+       $v_payment_detail = DB::table('v_payment_detail')->get();
+       
+return view('ebooks.payment_view_pdf',compact('payment_summary','pagetitle','company','payment_master','v_payment_detail'));
+      //return $pdf->download('pdfview.pdf');
+        $pdf->setpaper('A4', 'portiate');
+          return $pdf->stream();
+}
 
 
-
-  public function PaymentViewPDF($id)
+  public function ReceiptViewPDF($id)
   {
     $pagetitle = 'Receipt';
+    $payment_master = DB::table('v_payment')->where('PaymentMasterID',$id)->get();
     $v_payment_detail = DB::table('v_payment_detail')->get();
     $payment_summary = DB::table('v_payment_summary')->select('InvoiceMasterID')
       ->where('PaymentMasterID', $id)->first();
@@ -8365,13 +8391,13 @@ class Accounts extends Controller
     }
 
 
-    $pdf = PDF::loadView('ebooks.payment_view_pdf', compact('company', 'pagetitle', 'invoice_master', 'invoice_detail', 'categoryBasedInvoice','dueBalance'));
+    $pdf = PDF::loadView('ebooks.receipt_view_pdf', compact('company', 'pagetitle','payment_master', 'invoice_master', 'invoice_detail', 'categoryBasedInvoice','dueBalance'));
     //return $pdf->download('pdfview.pdf');
     $pdf->setpaper('A4', 'portiate');
     return $pdf->stream();
   }
 
-  public function PaymentViewPDF2($id)
+  public function ReceiptViewPDF2($id)
   {
     $pagetitle         = 'Receipt';
     $company         = DB::table('company')->first();
@@ -8385,7 +8411,7 @@ class Accounts extends Controller
 
     $dueBalance = DB::table('v_invoice_bal')->where('InvoiceMasterID', $payment_summary->InvoiceMasterID)->first();
 
-    $pdf = PDF::loadView('ebooks.payment_view_pdf2', compact('payment_summary', 'pagetitle', 'company', 'payment_master', 'v_payment_detail', 'dueBalance'));
+    $pdf = PDF::loadView('ebooks.receipt_view_pdf2', compact('payment_summary', 'pagetitle', 'company', 'payment_master', 'v_payment_detail', 'dueBalance'));
     return $pdf->stream();
   }
 

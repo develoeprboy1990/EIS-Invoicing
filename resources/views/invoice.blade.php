@@ -81,6 +81,7 @@
         <thead>
             <tr>
                 <th>Invoice#</th>
+                <th>Ref No.</th>
                  <th class="col-md-3">Party</th>
                 <th class="col-md-1">Date</th>
                  <th>Total</th>
@@ -109,6 +110,7 @@ $(document).ready(function() {
         "ajax": "{{ url('ajax_invoice') }}",
         "columns":[
              { "data": "InvoiceNo" },
+              { "data": "ReferenceNo" },
             { "data": "PartyName" },
             { "data": "Date" },
              { "data": "GrandTotal", render: $.fn.dataTable.render.number(',', '.', 2, '') },
