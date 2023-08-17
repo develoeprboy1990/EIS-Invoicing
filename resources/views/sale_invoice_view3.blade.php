@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>INVOICE</title>
@@ -160,7 +159,7 @@
         table.order-details {
             width: 100%;
             margin-bottom: 8mm;
-            border: 2px solid #8EA1B2;
+            border: 1px solid black;
         }
 
         .quantity,
@@ -390,10 +389,10 @@
                 <td class="shop-info">
                     <div class="shop-name">
                         <div align="right">
-                            <div style="font-size: 16pt;line-height: 40pt;text-decoration: underline;color: #275079;">
+                            <div style="font-size: 20pt;line-height: 40pt;text-decoration: underline;color: #275079;">
                                 <strong> {{$company->SaleInvoiceTitle}}</strong>
                             </div>
-                            <span style="color: #36709D;">
+                            <span style="color: #36709D;font-size: 14pt;line-height: 10pt;">
                                 Date : {{ \Carbon\Carbon::parse($invoice_master->Date)->format('d M,Y')}}<br>
                                 Ref No. {{$invoice_master->ReferenceNo}}
                             </span>
@@ -404,17 +403,12 @@
             </tr>
         </table>
     </header>
-
-
-    <footer>
-    </footer>
-
     <table class="order-data-addresses">
         <tr>
-            <td style="width:50%;vertical-align:bottom;word-wrap: break-word; ">
-                <table style="table-layout: fixed;word-wrap: break-word;width: 100%;" border="2" cellspacing="0" cellpadding="1">
+            <td align="left" style="vertical-align:bottom;word-wrap: break-word;width:50%;padding: 0px 0px 10px 0px;">
+                <table style="table-layout: fixed;word-wrap: break-word;width: 98%;border: 2px solid black;" cellspacing="0" cellpadding="1">
                     <tbody>
-                        <tr class="pcs-itemtable-header">
+                        <tr class="pcs-itemtable-header" style="border-bottom: 2px solid black;">
                             <th><strong>SERVICE PROVIDER</strong></th>
                         </tr>
                         <tr>
@@ -433,14 +427,13 @@
                     </tbody>
                 </table>
             </td>
-            <td align="right" style="vertical-align:bottom;width: 50%;">
-                <table style="float:right;table-layout: fixed;word-wrap: break-word;width: 100%;" border="2" cellspacing="0" cellpadding="1">
+            <td align="right" style="vertical-align:bottom;word-wrap: break-word;width: 50%;padding: 0px 0px 10px 0px;">
+                <table style="table-layout: fixed;word-wrap: break-word;width: 98%;float:right;border: 2px solid black;" cellspacing="0" cellpadding="1">
 
                     <tbody>
-                        <tr class="pcs-itemtable-header">
+                        <tr class="pcs-itemtable-header" style="border-bottom: 2px solid black;">
                             <th><strong>CLIENT</strong></th>
                         </tr>
-
                         <tr>
                             <td>
                                 <div class="shop-name" style="height:120px;line-height: 15pt;">
@@ -458,14 +451,10 @@
         </tr>
     </table>
 
-
-
     @php
     $cartTotal = 0;
     @endphp
-
     @foreach($categoryBasedInvoice as $keys => $invoice_detail)
-
     <table class="order-details">
         <thead>
             <tr class="pcs-itemtable-header">

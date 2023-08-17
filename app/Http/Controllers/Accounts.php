@@ -787,8 +787,8 @@ class Accounts extends Controller
 
 <a href="' . URL('/SaleInvoiceView/' . $row->InvoiceMasterID) . '"><i class="font-size-18 mdi mdi-eye-outline align-middle me-1 text-secondary"></i></a>
 <a href="' . URL('/SaleInvoiceViewPDF3/' . $row->InvoiceMasterID) . '"><i class="font-size-18 mdi mdi-cloud-print-outline align-middle me-1 text-primary"></i></a>
-<a href="' . URL('/SaleInvoiceViewPDF2/' . $row->InvoiceMasterID) . '"><i class="font-size-18 mdi mdi-cloud-print-outline align-middle me-1 text-secondary"></i></a>
-<a href="' . URL('/SaleInvoiceViewPDF/' . $row->InvoiceMasterID) . '"><i class="font-size-18 me-1 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>
+<!--<a href="' . URL('/SaleInvoiceViewPDF2/' . $row->InvoiceMasterID) . '"><i class="font-size-18 mdi mdi-cloud-print-outline align-middle me-1 text-secondary"></i></a>
+<a href="' . URL('/SaleInvoiceViewPDF/' . $row->InvoiceMasterID) . '"><i class="font-size-18 me-1 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>-->
 <a href="' . URL('/SaleInvoiceEdit/' . $row->InvoiceMasterID) . '"><i class="font-size-18 bx bx-pencil align-middle me-1 text-secondary"></i></a>
 
 
@@ -4952,10 +4952,11 @@ class Accounts extends Controller
                      
 
 
-<a href="' . URL('/PaymentViewPDF/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>
+<!--<a href="' . URL('/PaymentViewPDF/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>-->
 
 <a href="' . URL('/ReceiptViewPDF/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>
- <a href="' . URL('/ReceiptViewPDF2/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a> 
+<!--
+ <a href="' . URL('/ReceiptViewPDF2/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-file-pdf-outline align-middle me-1 text-secondary"></i></a>--> 
 <a href="' . URL('/PaymentEdit/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-pencil align-middle me-1 text-secondary"></i></a> 
 <a href="' . URL('/PaymentDelete/' . $row->PaymentMasterID) . '"><i class="font-size-18 mdi mdi-trash-can-outline align-middle me-1 text-secondary"></i></a> 
                         
