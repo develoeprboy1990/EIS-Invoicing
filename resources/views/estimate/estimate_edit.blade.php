@@ -184,7 +184,7 @@
                         </div>
                         <div class='row'>
                             <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                                <table>
+                                <table style="display: block;overflow-x:auto;">
                                     <thead>
                                         <tr class=" borde-1 border-light " style="height: 40px;">
                                             <th width="1%" class="text-center"><input id="check_all" type="checkbox" /></th>
@@ -239,24 +239,24 @@
 
 
                                             <td valign="top">
-                                                <input type="number" name="Qty[]" id="Qty_{{$no}}" class=" form-control changesNo" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Qty}}">
-                                            </td>
+                                                <input type="number" name="Qty[]" id="Qty_{{$no}}" class=" form-control changesNo" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Qty}}" style="width: 100px !important;">
+                                            </td> 
 
                                             <td valign="top">
-                                                <input type="number" name="Price[]" id="Price_{{$no}}" class=" form-control changesNo" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Rate}}">
+                                                <input type="number" name="Price[]" id="Price_{{$no}}" class=" form-control changesNo" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Rate}}" style="width: 100px !important;">
                                             </td>
 
   <td valign="top">
 
 
                                             <div class="input-group">
-                                                <input type="text" name="Discount[]" id="Discount_{{$no}}" class=" form-control changesNo" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Discount}}"  >
+                                                <input type="text" name="Discount[]" id="Discount_{{$no}}" class=" form-control changesNo" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Discount}}" style="width: 100px !important;" >
                                                <span >
                                                <!-- <div class="col-sm-3">
                                         <label class="col-form-label" for="password">Salesperson </label>
                                     </div> -->
                                                 <div class="col-sm-9 input-group">
-                                                    <select name="DiscountType[]" id="DiscountType_{{$no}}" class="form-select  changesNo bg-light"  >
+                                                    <select name="DiscountType[]" id="DiscountType_{{$no}}" class="form-select  changesNo bg-light"  style="width: 100px !important;">
                                                          
                                                         <option  value="1" {{($value1->DiscountType==1) ? 'selected=selected':'' }}>%</option>
                                                         <option  value="2" {{($value1->DiscountType==2) ? 'selected=selected':'' }}>{{session::get('Currency')}}</option>
@@ -271,17 +271,17 @@
 
                                         </td>
                                         <td valign="top">
-                                          <input type="number" name="Gross[]" id="Gross_{{$no}}" class=" form-control changesNo" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Gross}}">                                            </td>
+                                          <input type="number" name="Gross[]" id="Gross_{{$no}}" class=" form-control changesNo" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Gross}}" style="width: 100px !important;">                                            </td>
                                             <td valign="top">
                                                 
-                                                <select name="Tax[]" id="TaxID_{{$no}}" class="form-control changesNo tax exclusive_cal" required="">
+                                                <select name="Tax[]" id="TaxID_{{$no}}" class="form-control changesNo tax exclusive_cal" required="" style="width: 100px !important;">
                                                     <?php foreach ($tax as $key => $valueX2) : ?>
                                                         <option value="{{$valueX2->TaxPer}}"  {{($valueX2->TaxPer== $value1->TaxPer) ? 'selected=selected':'' }}  >{{$valueX2->Description}}</option>
                                                     <?php endforeach ?>
                                                 </select>
                                             </td>
                                             <td valign="top">
-                                                <input type="number" name="TaxVal[]" value="{{$value1->Tax}}" id="TaxVal_{{$no}}" class=" form-control totalLinePrice2" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01">
+                                                <input type="number" name="TaxVal[]" value="{{$value1->Tax}}" id="TaxVal_{{$no}}" class=" form-control totalLinePrice2" autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" style="width: 100px !important;">
                                             </td>
                                             
 
@@ -289,7 +289,7 @@
 
 
                                             <td valign="top">
-                                                <input type="number" name="ItemTotal[]" id="ItemTotal_{{$no}}" class=" form-control totalLinePrice " autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Total}}">
+                                                <input type="number" name="ItemTotal[]" id="ItemTotal_{{$no}}" class=" form-control totalLinePrice " autocomplete="off" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" step="0.01" value="{{$value1->Total}}" style="width: 100px !important;">
                                             </td>
                                         </tr>
 

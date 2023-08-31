@@ -23,7 +23,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Documents;
 use App\Http\Controllers\ChartOfAccount;
 use App\Http\Controllers\Warehouse;
-use App\Http\Controllers\ItenController;
+use App\Http\Controllers\ItemController;
  
    
  Route::get('/base1/',[KM::class,'base1']);
@@ -89,7 +89,7 @@ Route::get('/ItemDelete/{id}',[Accounts::class,'ItemDelete']);
 Route::get('/item-category-list', [ItemController::class, 'itemCategoryList']);
 Route::post('/get-item-category-detail', [ItemController::class, 'getItemCategoryDetail']);
 Route::post('/store-item-category', [ItemController::class, 'storeItemCategory']);
-Route::post('/update-item-category', [ItenController::class, 'updateItemCategory']);
+Route::post('/update-item-category', [ItemController::class, 'updateItemCategory']);
 Route::get('/itemCategoryDelete/{id}', [ItemController::class, 'deleteItemCategory']);
 
 

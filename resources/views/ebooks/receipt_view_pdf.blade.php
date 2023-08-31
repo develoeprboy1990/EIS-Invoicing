@@ -391,7 +391,7 @@
                             <div style="font-size: 16pt;line-height: 40pt;text-decoration: underline;color: #275079;">
                                 <strong>{{$pagetitle}}</strong>
                             </div>
-                            <span style="color: #36709D;font-size: 14pt;line-height: 10pt;">
+                            <span style="color: #36709D;font-size: 14pt;line-height: 20pt;">
                                 Date : {{ \Carbon\Carbon::parse($payment_master[0]->eDate)->format('d M,Y')}}<br>
                                 Ref No. {{$payment_master[0]->ReferenceNo}}
                             </span>
@@ -461,7 +461,7 @@
     <table class="order-details">
         <thead>
             <tr class="pcs-itemtable-header">
-                <th colspan="5" valign="bottom"><strong> {{++$keys}}</strong></th>
+                <th colspan="5" valign="bottom"><strong> {{$keys}}</strong></th>
             </tr>
             <tr class="pcs-itemtable-breakword">
                 <th width="5%" class="sno">SNO:</th>
@@ -501,14 +501,15 @@
     <table class="order-details">
         <tfoot>
             <tr class="pcs-itemtable-header" style="font-weight: bold;">
+                <th colspan="4" align="center">VAT {{$invoice_master->TaxPer}} %</th>
+                <td style="text-align:center!important;">{{number_format($invoice_master->Tax,2)}}</td>
+            </tr>
+            <tr class="pcs-itemtable-header" style="font-weight: bold;">
                 <th colspan="4" align="center">Total AED</th>
                 <td style="text-align:center!important;">{{number_format($invoice_master->SubTotal,2)}}</td>
             </tr>
 
-            <tr class="pcs-itemtable-header" style="font-weight: bold;">
-                <th colspan="4" align="center">VAT {{$invoice_master->TaxPer}} %</th>
-                <td style="text-align:center!important;">{{number_format($invoice_master->Tax,2)}}</td>
-            </tr>
+            
             <tr class="pcs-itemtable-header" style="font-weight: bold;">
                 <th colspan="4" align="center">Grand Total Paid</th>
                 <td style="text-align:center!important;">{{number_format($dueBalance->PAID,2)}}</td>

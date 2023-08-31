@@ -5995,7 +5995,7 @@ class Accounts extends Controller
     // dd($item);
     $party = DB::table('party')->get();
     $user = DB::table('user')->get();
-    $tax = DB::table('tax')->get();
+    $tax = DB::table('tax')->where('Section', 'Invoice')->get();
 
     session()->forget('VHNO');
     session::put('VHNO', $invoice_master[0]->InvoiceNo);
